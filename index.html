@@ -6,7 +6,7 @@
 </svg>
 <script>
 async function init() {
-data = await d3.csv("https://flunky.github.io/cars2017.csv");
+data = await d3.csv("https://github.com/bphennessy/CS416NarrativeVisualization/cars2017.csv");
 
 xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
 ys = d3.scaleLog().base(10).domain([10,150]).range([200,0])
