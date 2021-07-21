@@ -1,36 +1,36 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<h1>Test</h1>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-<svg width=300 height=300>
-</svg>
-<script>
-async function init() {
-data = await d3.csv("https://github.com/bphennessy/CS416NarrativeVisualization/cars2017.csv");
+    <h1>Test</h1>
+    <svg width=300 height=300>
+    </svg>
+    <script>
+        async function init() {
+        data = await d3.csv("https://github.com/bphennessy/CS416NarrativeVisualization/cars2017.csv");
 
-xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
-ys = d3.scaleLog().base(10).domain([10,150]).range([200,0])
+        xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
+        ys = d3.scaleLog().base(10).domain([10,150]).range([200,0])
 
-d3.select("svg").append("g").attr("transform","translate(50,50)")
-    .selectAll("circle").data(data).enter().append("circle")
-        .attr("cx",function(d,i) { return xs(d.AverageCityMPG) })
-        .attr("cy",function(d) { return ys(d.AverageHighwayMPG) })
-        .attr("r",function(d) { return +d.EngineCylinders+2 });
+        d3.select("svg").append("g").attr("transform","translate(50,50)")
+            .selectAll("circle").data(data).enter().append("circle")
+                .attr("cx",function(d,i) { return xs(d.AverageCityMPG) })
+                .attr("cy",function(d) { return ys(d.AverageHighwayMPG) })
+                .attr("r",function(d) { return +d.EngineCylinders+2 });
 
-var x = d3.scaleLog().base(10).domain([10,150]).range([0,200]);
-var y = d3.scaleLog().base(10).domain([10,150]).range([200,0]);
-var ticks = [10,20,50,100];
+        var x = d3.scaleLog().base(10).domain([10,150]).range([0,200]);
+        var y = d3.scaleLog().base(10).domain([10,150]).range([200,0]);
+        var ticks = [10,20,50,100];
 
-d3.select("svg").append("g").attr("transform","translate(50,50)")
-    .call(d3.axisLeft(y)
-    .tickValues(ticks)
-    .tickFormat(d3.format("~s")));
-d3.select("svg").append("g").attr("transform","translate(50,250)")
-    .call(d3.axisBottom(x)
-    .tickValues(ticks)
-    .tickFormat(d3.format("~s")));
-}
-</script>
-</body>
+        d3.select("svg").append("g").attr("transform","translate(50,50)")
+            .call(d3.axisLeft(y)
+            .tickValues(ticks)
+            .tickFormat(d3.format("~s")));
+        d3.select("svg").append("g").attr("transform","translate(50,250)")
+            .call(d3.axisBottom(x)
+            .tickValues(ticks)
+            .tickFormat(d3.format("~s")));
+        }
+    </script>
+ </body>
 </html>
