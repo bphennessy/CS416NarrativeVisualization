@@ -2,12 +2,12 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test3</h1>
+    <h1>Test4</h1>
     <svg width=300 height=300>
     </svg>
     <script>
         async function init() {
-        data = await d3.csv("https://github.com/bphennessy/CS416NarrativeVisualization/blob/main/cars2017.csv?raw=true");
+        data = await d3.csv("https://github.com/bphennessy/CS416NarrativeVisualization/blob/main/cars2017.csv");
 
         xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
         ys = d3.scaleLog().base(10).domain([10,150]).range([200,0])
