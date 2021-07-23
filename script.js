@@ -11,8 +11,8 @@ var svg = d3.select("body").append("svg")
     .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-async function init() {
-    data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
+//async function init() {
+    data = d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
     //var ByYear = rollup(data);
     //ByYear = d3.nest()
         //   .key(function(d) { return d.ModelYear; })
@@ -51,4 +51,4 @@ async function init() {
         .call(d3.axisBottom(x)
         .tickValues(xticks)
         .tickFormat(d3.format("~")));
-}
+//}
