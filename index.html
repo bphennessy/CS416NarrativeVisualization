@@ -83,6 +83,12 @@ svg.append("text")
   .attr("text-anchor","middle")
   .text("Overall Fuel Efficiency");
 
+// legend
+svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 6).style("fill", "steelblue")
+svg.append("circle").attr("cx",200).attr("cy",160).attr("r", 6).style("fill", "red")
+svg.append("text").attr("x", 220).attr("y", 130).text("Overall").style("font-size", "15px").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 160).text("Gas").style("font-size", "15px").attr("alignment-baseline","middle")
+
 function update(slide) {
   if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
