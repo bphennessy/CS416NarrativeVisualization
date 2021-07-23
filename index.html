@@ -69,27 +69,27 @@ function update(slide){
     var plugInLine = svg.selectAll(".pluginline").data([overall]);
     var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
 
-    overallLine.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
+    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
 
-    gasLine.enter().append("path").attr("class","gasline").merge(u).transition().duration(3000)
+    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
 
-    electricLine.enter().append("path").attr("class","electricline").merge(u).transition().duration(3000)
+    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
 
-    plugInLine.enter().append("path").attr("class","pluginline").merge(u).transition().duration(3000)
+    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
 
-    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(u).transition().duration(3000)
+    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
@@ -142,7 +142,7 @@ async function init() {
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d;} }));
-    
+
   fuelCell = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
