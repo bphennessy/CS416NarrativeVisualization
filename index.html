@@ -15,7 +15,7 @@
         ByYear = d3.nest()
             .key(function(d) { return d.ModelYear; })
             .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-            .object(data)
+            .entries(data)
         console.log(ByYear)
     
         xs = d3.scaleLinear().domain([2010,2025]).range([0,200]);
