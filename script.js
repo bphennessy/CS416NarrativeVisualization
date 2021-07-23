@@ -34,6 +34,7 @@ async function init() {
         .tickFormat(d3.format("~s")));
 
     var path = d3.line()
+        .interpolate("basis")
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); });
 
