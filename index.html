@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line</h1>
+    <h1>Test Line1</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -57,7 +57,7 @@ function update(data){
   u.enter().append("path").attr("class","lineT").merge(u).transition().duration(3000)
     .attr("d", d3.line()
       .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.values.averageFE); }))
+      .y(function(d) { return y(d.value.averageFE); }))
       //.attr("fill", "none")
       .attr("stroke", "steelblue")
       .attr("stroke-width", 2.5)
