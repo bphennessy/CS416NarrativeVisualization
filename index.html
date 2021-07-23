@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line1</h1>
+    <h1>Test Line</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -45,7 +45,7 @@ svg.append("g")
 function update(data){
   x.domain([d3.min(data,function(d) { return d.key }),d3.max(data,function(d) { return d.key })]);
   svg.selectAll(".xAxis").transition().duration(3000).call(xAxis);
-  y.domain([0,d3.max(data,function(d) { return d.value.averageFE })]);
+  y.domain([0,d3.max([data],function(d) { return d.value.averageFE })]);
   svg.selectAll(".yAxis").transition().duration(3000).call(yAxis);
 
   var u = svg.selectAll(".line").data([data],function(d) { return d.value.averageFE});
