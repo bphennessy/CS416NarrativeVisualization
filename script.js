@@ -2,7 +2,7 @@ var margin = {top: 50, right: 50, bottom: 50, left: 50},
     width = 300 - margin.left - margin.right
     height = 300 - margin.top - margin.bottom
 
-var parseTime = d3.timeParse("%y")
+//var parseTime = d3.timeParse("%y")
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -15,9 +15,9 @@ d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization
     
     console.log(data)
 
-    data.forEach(function(d) {
-        d.ModelYear = parseTime(d.date);
-    });
+    //data.forEach(function(d) {
+   //     d.ModelYear = parseTime(d.date);
+    //});
     
     var ByYear = d3.nest()
         .key(function(d) { return d.ModelYear; })
