@@ -155,22 +155,22 @@ async function init() {
   gas = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d;} }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
 
   electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
   
   plugIn = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d;} }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
 
   fuelCell = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d;} }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
   var slide = 1
   
   slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
@@ -178,21 +178,6 @@ async function init() {
     Math.max(d3.max(plugIn,function(d) { return d.value.averageFE}), d3.max(fuelCell,function(d) { return d.value.averageFE}))))
 
   update(slide);
-
-  /*var line = d3.line() 
-    .x(function(d) { return x(d.key); })
-    .y(function(d) { return y(d.value.averageFE); })
-    .curve(d3.curveMonotoneX);
-
-  svg.append("path")
-    .data([ByYear])
-    .attr("class", "line")
-    .attr("d", line)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .transition().duration(3000).delay(1000)
-    .data([Electric])
-    .attr("d", line)*/
 }
 
 
