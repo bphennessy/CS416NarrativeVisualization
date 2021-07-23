@@ -88,12 +88,12 @@ svg.append("text")
 legendoffset = [-175, -105, -50, 20, 130]
 legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"]
 legendcolor = ["steelblue","red","blue","purple","green"]
-svg.append("g").data(legendoffset).enter().append("cirlce")
+svg.selectAll(".legendmarks").data(legendoffset).enter().append("cirlce")
   .attr("cx", function(d) { return d + width/2; })
   .attr("cy", parseInt(height) + 80)
   .attr("r", 6)
   .style("fill", function(d,i) { return legendcolor[i]; })
-svg.append("g").data(legendoffset).enter().append("text")
+svg.selectAll(".legendtext").data(legendoffset).enter().append("text")
   .attr("x", function(d) { return d+10; })
   .attr("y","0)")
   .attr("class","legend")
