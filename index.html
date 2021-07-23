@@ -18,6 +18,12 @@
             .entries(data)
         console.log(ByYear)
     
+        var x = d3.scaleTime().domain(d3.extent(data, function(d) { return d.date; })).range([0,width]);
+        var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
+
+        console.log(x)
+        console.log(y)
+
         xs = d3.scaleLinear().domain([2010,2025]).range([0,200]);
         ys = d3.scaleLinear().domain([0,30]).range([200,0]);
     
@@ -36,8 +42,8 @@
                 .attr("cy",function(d) { return ys(d.AverageHighwayMPG) })
                 .attr("r",function(d) { return +d.EngineCylinders+2 });*/
     
-        var x = d3.scaleLinear().domain([2010,2022]).range([0,200]);
-        var y = d3.scaleLinear().domain([0,30]).range([200,0]);
+        //var x = d3.scaleLinear().domain([2010,2022]).range([0,200]);
+        //var y = d3.scaleLinear().domain([0,30]).range([200,0]);
         var xticks = [2010,2015,2020,2025];
         var yticks = [0,10,20,30];
     
