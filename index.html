@@ -173,7 +173,7 @@ async function init() {
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d;} }));
   var slide = 1
   
-  slide2max = math.max(d3.max(gas,function(d) { return d.value.averageFE }),d3.max(electric,function(d) { return d.value.averageFE}))
+  slide2max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),d3.max(electric,function(d) { return d.value.averageFE}))
   console.log(overall)
   console.log(gas)
   console.log(electric)
