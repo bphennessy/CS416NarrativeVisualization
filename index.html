@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test1</h1>
+    <h1>Test2</h1>
     <svg width=300 height=300>
     </svg>
     <script>
@@ -19,7 +19,7 @@
         ys = d3.scaleLinear().domain([0,30]).range([200,0]);
 
         d3.select("svg").append("g").attr("transform","translate(50,50)")
-            .selectAll("circle").data(function(d) { return d.values; }).enter().append("circle")
+            .selectAll("circle").data(ByYear).enter().append("circle")
                 .attr("cx",function(d) { return d.key; })
                 .attr("cy", 15)//function(d) { return d.values.averageFE })
                 .attr("r",5);
