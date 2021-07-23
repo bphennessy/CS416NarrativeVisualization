@@ -18,7 +18,7 @@ var svg = d3.select("body").append("svg")
         .key(function(d) { return d.ModelYear; })
         .rollup(function(v) { return {averageFE: d3.mean(v,function(d) { return d.CombFE; })};})
         .entires(data)
-    //console.log(ByYear)
+    console.log(ByYear)
 
     xs = d3.scaleLinear().domain([2010,2025]).range([0,200]);
     ys = d3.scaleLinear().domain([0,30]).range([200,0]);
