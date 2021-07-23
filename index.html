@@ -21,20 +21,23 @@
             .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
             .entries(data)
         console.log(ByYear)
-        console.log(d3.extent(data, function(d) { return d.date; }))
-        console.log(d3.max(ByYear,function(d) { return d.value.averageFE }))
     
-        var x = d3.scaleTime().domain(d3.extent(data, function(d) { return d.date; })).range([0,width]);
-        //var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
+        //var x = d3.scaleTime().domain(d3.extent(data, function(d) { return d.date; })).range([0,width]);
+        var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
 
         var xticks = [2010,2015,2020,2025];
         var yticks = [0,10,20,30];
 
-        d3.select("svg").append("g").attr("transform","translate(50,250)")
+        /*d3.select("svg").append("g").attr("transform","translate(50,250)")
             .call(d3.axisBottom(x)
             .tickValues(xticks)
-            .tickFormat(d3.format("~")));
+            .tickFormat(d3.format("~")));*/
 
+        d3.select("svg").append("g").attr("transform","translate(50,50)")
+            .call(d3.axisLeft(y)
+            .tickValues(yticks)
+            .tickFormat(d3.format("~s")));
+            
         /*d3.select("svg").append("g").attr("transform","translate(50,50)")
             .selectAll("circle").data(ByYear).enter().append("circle")
                 .attr("cx",2015)//function(d) { return d.key; })
@@ -52,12 +55,6 @@
     
         //var x = d3.scaleLinear().domain([2010,2022]).range([0,200]);
         //var y = d3.scaleLinear().domain([0,30]).range([200,0]);
-
-    
-        /*d3.select("svg").append("g").attr("transform","translate(50,50)")
-            .call(d3.axisLeft(y)
-            .tickValues(yticks)
-            .tickFormat(d3.format("~s")));*/
 
         }
     </script>
