@@ -7,12 +7,18 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line1</h1>
+    <h1>Test Line2</h1>
     <script>
     var margin = {top: 50, right: 50, bottom: 50, left: 50},
         width = 300 - margin.left - margin.right
         height = 300 - margin.top - margin.bottom
     
+    var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
     async function init() {
         data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
     
@@ -33,7 +39,7 @@
             .tickValues(xticks)
             .tickFormat(d3.format("~")));*/
 
-        d3.select("svg").append("g").attr("transform","translate(50,50)")
+        svg.append("g").attr("transform","translate(50,50)")
             .call(d3.axisLeft(y)
             .tickValues(yticks)
             .tickFormat(d3.format("~s")));
