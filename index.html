@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line</h1>
+    <h1>Test Line1</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -17,9 +17,9 @@
 
 
 
-function previous() {}
+function previous() {console.log("Previous")}
 
-function next() {}
+function next() {console.log("Next")}
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
   width = 600 - margin.left - margin.right
@@ -31,6 +31,31 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+var x = d3.scaleLinear().range([0,width]);
+var xAxis = d3.axisBottom().scale(x);
+svg.append("g")
+  .attr("transform","translate(0," + height + ")")
+  .attr("class","xAxis");
+
+var y = d3.scaleLinear().range([height,0]);
+var yAxis = d3.axisLeft().scale(y)
+svg.append("g")
+  .attr("Class","yAxis")
+
+function update(data){
+  x.domain([d3.min(data,function(d) { return d.key }),d3.max(data,function(d) { return d.key })]);
+  svg.selectAll(".xAxis").transition().duration(3000).call(xAxis);
+  y.domain([0,d3.max(data,function(d) { return d.value.averageFE })]);
+  svg.selectAll(".yAxis").transition().duration(3000).call(yAxis);
+
+  var u = svg.selectAll(".line").data([data],function(d) { return d.value.averageFE});
+
+  u.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
+    .attr("d"), d3.line()
+      .x(function(d) { return x(d.key)})
+      .y(function(d) { return y(d.values.averageFE)})
+}
+
 async function init() {
   data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
 
@@ -39,14 +64,14 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data);
   
-  Electric = d3.nest()
+    update(ByYear)
+
+  /*Electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
 
-  var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
-  var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
-
+  
   svg.append("g")
     .attr("transform","translate(0," + height + ")")
     .call(d3.axisBottom(x)
@@ -71,7 +96,7 @@ async function init() {
     .attr("stroke", "steelblue")
     .transition().duration(3000).delay(1000)
     .data([Electric])
-    .attr("d", line)
+    .attr("d", line)*/
 }
 
 
