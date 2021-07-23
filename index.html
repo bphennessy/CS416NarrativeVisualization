@@ -85,7 +85,12 @@ svg.append("text")
 
 // legend
 var legend = svg.append("g").attr("transform","translate(" + width/2 + "," + (parseInt(height) + 80) + ")")
-legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
+legendcoord = [-175, -105, -50, 20, 130]
+legend.data(legendcoord).enter().append("circle")
+  .attr("transform","translate(" + function(d) { return d } + ",0)").attr("r", 6).style("fill", "steelblue")
+legend.data(legendcoord).enter().append("text")
+  .attr("transform","translate("+ function(d) { return d+10 } + "0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
+/*legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
 legend.append("text").attr("transform","translate(-160,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
 legend.append("circle").attr("transform","translate(-105,0)").attr("r", 6).style("fill", "red")
 legend.append("text").attr("transform","translate(-95,0)").attr("class","legend").text("Gas").attr("alignment-baseline","middle")
@@ -95,7 +100,7 @@ legend.append("circle").attr("transform","translate(20,0)").attr("r", 6).style("
 legend.append("text").attr("transform","translate(30,0)").attr("class","legend").text("Plug-In Hybrid").attr("alignment-baseline","middle")
 legend.append("circle").attr("transform","translate(130,0)").attr("r", 6).style("fill", "green")
 legend.append("text").attr("transform","translate(140,0)").attr("class","legend").text("Fuel Cell").attr("alignment-baseline","middle")
-
+*/
 function update(slide) {
   if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
