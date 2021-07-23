@@ -33,7 +33,7 @@ async function init() {
         .ticks(5)
         .tickFormat(d3.format("~s")));
 
-    var valueline = d3.line()
+    var path = d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); });
 
@@ -42,7 +42,7 @@ async function init() {
     svg.append("path")
         .data([ByYear])
         .attr("class", "line")
-        .attr("d", valueline)
+        .attr("d", path)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
 }
