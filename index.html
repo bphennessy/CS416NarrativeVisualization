@@ -86,12 +86,17 @@ svg.append("text")
 // legend
 //var legend = svg.append("g").attr("transform","translate(" + width/2 + "," + (parseInt(height) + 80) + ")")
 legendoffset = [-175, -105, -50, 20, 130]
+legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"]
+legendcolor = ["steelblue","red","blue","purple","green"]
 svg.append("g").data(legendoffset).enter().append("cirlce")
   .attr("transform","translate(" + function(d) { return d + width/2; } + "," + (parseInt(height) + 80) + ")")
   .attr("r", 6)
   .style("fill", "steelblue")
-legend.data(legendcoord).enter().append("text")
-  .attr("transform","translate("+ function(d) { return d+10 } + "0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
+svg.data(legendcoord).enter().append("text")
+  .attr("transform","translate("+ function(d) { return d+10 } + "0)")
+  .attr("class","legend")
+  .text("Overall")
+  .attr("alignment-baseline","middle")
 /*legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
 legend.append("text").attr("transform","translate(-160,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
 legend.append("circle").attr("transform","translate(-105,0)").attr("r", 6).style("fill", "red")
