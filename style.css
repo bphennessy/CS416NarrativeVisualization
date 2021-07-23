@@ -23,3 +23,27 @@
     stroke: steelblue;
     stroke-width: 2.5;
 }
+
+.gasline {
+    fill: none;
+    stroke: red;
+    stroke-width: 2.5;
+}
+
+.electricline {
+    fill: none;
+    stroke: blue;
+    stroke-width: 2.5;
+}
+
+.pluginline {
+    fill: none;
+    stroke: purple;
+    stroke-width: 2.5;
+}
+
+.fuelcellline {
+    fill: none;
+    stroke: green;
+    stroke-width: 2.5;
+}
