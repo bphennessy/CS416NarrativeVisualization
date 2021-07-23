@@ -191,6 +191,10 @@ function slide1() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
+
+  d3.select("#overallmark").transition().duration(3000)
+    .attr("x",0)
+    .attr("y",0)
 }
 
 function slide2() {
