@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line1</h1>
+    <h1>Test Line</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -58,7 +58,7 @@ async function init() {
     .ticks(5)
     .tickFormat(d3.format("~s")));
 
-  var overallLine = d3.line() 
+  var line = d3.line() 
     .x(function(d) { return x(d.key); })
     .y(function(d) { return y(d.value.averageFE); })
     .curve(d3.curveMonotoneX);
@@ -66,11 +66,12 @@ async function init() {
   svg.append("path")
     .data([ByYear])
     .attr("class", "line")
-    .attr("d", overallLine)
+    .attr("d", line)
     .attr("fill", "none")
     .attr("stroke", "steelblue")
     .transition().duration(3000).delay(1000)
     .data([Electric])
+    .attr("d", line)
 }
 
 
