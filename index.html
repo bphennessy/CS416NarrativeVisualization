@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Lined</h1>
+    <h1>Test Line</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -47,12 +47,12 @@ svg.append("g")
 
 function update(data){
   x.domain([d3.min(data,function(d) { return d.key }),d3.max(data,function(d) { return d.key })]);
-  svg.selectAll(".xAxis").transition().duration(3000).call(xAxis);
+  svg.selectAll(".xAxis").transition().duration(3000).call(xAxis.ticks(7).tickFormat(d3.format("~")));
   
   y.domain([0,d3.max(data,function(d) { return d.value.averageFE })]);
   svg.selectAll(".yAxis").transition().duration(3000).call(yAxis);
 
-  /*var u = svg.selectAll(".lineT").data(data,function(d) { return d.value.averageFE });
+  var u = svg.selectAll(".lineT").data(data,function(d) { return d.value.averageFE });
 
   u.enter().append("path").attr("class","lineT").merge(u).transition().duration(3000)
     .attr("d", d3.line()
@@ -60,7 +60,7 @@ function update(data){
       .y(function(d) { return y(d.value.averageFE); }))
       .attr("fill", "none")
       .attr("stroke", "steelblue")
-      .attr("stroke-width", 2.5)*/
+      .attr("stroke-width", 2.5)
 }
 
 async function init() {
@@ -84,8 +84,8 @@ async function init() {
   svg.append("g")
     .attr("transform","translate(0," + height + ")")
     .call(d3.axisBottom(x)
-    .ticks(7)
-    .tickFormat(d3.format("~")));
+      .ticks(7)
+      .tickFormat(d3.format("~")));
 
   svg.append("g")
     .call(d3.axisLeft(y)
