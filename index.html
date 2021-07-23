@@ -179,18 +179,7 @@ async function init() {
 
   update(slide);
 
-  /*svg.append("g")
-    .attr("transform","translate(0," + height + ")")
-    .call(d3.axisBottom(x)
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-
-  svg.append("g")
-    .call(d3.axisLeft(y)
-    .ticks(5)
-    .tickFormat(d3.format("~s")));
-
-  var line = d3.line() 
+  /*var line = d3.line() 
     .x(function(d) { return x(d.key); })
     .y(function(d) { return y(d.value.averageFE); })
     .curve(d3.curveMonotoneX);
