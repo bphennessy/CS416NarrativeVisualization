@@ -212,8 +212,8 @@ function slide1() {
   // Add annotation to the chart
   const makeAnnotations = d3.annotation()
     .annotations(annotations)
-  d3.select("#example1")
-    .append("g")
+  //d3.select("#example1")
+    svg.append("g")
     .call(makeAnnotations)
 }
 
