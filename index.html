@@ -41,8 +41,21 @@
 
         svg.append("g")//.attr("transform","translate(50,50)")
             .call(d3.axisLeft(y)
-            .tickValues(5)
+            //.tickValues(5)
             .tickFormat(d3.format("~s")));
+
+        var valueline = d3.line()
+            .x(function(d) { return x(new Date(d.key)); })
+            .y(function(d) { return y(d.value.averageFE); });
+    
+        console.log(y.domain(), x.domain(), ByYear)
+
+        svg.append("path")
+            .datum(ByYear)
+            .attr("class", "line")
+            .attr("d", valueline)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
             
         /*d3.select("svg").append("g").attr("transform","translate(50,50)")
             .selectAll("circle").data(ByYear).enter().append("circle")
