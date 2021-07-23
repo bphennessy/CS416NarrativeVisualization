@@ -84,10 +84,12 @@ svg.append("text")
   .text("Overall Fuel Efficiency");
 
 // legend
-var legend = svg.append("g").attr("transform","translate(" + width/2 + "," + (parseInt(height) + 80) + ")")
-legendcoord = [-175, -105, -50, 20, 130]
-legend.data(legendcoord).enter().append("circle")
-  .attr("transform","translate(" + function(d) { return d } + ",0)").attr("r", 6).style("fill", "steelblue")
+//var legend = svg.append("g").attr("transform","translate(" + width/2 + "," + (parseInt(height) + 80) + ")")
+legendoffset = [-175, -105, -50, 20, 130]
+svg.append("g").data(legendoffset).enter().append("cirlce")
+  .attr("transform","translate(" + function(d) { return d + width/2; } + "," + (parseInt(height) + 80) + ")")
+  .attr("r", 6)
+  .style("fill", "steelblue")
 legend.data(legendcoord).enter().append("text")
   .attr("transform","translate("+ function(d) { return d+10 } + "0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
 /*legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
