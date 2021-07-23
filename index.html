@@ -51,12 +51,12 @@ var xAxis = d3.axisBottom().scale(x);
 svg.append("g")
   .attr("transform","translate(0," + height + ")")
   .attr("class","xaxis")
-  .append("text")
+  //.append("text")
   //.attr("class","xlabel")
-  .attr("fill","black")
-  .attr("transform","translate(" + width/2 + ",40)")
-  .attr("text-anchor", "middle")
-  .text("Model Year");
+  //.attr("fill","black")
+  //.attr("transform","translate(" + width/2 + ",40)")
+  //.attr("text-anchor", "middle")
+  //.text("Model Year");
 
 var y = d3.scaleLinear().range([height,0]);
 var yAxis = d3.axisLeft().scale(y);
