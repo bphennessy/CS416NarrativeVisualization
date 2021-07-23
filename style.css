@@ -1,8 +1,8 @@
 /*path {stroke: red;}*/
 .button {
-    border: 2px solid rgba(255, 255, 255, 0.055);
+    /*border: 2px solid rgba(255, 255, 255, 0.055);
     color: rgba(255, 255, 255, 0.055);
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);*/
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
