@@ -3,7 +3,7 @@ var margin = {top: 50, right: 50, bottom: 50, left: 50},
     height = 300 - margin.top - margin.bottom
 
 var parseTime = d3.timeParse("%y")
-udpate
+
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
