@@ -95,7 +95,7 @@ function update(slide){
         .y(function(d) { return y(d.value.averageFE); }))
   }
   else {
-    x.domain([d3.min(Gas,function(d) { return d.key }),d3.max(Gas,function(d) { return d.key })]);
+    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
     svg.selectAll(".xAxis")
       .transition()
       .duration(3000)
@@ -103,7 +103,7 @@ function update(slide){
         .ticks(7)
         .tickFormat(d3.format("~")));
     
-    y.domain([0,d3.max(Gas,function(d) { return d.value.averageFE })]);
+    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
     svg.selectAll(".yAxis")
       .transition()
       .duration(3000)
