@@ -12,7 +12,7 @@ var svg = d3.select("body").append("svg")
 
 d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv",function(error,data) {
     if (error) throw error;
-    a
+    
     console.log(data)
 
     //data.forEach(function(d) {
