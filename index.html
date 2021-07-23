@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test2</h1>
+    <h1>Test</h1>
     <svg width=300 height=300>
     </svg>
     <script>
@@ -11,7 +11,7 @@
         //g2022 = data.filter(function(d,i) { if (d["ModelYear"] == "2022") { return d;} })
         //ga2022 = d3.mean(g2022,function(d) { return d.CombFE})
         //console.log(ga2022)
-        ByYear = d3.nest
+        ByYear = d3.nest()
             .key(function(d) { return d.year; })
             .rollup(function(v) { return d3.mean(v,function(d) { return d.CombFE; })})
             .entries(data)
