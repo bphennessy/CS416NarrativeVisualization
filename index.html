@@ -45,55 +45,8 @@ var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
   .attr("class","yAxis")
 
-function update(slide){
-  if (slide == 1) {
-    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-    svg.selectAll(".xAxis")
-      .transition()
-      .duration(3000)
-      .call(xAxis
-        .ticks(7)
-        .tickFormat(d3.format("~")));
-    
-    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-    svg.selectAll(".yAxis")
-      .transition()
-      .duration(3000)
-      .call(yAxis
-        .ticks(5)
-        .tickFormat(d3.format("~s")));
-
-    var overallLine = svg.selectAll(".line").data([overall]);
-    var gasLine = svg.selectAll(".gasline").data([overall]);
-    var electricLine = svg.selectAll(".electricline").data([overall]);
-    var plugInLine = svg.selectAll(".pluginline").data([overall]);
-    var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
-
-    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-  }
+function update(slide) {
+  if (slide == 1) { slide1() }
   else {
     x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
     svg.selectAll(".xAxis")
@@ -180,6 +133,54 @@ async function init() {
   update(slide);
 }
 
+function slide1() {
+  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
+    svg.selectAll(".xAxis")
+      .transition()
+      .duration(3000)
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    
+    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+    svg.selectAll(".yAxis")
+      .transition()
+      .duration(3000)
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+
+    var overallLine = svg.selectAll(".line").data([overall]);
+    var gasLine = svg.selectAll(".gasline").data([overall]);
+    var electricLine = svg.selectAll(".electricline").data([overall]);
+    var plugInLine = svg.selectAll(".pluginline").data([overall]);
+    var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
+
+    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+}
 
 
 
