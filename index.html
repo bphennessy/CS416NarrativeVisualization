@@ -150,27 +150,27 @@ async function init() {
   overall = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data);
+    .entries(data.filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
 
   gas = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
 
   electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
   
   plugIn = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
 
   fuelCell = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; } }).fitler(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
   var slide = 1
   
   slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
