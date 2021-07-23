@@ -67,8 +67,9 @@
 }
 
 .title {
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: underline;
+    font-weight: bold;
 }
 
 .legend {
