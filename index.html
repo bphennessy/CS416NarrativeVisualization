@@ -57,6 +57,14 @@ var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
   .attr("class","yAxis");
 
+svg.append("text")
+  .attr("class", "xlabel")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height - 6)
+  .text("Model Year")
+
+
 function update(slide) {
   if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
