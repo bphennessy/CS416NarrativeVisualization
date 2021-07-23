@@ -22,13 +22,13 @@ async function init() {
     //var xticks = [2010,2015,2020,2025];
     //var yticks = [0,10,20,30];
 
-    svg.append("g")//.attr("transform","translate(50,250)")
+    svg.append("g")
         .attr("transform","translate(0," + height + ")")
         .call(d3.axisBottom(x)
         //.tickValues(xticks)
         .tickFormat(d3.format("~")));
 
-    svg.append("g")//.attr("transform","translate(50,50)")
+    svg.append("g")
         .call(d3.axisLeft(y)
         .ticks(5)
         .tickFormat(d3.format("~s")));
