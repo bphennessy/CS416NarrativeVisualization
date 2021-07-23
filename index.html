@@ -47,7 +47,7 @@ svg.append("g")
 
 function update(slide){
   if (slide == 1) {
-    x.domain([d3.min(Overall,function(d) { return d.key }),d3.max(Overall,function(d) { return d.key })]);
+    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
     svg.selectAll(".xAxis")
       .transition()
       .duration(3000)
@@ -55,7 +55,7 @@ function update(slide){
         .ticks(7)
         .tickFormat(d3.format("~")));
     
-    y.domain([0,d3.max(Overall,function(d) { return d.value.averageFE })]);
+    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
     svg.selectAll(".yAxis")
       .transition()
       .duration(3000)
@@ -63,15 +63,36 @@ function update(slide){
         .ticks(5)
         .tickFormat(d3.format("~s")));
 
-    var u = svg.selectAll(".line").data([Overall]);
+    var overallLine = svg.selectAll(".line").data([overall]);
+    var gasLine = svg.selectAll(".gasline").data([overall]);
+    var electricLine = svg.selectAll(".electricline").data([overall]);
+    var plugInLine = svg.selectAll(".pluginline").data([overall]);
+    var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
 
-    u.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
+    overallLine.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 2.5)
+
+    gasLine.enter().append("path").attr("class","gasline").merge(u).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    electricLine.enter().append("path").attr("class","electricline").merge(u).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    plugInLine.enter().append("path").attr("class","pluginline").merge(u).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+
+    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(u).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
   }
   else {
     x.domain([d3.min(Gas,function(d) { return d.key }),d3.max(Gas,function(d) { return d.key })]);
@@ -96,36 +117,33 @@ function update(slide){
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); }))
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 2.5)
   }
 }
 
 async function init() {
   data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
 
-  Overall = d3.nest()
+  overall = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data);
 
-  Gas = d3.nest()
+  gas = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d;} }));
 
-  Electric = d3.nest()
+  electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
 
-  FuelCell = d3.nest()
+  fuelCell = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d;} }));
   
-  PlugIn = d3.nest()
+  plugIn = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d;} }));
