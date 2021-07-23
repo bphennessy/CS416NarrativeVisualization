@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line1</h1>
+    <h1>Test Line</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -49,6 +49,8 @@ function update(data){
   x.domain([d3.min(data,function(d) { return d.key }),d3.max(data,function(d) { return d.key })]);
   svg.selectAll(".xAxis").transition().duration(3000).call(xAxis);
   
+console.log(d3.max(data,function(d) { return d.value.averageFE }))
+
   y.domain([0,d3.max(data,function(d) { return d.value.averageFE })]);
   svg.selectAll(".yAxis").transition().duration(3000).call(yAxis);
 
@@ -69,7 +71,7 @@ async function init() {
   ByYear = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .object(data);
+    .entries(data);
   
   console.log(ByYear)
 
