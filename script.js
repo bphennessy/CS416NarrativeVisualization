@@ -14,10 +14,10 @@ var svg = d3.select("body").append("svg")
 //async function init() {
     data = d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
     //var ByYear = rollup(data);
-    //ByYear = d3.nest()
-        //   .key(function(d) { return d.ModelYear; })
-        //  .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-        // .object(data)
+    var ByYear = d3.nest()
+        .key(function(d) { return d.ModelYear; })
+        .rollup(function(v) { return {averageFE: d3.mean(v,function(d) { return d.CombFE; })};})
+        .entires(data)
     //console.log(ByYear)
 
     xs = d3.scaleLinear().domain([2010,2025]).range([0,200]);
