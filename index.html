@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line</h1>
+    <h1>Test Line1</h1>
     <script>
     var margin = {top: 50, right: 50, bottom: 50, left: 50},
         width = 300 - margin.left - margin.right
@@ -25,14 +25,14 @@
         console.log(d3.max(ByYear,function(d) { return d.value.averageFE }))
     
         var x = d3.scaleTime().domain(d3.extent(data, function(d) { return d.date; })).range([0,width]);
-        var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
+        //var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
 
         console.log(x)
         console.log(y)
 
         var xticks = [2010,2015,2020,2025];
         var yticks = [0,10,20,30];
-        
+
         d3.select("svg").append("g").attr("transform","translate(50,250)")
             .call(d3.axisBottom(x)
             .tickValues(xticks)
