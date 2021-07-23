@@ -20,7 +20,7 @@ d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization
     var ByYear = d3.nest()
         .key(function(d) { return d.ModelYear; })
         .rollup(function(v) { return {averageFE: d3.mean(v,function(d) { return d.CombFE; })};})
-        .entires(data)
+        .entries(data)
     
     console.log(ByYear)
 
