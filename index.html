@@ -43,8 +43,6 @@ async function init() {
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
-  
-    console.log(Electric)
 
   var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
   var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
@@ -60,20 +58,19 @@ async function init() {
     .ticks(5)
     .tickFormat(d3.format("~s")));
 
-  var line = d3.line()
-    //.interpolate("basis") 
+  var overallLine = d3.line() 
     .x(function(d) { return x(d.key); })
     .y(function(d) { return y(d.value.averageFE); })
     .curve(d3.curveMonotoneX);
 
-  console.log(y.domain(), x.domain(), ByYear)
-
   svg.append("path")
     .data([ByYear])
     .attr("class", "line")
-    .attr("d", line)
+    .attr("d", overallLine)
     .attr("fill", "none")
     .attr("stroke", "steelblue")
+    .transition().duration(3000).delay(1000)
+    .data(Electric)
 }
 
 
