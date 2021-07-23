@@ -43,6 +43,8 @@ async function init() {
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
+  
+    console.log(Electric)
 
   var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
   var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
