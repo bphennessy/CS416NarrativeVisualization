@@ -22,9 +22,19 @@
 
 
 
-function previous() { update(1) }
+function previous() {
+  if (slide != 1) {
+    slide--
+    update(slide)
+  }
+ }
 
-function next() { update(2) }
+function next() {
+  if (slide != 3) {
+    slide++
+    update(slide)
+  }
+}
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
   width = 600 - margin.left - margin.right
