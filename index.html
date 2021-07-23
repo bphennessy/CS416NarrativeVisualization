@@ -84,10 +84,9 @@ svg.append("text")
   .text("Overall Fuel Efficiency");
 
 // legend
-//var legend = svg.append("g").attr("transform","translate(" + width/2 + "," + (parseInt(height) + 80) + ")")
-legendoffset = [-175, -105, -50, 20, 130]
-legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"]
-legendcolor = ["steelblue","red","blue","purple","green"]
+legendoffset = [-175, -105, -50, 20, 130];
+legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"];
+legendcolor = ["steelblue","red","blue","purple","green"];
 svg.selectAll(".legendmarks").data(legendoffset).enter().append("circle")
   .attr("cx", function(d) { return d+width/2; })
   .attr("cy", parseInt(height) + 80)
@@ -99,17 +98,7 @@ svg.selectAll(".legendtext").data(legendoffset).enter().append("text")
   .attr("class","legend")
   .text(function(d,i) { return legendtext[i]; })
   .attr("alignment-baseline","middle");
-/*legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
-legend.append("text").attr("transform","translate(-160,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
-legend.append("circle").attr("transform","translate(-105,0)").attr("r", 6).style("fill", "red")
-legend.append("text").attr("transform","translate(-95,0)").attr("class","legend").text("Gas").attr("alignment-baseline","middle")
-legend.append("circle").attr("transform","translate(-50,0)").attr("r", 6).style("fill", "blue")
-legend.append("text").attr("transform","translate(-40,0)").attr("class","legend").text("Electric").attr("alignment-baseline","middle")
-legend.append("circle").attr("transform","translate(20,0)").attr("r", 6).style("fill", "purple")
-legend.append("text").attr("transform","translate(30,0)").attr("class","legend").text("Plug-In Hybrid").attr("alignment-baseline","middle")
-legend.append("circle").attr("transform","translate(130,0)").attr("r", 6).style("fill", "green")
-legend.append("text").attr("transform","translate(140,0)").attr("class","legend").text("Fuel Cell").attr("alignment-baseline","middle")
-*/
+
 function update(slide) {
   if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
@@ -205,6 +194,26 @@ function slide1() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
+
+  const annotations = [
+    {
+      note: {
+        label: "Here is the annotation label",
+        title: "Annotation title"
+      },
+      x: 100,
+      y: 100,
+      dy: 100,
+      dx: 100
+    }
+  ]
+
+  // Add annotation to the chart
+  const makeAnnotations = d3.annotation()
+    .annotations(annotations)
+  d3.select("#example1")
+    .append("g")
+    .call(makeAnnotations)
 }
 
 function slide2() {
