@@ -2,29 +2,26 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test</h1>
+    <h1>Test1</h1>
     <svg width=300 height=300>
     </svg>
     <script>
         async function init() {
         data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
-        //g2022 = data.filter(function(d,i) { if (d["ModelYear"] == "2022") { return d;} })
-        //ga2022 = d3.mean(g2022,function(d) { return d.CombFE})
-        //console.log(ga2022)
+
         ByYear = d3.nest()
             .key(function(d) { return d.ModelYear; })
             .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
             .entries(data)
         console.log(ByYear)
-        //console.log(ByYear).get("2010")
 
         xs = d3.scaleLinear().domain([2010,2022]).range([0,200]);
         ys = d3.scaleLinear().domain([0,30]).range([200,0]);
 
         d3.select("svg").append("g").attr("transform","translate(50,50)")
-            .selectAll("circle").data(ByYear).enter().append("circle")
-                .attr("cx",2012) //d3.values(ByYear).map(function(d) { return xs(d.ModelYear) }))
-                .attr("cy",function(d) { return d.values.averageFE })
+            .selectAll("circle").data(function(d) { return d.values; }).enter().append("circle")
+                .attr("cx",function(d) { return d.key; })
+                .attr("cy", 15)//function(d) { return d.values.averageFE })
                 .attr("r",5);
                 //.attr("r",function(d) { return +d.EngineCylinders+2 });
         /*xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
