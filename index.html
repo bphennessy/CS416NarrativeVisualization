@@ -71,7 +71,9 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data);
   
-    update(ByYear)
+  consol.log(ByYear)
+
+  update(ByYear)
 
   /*Electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
