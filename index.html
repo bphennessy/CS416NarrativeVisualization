@@ -2,19 +2,14 @@
 <html>
 
   <head>
-    <!--<link rel="stylesheet" href="style.css">-->
-    <style type="text/css">
-    .line {
-    fill: none;
-    stroke: #ffab00;
-    stroke-width: 3;
-    }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script src='https://d3js.org/d3.v5.min.js'></script>
   </head>
 
   <body onload='init()'>
     <h1>Test Line</h1>
+    <button class="button">Previous</button>
+    <button class="button">Next</button>
     <script>
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
   width = 300 - margin.left - margin.right
@@ -37,13 +32,10 @@ async function init() {
     var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
     var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
 
-    //var xticks = [2010,2015,2020,2025];
-    //var yticks = [0,10,20,30];
-
     svg.append("g")
         .attr("transform","translate(0," + height + ")")
         .call(d3.axisBottom(x)
-        //.tickValues(xticks)
+        .tick(7)
         .tickFormat(d3.format("~")));
 
     svg.append("g")
