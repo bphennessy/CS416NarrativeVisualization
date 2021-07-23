@@ -62,9 +62,9 @@ function update(data){
       .ticks(5)
       .tickFormat(d3.format("~s")));
 
-  var u = svg.selectAll(".lineT").data([data]);//,function(d) { return d.value.averageFE });
+  var u = svg.selectAll(".line").data([data]);//,function(d) { return d.value.averageFE });
 
-  u.enter().append("path").attr("class","lineT").merge(u).transition().duration(3000)
+  u.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
     .attr("d", d3.line()
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); }))
@@ -81,7 +81,7 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data);
 
-    Electric = d3.nest()
+  Electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
