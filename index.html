@@ -3,7 +3,7 @@
 <style> circle {fill: lightblue; stroke: black;} </style>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <body onload='init()'>
-    <h1>Test1</h1>
+    <h1>Test2</h1>
      <!--<svg width=300 height=300>
     </svg>-->
     <Script>
@@ -20,7 +20,7 @@
             .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        //async function init() {
+        async function init() {
             data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
             var ByYear = rollup(data);
             //ByYear = d3.nest()
@@ -60,7 +60,7 @@
                 .call(d3.axisBottom(x)
                 .tickValues(xticks)
                 .tickFormat(d3.format("~")));
-        //}
+        }
     </script>
 </body>
 </html>
