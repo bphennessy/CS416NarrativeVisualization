@@ -50,8 +50,9 @@ var x = d3.scaleLinear().range([0,width]);
 var xAxis = d3.axisBottom().scale(x);
 svg.append("g")
   .attr("transform","translate(0," + height + ")")
-  .attr("class","xAxis")
+  .attr("class","xaxis")
   .append("text")
+  .attr("class","xlabel")
   .attr("fill","black")
   .attr("transform","translate(" + width/2 + ",40)")
   .attr("text-anchor", "middle")
@@ -60,8 +61,9 @@ svg.append("g")
 var y = d3.scaleLinear().range([height,0]);
 var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
-  .attr("class","yAxis")
+  .attr("class","yaxis")
   .append("text")
+  .attr("class","ylabel")
   .attr("fill","black")
   .attr("transform","rotate(-90)")
   .attr("transfrom","translate(-40," + -height/2)
