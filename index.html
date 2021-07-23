@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line</h1>
+    <h1>Test Line1</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -47,12 +47,22 @@ svg.append("g")
 
 function update(data){
   x.domain([d3.min(data,function(d) { return d.key }),d3.max(data,function(d) { return d.key })]);
-  svg.selectAll(".xAxis").transition().duration(3000).call(xAxis.ticks(7).tickFormat(d3.format("~")));
+  svg.selectAll(".xAxis")
+    .transition()
+    .duration(3000)
+    .call(xAxis
+      .ticks(7)
+      .tickFormat(d3.format("~")));
   
   y.domain([0,d3.max(data,function(d) { return d.value.averageFE })]);
-  svg.selectAll(".yAxis").transition().duration(3000).call(yAxis);
+  svg.selectAll(".yAxis")
+    .transition()
+    .duration(3000)
+    .call(yAxis
+      .ticks(5)
+      .tickFormat(d3.format("~s")));
 
-  var u = svg.selectAll(".lineT").data(data,function(d) { return d.value.averageFE });
+  var u = svg.selectAll(".lineT").data([data],function(d) { return d.value.averageFE });
 
   u.enter().append("path").attr("class","lineT").merge(u).transition().duration(3000)
     .attr("d", d3.line()
@@ -70,8 +80,6 @@ async function init() {
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data);
-  
-  console.log(ByYear)
 
   update(ByYear)
 
