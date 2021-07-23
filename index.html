@@ -32,41 +32,46 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 async function init() {
-    data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
+  data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
 
-    ByYear = d3.nest()
-        .key(function(d) { return d.ModelYear; })
-        .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-        .entries(data)
-    
-    var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
-    var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
+  ByYear = d3.nest()
+    .key(function(d) { return d.ModelYear; })
+    .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
+    .entries(data);
+  
+  Electric = d3.nest()
+    .key(function(d) { return d.ModelYear; })
+    .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
+    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
 
-    svg.append("g")
-        .attr("transform","translate(0," + height + ")")
-        .call(d3.axisBottom(x)
-        .ticks(7)
-        .tickFormat(d3.format("~")));
+  var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
+  var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
 
-    svg.append("g")
-        .call(d3.axisLeft(y)
-        .ticks(5)
-        .tickFormat(d3.format("~s")));
+  svg.append("g")
+    .attr("transform","translate(0," + height + ")")
+    .call(d3.axisBottom(x)
+    .ticks(7)
+    .tickFormat(d3.format("~")));
 
-    var line = d3.line()
-        //.interpolate("basis") 
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); })
-        .curve(d3.curveMonotoneX);
+  svg.append("g")
+    .call(d3.axisLeft(y)
+    .ticks(5)
+    .tickFormat(d3.format("~s")));
 
-    console.log(y.domain(), x.domain(), ByYear)
+  var line = d3.line()
+    //.interpolate("basis") 
+    .x(function(d) { return x(d.key); })
+    .y(function(d) { return y(d.value.averageFE); })
+    .curve(d3.curveMonotoneX);
 
-    svg.append("path")
-        .data([ByYear])
-        .attr("class", "line")
-        .attr("d", line)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
+  console.log(y.domain(), x.domain(), ByYear)
+
+  svg.append("path")
+    .data([ByYear])
+    .attr("class", "line")
+    .attr("d", line)
+    .attr("fill", "none")
+    .attr("stroke", "steelblue")
 }
 
 
