@@ -32,7 +32,7 @@
         var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
 
         var xticks = [2010,2015,2020,2025];
-        var yticks = [0,10,20,30];
+        //var yticks = [0,10,20,30];
 
         /*d3.select("svg").append("g").attr("transform","translate(50,250)")
             .call(d3.axisBottom(x)
@@ -41,7 +41,7 @@
 
         svg.append("g").attr("transform","translate(50,50)")
             .call(d3.axisLeft(y)
-            .tickValues(yticks)
+            //.tickValues(yticks)
             .tickFormat(d3.format("~s")));
             
         /*d3.select("svg").append("g").attr("transform","translate(50,50)")
