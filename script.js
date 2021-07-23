@@ -9,7 +9,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 async function init() {
-    data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
+    data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
 
     ByYear = d3.nest()
         .key(function(d) { return d.ModelYear; })
