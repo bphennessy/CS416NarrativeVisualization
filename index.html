@@ -20,13 +20,15 @@
 
 
 
+
+
 function previous() { update(1) }
 
 function next() { update(2) }
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
   width = 600 - margin.left - margin.right
-  height = 600 - margin.top - margin.bottom
+  height = 600 - margin.top - margin.bottom;
     
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -43,58 +45,12 @@ svg.append("g")
 var y = d3.scaleLinear().range([height,0]);
 var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
-  .attr("class","yAxis")
+  .attr("class","yAxis");
 
 function update(slide) {
   if (slide == 1) { slide1() }
-  else {
-    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-    svg.selectAll(".xAxis")
-      .transition()
-      .duration(3000)
-      .call(xAxis
-        .ticks(7)
-        .tickFormat(d3.format("~")));
-    
-    y.domain([0,slide2Max]);
-    svg.selectAll(".yAxis")
-      .transition()
-      .duration(3000)
-      .call(yAxis
-        .ticks(5)
-        .tickFormat(d3.format("~s")));
-
-    var overallLine = svg.selectAll(".line").data([overall]);
-    var gasLine = svg.selectAll(".gasline").data([gas]);
-    var electricLine = svg.selectAll(".electricline").data([electric]);
-    var plugInLine = svg.selectAll(".pluginline").data([plugIn]);
-    var fuelCellLine = svg.selectAll(".fuelcellline").data([fuelCell]);
-
-    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-
-    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
-  }
+  else if (slide == 2) { slide2() }
+  else if (slide == 3) { slide3() }
 }
 
 async function init() {
@@ -124,63 +80,133 @@ async function init() {
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
-  var slide = 1
+  
+  slide = 1;
   
   slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
     Math.max(d3.max(electric,function(d) { return d.value.averageFE}),
-    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE}), d3.max(fuelCell,function(d) { return d.value.averageFE}))))
+    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE}), d3.max(fuelCell,function(d) { return d.value.averageFE}))));
 
   update(slide);
 }
 
 function slide1() {
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-    svg.selectAll(".xAxis")
-      .transition()
-      .duration(3000)
-      .call(xAxis
-        .ticks(7)
-        .tickFormat(d3.format("~")));
-    
-    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-    svg.selectAll(".yAxis")
-      .transition()
-      .duration(3000)
-      .call(yAxis
-        .ticks(5)
-        .tickFormat(d3.format("~s")));
+  svg.selectAll(".xAxis")
+    .transition()
+    .duration(3000)
+    .call(xAxis
+      .ticks(7)
+      .tickFormat(d3.format("~")));
+  
+  y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+  svg.selectAll(".yAxis")
+    .transition()
+    .duration(3000)
+    .call(yAxis
+      .ticks(5)
+      .tickFormat(d3.format("~s")));
 
-    var overallLine = svg.selectAll(".line").data([overall]);
-    var gasLine = svg.selectAll(".gasline").data([overall]);
-    var electricLine = svg.selectAll(".electricline").data([overall]);
-    var plugInLine = svg.selectAll(".pluginline").data([overall]);
-    var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
+  var overallLine = svg.selectAll(".line").data([overall]);
+  var gasLine = svg.selectAll(".gasline").data([overall]);
+  var electricLine = svg.selectAll(".electricline").data([overall]);
+  var plugInLine = svg.selectAll(".pluginline").data([overall]);
+  var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
 
-    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
+  gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
 
-    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
+  electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
 
-    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
+  plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
 
-    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
+  fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
 
-    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
-      .attr("d", d3.line()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }))
+  overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
 }
+
+function slide2() {
+  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
+  svg.selectAll(".xAxis")
+    .transition()
+    .duration(3000)
+    .call(xAxis
+      .ticks(7)
+      .tickFormat(d3.format("~")));
+  
+  y.domain([0,slide2Max]);
+  svg.selectAll(".yAxis")
+    .transition()
+    .duration(3000)
+    .call(yAxis
+      .ticks(5)
+      .tickFormat(d3.format("~s")));
+
+  var overallLine = svg.selectAll(".line").data([overall]);
+  var gasLine = svg.selectAll(".gasline").data([gas]);
+  var electricLine = svg.selectAll(".electricline").data([electric]);
+  var plugInLine = svg.selectAll(".pluginline").data([plugIn]);
+  var fuelCellLine = svg.selectAll(".fuelcellline").data([fuelCell]);
+
+  gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
+
+  electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
+
+  plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
+
+  fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
+
+  overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); }))
+      .curve(d3.curveMonotoneX)
+}
+
+function slide3() {
+
+}
+
+
+
+
+
+
 
 
 
