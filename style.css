@@ -1,1 +1,6 @@
-path {stroke: red;}
+/*path {stroke: red;}*/
+.line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+}
