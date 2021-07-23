@@ -89,16 +89,16 @@ legendoffset = [-175, -105, -50, 20, 130]
 legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"]
 legendcolor = ["steelblue","red","blue","purple","green"]
 svg.selectAll(".legendmarks").data(legendoffset).enter().append("cirlce")
-  .attr("cx", function(d) { return d + width/2; })
+  .attr("cx", function(d) { return d+width/2; })
   .attr("cy", parseInt(height) + 80)
   .attr("r", 6)
-  .style("fill", function(d,i) { return legendcolor[i]; })
+  .style("fill", function(d,i) { return legendcolor[i]; });
 svg.selectAll(".legendtext").data(legendoffset).enter().append("text")
-  .attr("x", function(d) { return d+10; })
-  .attr("y","0)")
+  .attr("x", function(d) { return d+width/2+10; })
+  .attr("y",parseInt(height) + 80)
   .attr("class","legend")
   .text(function(d,i) { return legendtext[i]; })
-  .attr("alignment-baseline","middle")
+  .attr("alignment-baseline","middle");
 /*legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
 legend.append("text").attr("transform","translate(-160,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
 legend.append("circle").attr("transform","translate(-105,0)").attr("r", 6).style("fill", "red")
