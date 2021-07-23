@@ -55,7 +55,7 @@ function update(slide){
         .ticks(7)
         .tickFormat(d3.format("~")));
     
-    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+    y.domain([0,slide1Max]);
     svg.selectAll(".yAxis")
       .transition()
       .duration(3000)
@@ -103,7 +103,7 @@ function update(slide){
         .ticks(7)
         .tickFormat(d3.format("~")));
     
-    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+    y.domain([0,slide2Max]);
     svg.selectAll(".yAxis")
       .transition()
       .duration(3000)
@@ -173,12 +173,12 @@ async function init() {
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d;} }));
   var slide = 1
   
-  slide2max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
+  slide1Max = d3.max(overall,function(d) { return d.value.averageFE })
+
+  slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
     Math.max(d3.max(electric,function(d) { return d.value.averageFE}),
     Math.max(d3.max(plugIn,function(d) { return d.value.averageFE}), d3.max(fuelCell,function(d) { return d.value.averageFE}))))
-  console.log(slide2max)
-  update(slide);
-
+  
   /*svg.append("g")
     .attr("transform","translate(0," + height + ")")
     .call(d3.axisBottom(x)
