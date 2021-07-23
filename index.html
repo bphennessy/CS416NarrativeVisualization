@@ -189,7 +189,7 @@ function slide1() {
 
 function slide2() {
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xAxis")
+  svg.selectAll(".xaxis")
     .transition()
     .duration(3000)
     .call(xAxis
@@ -197,7 +197,7 @@ function slide2() {
       .tickFormat(d3.format("~")));
   
   y.domain([0,slide2Max]);
-  svg.selectAll(".yAxis")
+  svg.selectAll(".yaxis")
     .transition()
     .duration(3000)
     .call(yAxis
