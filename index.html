@@ -26,9 +26,6 @@
             .key(function(d) { return d.ModelYear; })
             .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
             .entries(data)
-        console.log(ByYear)
-        console.log(d3.min(ByYear,function(d) { return d.key }))
-        console.log(d3.max(ByYear,function(d) { return d.key }))
         
         var x = d3.scaleLinear().domain([d3.min(ByYear,function(d) { return d.key }),d3.max(ByYear,function(d) { return d.key })]).range([0,width]);
         var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
@@ -39,7 +36,7 @@
         svg.append("g")//.attr("transform","translate(50,250)")
             .attr("transform","translate(0," + height + ")")
             .call(d3.axisBottom(x)
-            .tickValues(xticks)
+            //.tickValues(xticks)
             .tickFormat(d3.format("~")));
 
         svg.append("g")//.attr("transform","translate(50,50)")
