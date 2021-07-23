@@ -49,9 +49,11 @@
 }
 
 .xAxis {
+    fill: black;
     font-size: 14px;
 }
 
 .yAxis {
+    fill: black;
     font-size: 14px;
 }
