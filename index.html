@@ -41,7 +41,7 @@
 
         svg.append("g")//.attr("transform","translate(50,50)")
             .call(d3.axisLeft(y)
-            //.tickValues(yticks)
+            .tickValues(5)
             .tickFormat(d3.format("~s")));
             
         /*d3.select("svg").append("g").attr("transform","translate(50,50)")
