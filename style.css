@@ -49,11 +49,21 @@
 }
 
 .xAxis {
-    fill: black;
+    fill: none;
     font-size: 14px;
 }
 
 .yAxis {
+    fill: none;
+    font-size: 14px;
+}
+
+.xlabel {
+    fill: black;
+    font-size: 14px;
+}
+
+.ylabel {
     fill: black;
     font-size: 14px;
 }
