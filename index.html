@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test</h1>
+    <h1>Test1</h1>
     <svg width=300 height=300>
     </svg>
     <script>
@@ -12,7 +12,7 @@
         //ga2022 = d3.mean(g2022,function(d) { return d.CombFE})
         //console.log(ga2022)
         ByYear = d3.nest()
-            .key(function(d) { return d.year; })
+            .key(function(d) { return d.ModelYear; })
             .rollup(function(v) { return d3.mean(v,function(d) { return d.CombFE; })})
             .entries(data)
         console.log(ByYear)
