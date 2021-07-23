@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line</h1>
+    <h1>Test Line1</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -41,7 +41,7 @@ svg.append("g")
   .attr("class","xAxis");
 
 var y = d3.scaleLinear().range([height,0]);
-var yAxis = d3.axisLeft().scale(y)
+var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
   .attr("Class","yAxis")
 
