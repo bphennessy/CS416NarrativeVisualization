@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test1</h1>
+    <h1>Tests</h1>
     <svg width=300 height=300>
     </svg>
     <script>
@@ -15,13 +15,13 @@
             .object(data)
         console.log(ByYear)
 
-        xs = d3.scaleLinear().domain([2010,2022]).range([0,200]);
+        xs = d3.scaleLinear().domain([2010,2025]).range([0,200]);
         ys = d3.scaleLinear().domain([0,30]).range([200,0]);
 
         d3.select("svg").append("g").attr("transform","translate(50,50)")
             .selectAll("circle").data(ByYear).enter().append("circle")
-                .attr("cx",function(d) { return d.key; })
-                .attr("cy", 15)//function(d) { return d.values.averageFE })
+                .attr("cx",2015)//function(d) { return d.key; })
+                .attr("cy",function(d) { return d.values.averageFE })
                 .attr("r",5);
                 //.attr("r",function(d) { return +d.EngineCylinders+2 });
         /*xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
@@ -35,7 +35,7 @@
 
         var x = d3.scaleLinear().domain([2010,2022]).range([0,200]);
         var y = d3.scaleLinear().domain([0,30]).range([200,0]);
-        var xticks = [2010,2015,2020];
+        var xticks = [2010,2015,2020,2025];
         var yticks = [0,10,20,30];
 
         d3.select("svg").append("g").attr("transform","translate(50,50)")
