@@ -54,13 +54,14 @@ svg.append("g")
   .append("text")
   .attr("fill","black")
   .attr("transform","translate(" + width/2 + ",40)")
-  .style("text-anchor", "middle")
+  .attr("text-anchor", "middle")
   .text("Model Year");
 
 var y = d3.scaleLinear().range([height,0]);
 var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
-  .attr("class","yAxis");
+  .attr("class","yAxis")
+  //.append("text")
 
 /*svg.append("text")
   .attr("class", "xlabel")
