@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test2</h1>
+    <h1>Test</h1>
     <svg width=300 height=300>
     </svg>
     <script>
@@ -45,7 +45,7 @@
         d3.select("svg").append("g").attr("transform","translate(50,250)")
             .call(d3.axisBottom(x)
             .tickValues(xticks)
-            .tickFormat(d3.format("~s")));
+            .tickFormat(d3.format("~")));
         }
     </script>
  </body>
