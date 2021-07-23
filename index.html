@@ -54,6 +54,7 @@ svg.append("g")
   .append("text")
   .attr("fill","black")
   //.attr("transform","translate(120,40)")
+  .style("text-anchor", "middle")
   .text("Model Year");
 
 var y = d3.scaleLinear().range([height,0]);
