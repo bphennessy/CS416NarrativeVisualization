@@ -7,7 +7,7 @@
   </head>
 
   <body onload='init()'>
-    <h1>Test Line</h1>
+    <h1>Test Line1</h1>
     <nav>
       <button class="button" onclick="previous()">Previous</button>
       <button class="button" onclick="next()">Next</button>
@@ -70,7 +70,7 @@ async function init() {
     .attr("fill", "none")
     .attr("stroke", "steelblue")
     .transition().duration(3000).delay(1000)
-    .data(Electric)
+    .data([Electric])
 }
 
 
