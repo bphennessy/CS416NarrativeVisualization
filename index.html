@@ -37,9 +37,9 @@ function next() {
 }
 
 // margin setup
-var margin = {top: 50, right: 50, bottom: 50, left: 50},
+var margin = {top: 50, right: 50, bottom: 250, left: 50},
   width = 600 - margin.left - margin.right
-  height = 600 - margin.top - margin.bottom;
+  height = 800 - margin.top - margin.bottom;
 
 // svg setup
 var svg = d3.select("body").append("svg")
@@ -74,14 +74,14 @@ svg.append("g")
   .attr("y",-margin.left)
   .attr("dy", "1em")
   .attr("text-anchor", "middle")
-  .text("Fuel Efficiency (MPG)")
+  .text("Fuel Efficiency (MPG)");
 
 // chart title
 svg.append("text")
   .attr("class","title")
   .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
   .attr("text-anchor","middle")
-  .text("Overall Fuel Efficiency")
+  .text("Overall Fuel Efficiency");
 
 function update(slide) {
   if (slide == 1) { slide1() }
