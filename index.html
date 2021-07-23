@@ -51,12 +51,12 @@ var xAxis = d3.axisBottom().scale(x);
 svg.append("g")
   .attr("transform","translate(0," + height + ")")
   .attr("class","xaxis")
-  //.append("text")
-  //.attr("class","xlabel")
-  //.attr("fill","black")
-  //.attr("transform","translate(" + width/2 + ",40)")
-  //.attr("text-anchor", "middle")
-  //.text("Model Year");
+  .append("text")
+  .attr("class","xlabel")
+  .attr("fill","black")
+  .attr("transform","translate(" + width/2 + ",40)")
+  .attr("text-anchor", "middle")
+  .text("Model Year");
 
 var y = d3.scaleLinear().range([height,0]);
 var yAxis = d3.axisLeft().scale(y);
@@ -127,7 +127,7 @@ async function init() {
 
 function slide1() {
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xAxis")
+  svg.selectAll(".xaxis")
     .transition()
     .duration(3000)
     .call(xAxis
@@ -135,7 +135,7 @@ function slide1() {
       .tickFormat(d3.format("~")));
   
   y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-  svg.selectAll(".yAxis")
+  svg.selectAll(".yaxis")
     .transition()
     .duration(3000)
     .call(yAxis
