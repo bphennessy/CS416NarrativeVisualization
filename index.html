@@ -19,6 +19,8 @@
 
         xs = d3.scaleLinear().domain([2010,2022]).range([0,200]);
         ys = d3.scaleLinear().domain([0,30]).range([200,0]);
+
+        
         /*xs = d3.scaleLog().base(10).domain([10,150]).range([0,200])
         ys = d3.scaleLog().base(10).domain([10,150]).range([200,0])
 
@@ -30,8 +32,8 @@
 
         var x = d3.scaleLinear().domain([2010,2022]).range([0,200]);
         var y = d3.scaleLinear().domain([0,30]).range([200,0]);
-        var xticks = [0,10,20,30];
-        var yticks = [2010,2015,2020]
+        var xticks = [2010,2015,2020];
+        var yticks = [0,10,20,30];
 
         d3.select("svg").append("g").attr("transform","translate(50,50)")
             .call(d3.axisLeft(y)
