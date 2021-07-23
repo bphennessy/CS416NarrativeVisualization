@@ -84,7 +84,7 @@ svg.append("text")
   .text("Overall Fuel Efficiency");
 
 // legend
-svg.append("g").attr("transform","translate(" + width/2 + "," + (+height) + +100 +")")
+svg.append("g").attr("transform","translate(" + width/2 + "," + 100 + (+height) + ")")
   .append("circle").attr("r", 6).style("fill", "steelblue")
   .append("circle").attr("transform","translate(0,30)").attr("r", 6).style("fill", "red")
   .append("text").attr("transform","translate(20,0)").text("Overall").style("font-size", "15px").attr("alignment-baseline","middle")
