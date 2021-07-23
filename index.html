@@ -27,14 +27,16 @@
             .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
             .entries(data)
         console.log(ByYear)
-    
-        //var x = d3.scaleTime().domain(d3.extent(data, function(d) { return d.date; })).range([0,width]);
+        console.log(d3.min(ByYear,function(d) { return d.key }))
+        console.log(d3.max(ByYear,function(d) { return d.key }))
+        
+        //var x = d3.scaleLinear().domain(d3.extent(data, function(d) { return d.date; })).range([0,width]);
         var y = d3.scaleLinear().domain([0,d3.max(ByYear,function(d) { return d.value.averageFE })]).range([height,0]);
 
         var xticks = [2010,2015,2020,2025];
         //var yticks = [0,10,20,30];
 
-        /*d3.select("svg").append("g").attr("transform","translate(50,250)")
+        /*svg.append("g").attr("transform","translate(50,250)")
             .call(d3.axisBottom(x)
             .tickValues(xticks)
             .tickFormat(d3.format("~")));*/
