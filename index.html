@@ -173,13 +173,13 @@ async function init() {
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d;} }));
   var slide = 1
   
-  //slide2max = max(d3.max(gas,function(d) { return d.value.averageFE }),d3.max(electric,function(d) { return d.value.averageFE}))
+  slide2max = max(d3.max(gas,function(d) { return d.value.averageFE }),d3.max(electric,function(d) { return d.value.averageFE}))
   console.log(overall)
   console.log(gas)
   console.log(electric)
   console.log(plugIn)
   console.log(fuelCell)
-  //console.log(slide2max)
+  console.log(slide2max)
   update(slide);
 
   /*svg.append("g")
