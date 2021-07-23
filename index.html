@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test1</h1>
+    <h1>Test2</h1>
     <svg width=300 height=300>
     </svg>
     <script>
@@ -17,7 +17,7 @@
             .rollup(function(v) { return d3.mean(v,function(d) { return d.CombFE; })})
             .entries(data)
         console.log(ByYear)
-        console.log(ByYear.get("2010"))
+        console.log(ByYear).get("2010")
 
         xs = d3.scaleLinear().domain([2010,2022]).range([0,200]);
         ys = d3.scaleLinear().domain([0,30]).range([200,0]);
