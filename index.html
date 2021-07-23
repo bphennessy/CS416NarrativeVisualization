@@ -89,13 +89,14 @@ legendoffset = [-175, -105, -50, 20, 130]
 legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"]
 legendcolor = ["steelblue","red","blue","purple","green"]
 svg.append("g").data(legendoffset).enter().append("cirlce")
-  .attr("transform","translate(" + function(d) { return d + width/2; } + "," + (parseInt(height) + 80) + ")")
+  .attr("cx", function(d) { return d + width/2; })
+  .attr("cy", function { return (parseInt(height) + 80); })
   .attr("r", 6)
-  .style("fill", function(d,i) { return legendcolor[i] } )
+  .style("fill", function(d,i) { return legendcolor[i]; })
 svg.append("g").data(legendoffset).enter().append("text")
-  .attr("transform","translate("+ function(d) { return d+10 } + "0)")
+  .attr("transform","translate("+ function(d) { return d+10; } + "0)")
   .attr("class","legend")
-  .text(function(d,i) { return legendtext[i] })
+  .text(function(d,i) { return legendtext[i]; })
   .attr("alignment-baseline","middle")
 /*legend.append("circle").attr("transform","translate(-175,0)").attr("r", 6).style("fill", "steelblue")
 legend.append("text").attr("transform","translate(-160,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
@@ -120,33 +121,33 @@ async function init() {
   overall = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
 
   gas = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
 
   electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
   plugIn = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
 
   fuelCell = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
-    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; } }).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; } }));
+    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
   slide = 1;
   
   slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
-    Math.max(d3.max(electric,function(d) { return d.value.averageFE}),
-    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE}), d3.max(fuelCell,function(d) { return d.value.averageFE}))));
+    Math.max(d3.max(electric,function(d) { return d.value.averageFE ),
+    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE}), d3.max(fuelCell,function(d) { return d.value.averageFE }))));
 
   update(slide);
 }
