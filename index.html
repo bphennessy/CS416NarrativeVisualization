@@ -2,7 +2,14 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <style type="text/css">
+    .line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+    }
+    </style>
     <script src='https://d3js.org/d3.v5.min.js'></script>
   </head>
 
@@ -44,17 +51,18 @@ async function init() {
         .ticks(5)
         .tickFormat(d3.format("~s")));
 
-    var path = d3.line()
+    var line = d3.line()
         //.interpolate("basis") 
         .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); });
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX);
 
     console.log(y.domain(), x.domain(), ByYear)
 
     svg.append("path")
         .data([ByYear])
         .attr("class", "line")
-        .attr("d", path)
+        .attr("d", line)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
 }
