@@ -20,9 +20,9 @@
 
 
 
-function previous() { update(ByYear) }
+function previous() { update(1) }
 
-function next() { update(Electric) }
+function next() { update(2) }
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
   width = 600 - margin.left - margin.right
@@ -45,48 +45,94 @@ var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
   .attr("class","yAxis")
 
-function update(data){
-  x.domain([d3.min(data,function(d) { return d.key }),d3.max(data,function(d) { return d.key })]);
-  svg.selectAll(".xAxis")
-    .transition()
-    .duration(3000)
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-  
-  y.domain([0,d3.max(data,function(d) { return d.value.averageFE })]);
-  svg.selectAll(".yAxis")
-    .transition()
-    .duration(3000)
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
+function update(slide){
+  if (slide == 1) {
+    x.domain([d3.min(Overall,function(d) { return d.key }),d3.max(Overall,function(d) { return d.key })]);
+    svg.selectAll(".xAxis")
+      .transition()
+      .duration(3000)
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    
+    y.domain([0,d3.max(Overall,function(d) { return d.value.averageFE })]);
+    svg.selectAll(".yAxis")
+      .transition()
+      .duration(3000)
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
 
-  var u = svg.selectAll(".line").data([data]);//,function(d) { return d.value.averageFE });
+    var u = svg.selectAll(".line").data([Overall]);
 
-  u.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); }))
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 2.5)
+    u.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2.5)
+  }
+  else {
+    x.domain([d3.min(Gas,function(d) { return d.key }),d3.max(Gas,function(d) { return d.key })]);
+    svg.selectAll(".xAxis")
+      .transition()
+      .duration(3000)
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    
+    y.domain([0,d3.max(Gas,function(d) { return d.value.averageFE })]);
+    svg.selectAll(".yAxis")
+      .transition()
+      .duration(3000)
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+
+    var u = svg.selectAll(".line").data([Gas]);
+
+    u.enter().append("path").attr("class","line").merge(u).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); }))
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2.5)
+  }
 }
 
 async function init() {
   data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
 
-  ByYear = d3.nest()
+  var Overall = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data);
 
-  Electric = d3.nest()
+  var Gas = d3.nest()
+    .key(function(d) { return d.ModelYear; })
+    .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
+    .entries(data.filter(function(d) { if (d["Type"] == "Gas") { return d;} }));
+
+  var Electric = d3.nest()
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Electric") { return d;} }));
 
-    update(ByYear)
+  var FuelCell = d3.nest()
+    .key(function(d) { return d.ModelYear; })
+    .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
+    .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d;} }));
+  
+  var PlugIn = d3.nest()
+    .key(function(d) { return d.ModelYear; })
+    .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
+    .entries(data.filter(function(d) { if (d["Type"] == "Plug-In") { return d;} }));
+
+  var slide = 1
+  
+  update(slide);
 
   /*svg.append("g")
     .attr("transform","translate(0," + height + ")")
