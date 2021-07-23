@@ -91,6 +91,10 @@ legend.append("circle").attr("transform","translate(-40,30)").attr("r", 6).style
 legend.append("text").attr("transform","translate(-20,30)").attr("class","legend").text("Gas")
 legend.append("circle").attr("transform","translate(-40,60)").attr("r", 6).style("fill", "blue")
 legend.append("text").attr("transform","translate(-20,60)").attr("class","legend").text("Electric")
+legend.append("circle").attr("transform","translate(20,0)").attr("r", 6).style("fill", "blue")
+legend.append("text").attr("transform","translate(40,0)").attr("class","legend").text("Plug-In Hybrid")
+legend.append("circle").attr("transform","translate(20,30)").attr("r", 6).style("fill", "blue")
+legend.append("text").attr("transform","translate(40,30)").attr("class","legend").text("Fuel Cell")
 
 function update(slide) {
   if (slide == 1) { slide1() }
