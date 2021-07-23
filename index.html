@@ -2,12 +2,13 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-    <h1>Test1</h1>
+    <h1>Test2</h1>
     <svg width=300 height=300>
     </svg>
     <script>
         async function init() {
         data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/gas.csv")
+        console.log(data)
         //g2022 = data.filter(function(d,i) { if (d["ModelYear"] == "2022") { return d;} })
         //ga2022 = d3.mean(g2022,function(d) { return d.CombFE})
         //console.log(ga2022)
