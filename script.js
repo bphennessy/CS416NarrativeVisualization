@@ -30,7 +30,7 @@ async function init() {
 
     svg.append("g")//.attr("transform","translate(50,50)")
         .call(d3.axisLeft(y)
-        //.tickValues(5)
+        .ticks(5)
         .tickFormat(d3.format("~s")));
 
     var valueline = d3.line()
