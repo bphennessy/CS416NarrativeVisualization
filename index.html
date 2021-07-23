@@ -85,16 +85,16 @@ svg.append("text")
 
 // legend
 var legend = svg.append("g").attr("transform","translate(" + width/2 + "," + (parseInt(height) + 80) + ")")
-legend.attr("id","overallmark").append("circle").attr("transform","translate(-135,0)").attr("r", 6).style("fill", "steelblue")
-legend.attr("id","overalltext").append("text").attr("transform","translate(-120,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
-legend.attr("id","gasmark").append("circle").attr("transform","translate(-65,0)").attr("r", 6).style("fill", "red")
-legend.attr("id","gastext").append("text").attr("transform","translate(-55,0)").attr("class","legend").text("Gas").attr("alignment-baseline","middle")
-legend.attr("id","electricmark").append("circle").attr("transform","translate(-10,0)").attr("r", 6).style("fill", "blue")
-legend.attr("id","electrictext").append("text").attr("transform","translate(0,0)").attr("class","legend").text("Electric").attr("alignment-baseline","middle")
-legend.attr("id","pluginmark").append("circle").attr("transform","translate(60,0)").attr("r", 6).style("fill", "purple")
-legend.attr("id","plugintext").append("text").attr("transform","translate(70,0)").attr("class","legend").text("Plug-In Hybrid").attr("alignment-baseline","middle")
-legend.attr("id","fuelcellmark").append("circle").attr("transform","translate(170,0)").attr("r", 6).style("fill", "green")
-legend.attr("id","fuelcelltext").append("text").attr("transform","translate(180,0)").attr("class","legend").text("Fuel Cell").attr("alignment-baseline","middle")
+legend.append("circle").attr("transform","translate(-145,0)").attr("r", 6).style("fill", "steelblue")
+legend.append("text").attr("transform","translate(-130,0)").attr("class","legend").text("Overall").attr("alignment-baseline","middle")
+legend.append("circle").attr("transform","translate(-75,0)").attr("r", 6).style("fill", "red")
+legend.append("text").attr("transform","translate(-65,0)").attr("class","legend").text("Gas").attr("alignment-baseline","middle")
+legend.append("circle").attr("transform","translate(-20,0)").attr("r", 6).style("fill", "blue")
+legend.append("text").attr("transform","translate(-10,0)").attr("class","legend").text("Electric").attr("alignment-baseline","middle")
+legend.append("circle").attr("transform","translate(50,0)").attr("r", 6).style("fill", "purple")
+legend.append("text").attr("transform","translate(60,0)").attr("class","legend").text("Plug-In Hybrid").attr("alignment-baseline","middle")
+legend.append("circle").attr("transform","translate(160,0)").attr("r", 6).style("fill", "green")
+legend.append("text").attr("transform","translate(170,0)").attr("class","legend").text("Fuel Cell").attr("alignment-baseline","middle")
 
 function update(slide) {
   if (slide == 1) { slide1() }
@@ -191,10 +191,6 @@ function slide1() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
-
-  d3.select("#overallmark").transition().duration(3000)
-    .attr("x","0")
-    .attr("y","0")
 }
 
 function slide2() {
