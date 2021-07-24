@@ -166,13 +166,26 @@ function slide1() {
       .tickFormat(d3.format("~")));
   */
   y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-  svg.selectAll(".yaxis")
+  if (svg.selectAll("xaxis").empty()) {
+    svg.selectAll(".yaxis")
+    .call(yAxis
+      .ticks(5)
+      .tickFormat(d3.format("~s")));
+  } else {
+    svg.selectAll(".yaxis")
     .transition()
     .duration(3000)
     .call(yAxis
       .ticks(5)
       .tickFormat(d3.format("~s")));
-
+  }
+  /*svg.selectAll(".yaxis")
+    .transition()
+    .duration(3000)
+    .call(yAxis
+      .ticks(5)
+      .tickFormat(d3.format("~s")));
+*/
   var overallLine = svg.selectAll(".line").data([overall]);
   var gasLine = svg.selectAll(".gasline").data([overall]);
   var electricLine = svg.selectAll(".electricline").data([overall]);
