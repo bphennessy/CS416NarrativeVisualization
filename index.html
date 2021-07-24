@@ -226,7 +226,7 @@ function slide1() {
   svg.selectAll(".annotationtext").data(annotations).enter().append("text").transition().duration(3000)
     .attr("class","annotationtext")
     .attr("x",function(d) { return x(d.x2) })
-    .attr("y",function(d) { return y(d.y2) + 5 })
+    .attr("y",function(d) { return y(d.y2) + 7 })
     .attr("text-anchor","start")
     .text(function(d) { return d.text })
 }
