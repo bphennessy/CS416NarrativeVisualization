@@ -241,11 +241,12 @@ function lines(slide) {
 function update(slide) {
   title(slide);
   axes(slide);
+  lines(slide);
   /*if (slide == 0) { slide1() }
   else if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
   else if (slide == 3) { slide3() }*/
-  annotation(slide)
+  annotation(slide);
 }
 
 async function init() {
