@@ -75,3 +75,8 @@
 .legend {
     font-size: 14px
 }
+
+.annotationline {
+    stroke-width: 2;
+    stroke: blakc;
+}
