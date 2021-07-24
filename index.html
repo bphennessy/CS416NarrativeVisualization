@@ -216,10 +216,10 @@ function slide1() {
   // annotation
   svg.selectAll(".annotationline").data(annotationCoord).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
-    .attr("x1",function(d) { return d.x1 })
-    .attr("y1",function(d) { return d.y1 })
-    .attr("x2",function(d) { return d.x2 })
-    .attr("y2",function(d) { return d.y2 })
+    .attr("x1",function(d) { return d.x.scale(x) })
+    .attr("y1",function(d) { return d.y.scale(y) })
+    .attr("x2",function(d) { return d.x.scale(x)+10 })
+    .attr("y2",function(d) { return d.y.scale(y)+10 })
     .attr("stroke-width","1")
     .attr("stroke", "black");
 }
