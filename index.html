@@ -93,7 +93,7 @@ svg.selectAll(".legendtext").data(legendOffset).enter().append("text")
   .text(function(d,i) { return legendText[i]; })
   .attr("alignment-baseline","middle");
 
-function title(slide)
+function title(slide) {
   if (slide == 0) {
     svg.append("text")
       .attr("class","title")
@@ -110,9 +110,10 @@ function title(slide)
     svg.selectAll(".title")
     .text("Slide 3");
   }
+}
 
 function update(slide) {
-  title(slide)
+  title(slide);
   if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
   else if (slide == 3) { slide3() }
