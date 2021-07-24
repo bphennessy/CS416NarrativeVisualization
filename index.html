@@ -150,10 +150,10 @@ function legend(slide) {
 
   if (slide == 0) {
     legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks);
-    legendText = legendMarks.enter().append("text").attr("class","legendtext").merge(legendMarks);
+    legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText);
   } else {
     legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks);
-    legendText = legendMarks.enter().append("text").attr("class","legendtext").merge(legendMarks);
+    legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText);
   }
   legendMarks
     .attr("cx", function(d) { return d.offset + width/2; })
