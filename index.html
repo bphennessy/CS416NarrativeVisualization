@@ -209,8 +209,8 @@ function slide1() {
       .curve(d3.curveMonotoneX));
 
   var annotationCoord = 
-    [{"x": 2017, "y": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE},
-    {"x": 150, "y": 150}]
+    [{"x": 2017, "y": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "text": "The best selling electric vehicle, the Tesla Model 3, is released"},
+    {"x": 2020, "y": 15, "text": "test"}]
 
 
   // annotation
@@ -218,7 +218,7 @@ function slide1() {
     .attr("class","annotationline")  
     .attr("x1",function(d) { return x(d.x) })
     .attr("y1",function(d) { return y(d.y) })
-    .attr("x2",function(d) { return x(d.x) + 10 })
+    .attr("x2",function(d) { return x(d.x) + 25 })
     .attr("y2",function(d) { return y(d.y) + 50 })
     .attr("stroke-width","1")
     .attr("stroke", "black");
