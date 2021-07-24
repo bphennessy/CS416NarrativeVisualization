@@ -142,10 +142,10 @@ function annotation(slide) {
     annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine)
     annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText)
   } else {
-    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000)
-    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
     removeLine = annotationLine.exit().transition().duration(3000).style("opacity",0).remove()
     removeText = annotationText.exit().transition().duration(3000).style("opactiy",0).remove()
+    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000)
+    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
   }
   annotationLine
     .attr("x1",function(d) { return x(d.x1) })
