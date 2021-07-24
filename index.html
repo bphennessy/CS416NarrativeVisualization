@@ -228,10 +228,11 @@ function lines(slide) {
 function cars(slide) {
   if (slide == 3) {
     var cars = svg.selectAll(".cars").data([overall]);
-    cars.enter().append("circle").attr("class","annotationline").merge(annotationLine).transition().duration(3000).style("opacity",100)
-      .attr("d", d3.circle()
-        .x(function(d) { return x(d.key); })
-        .y(function(d) { return y(d.value.averageFE); }));
+    cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+      .attr("cx", function(d) { return x(d.key); })
+      .attr("cy", function(d) { return y(d.value.averageFE); })
+      .attr("r", 5)
+      //.style("fill", function(d) { return d.color; });
   }
 }
 
@@ -289,6 +290,7 @@ function update(slide) {
   axes(slide);
   legend(slide);
   lines(slide);
+  cars(slide);
   annotation(slide);
 }
 
