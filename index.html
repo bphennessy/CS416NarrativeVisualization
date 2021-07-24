@@ -225,7 +225,7 @@ function slide1() {
     .attr("class","annotationtext")
     .attr("x",function(d) { return x(d.x) + 25 })
     .attr("y",function(d) { return y(d.y) + 50 })
-    .attr("text-anchor","middle")
+    .attr("text-anchor","start")
     .text(function(d) { return d.text });
 }
 
