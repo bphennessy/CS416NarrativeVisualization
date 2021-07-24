@@ -233,7 +233,7 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.append("g").selectAll(".cars").data(data);
+    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
     console.log(data);
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx", x(function(d) { return parseInt(d.ModelYear); }))
