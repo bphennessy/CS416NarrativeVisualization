@@ -120,10 +120,16 @@ function axes(slide) {
   } else {
     svg.selectAll(".xaxis")
       .transition()
-      .duration(3000);
+      .duration(3000)
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
     svg.selectAll(".yaxis")
       .transition()
-      .duration(3000);
+      .duration(3000)
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
   }
 }
 
