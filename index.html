@@ -222,6 +222,12 @@ function slide1() {
     .attr("y2",function(d) { return y(d.y) + 50 });
     /*.attr("stroke-width","1")
     .attr("stroke", "black");*/
+  svg.append("text")
+    .attr("class","annotationtext")
+    .attr("x",function(d) { return x(d.x) + 25 })
+    .attr("y",function(d) { return y(d.y) + 50 })
+    .attr("text-anchor","middle")
+    .text("Overall Fuel Efficiency");
 }
 
 function slide2() {
