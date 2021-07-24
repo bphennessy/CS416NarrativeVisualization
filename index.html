@@ -173,10 +173,12 @@ function slide1() {
       .curve(d3.curveMonotoneX));
 
   electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-    .attr("d", d3.line()
+    .style("opactiy",0)
+    .remove()
+    /*.attr("d", d3.line()
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
+      .curve(d3.curveMonotoneX));*/
 
   plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
     .attr("d", d3.line()
@@ -195,26 +197,6 @@ function slide1() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
-
-  const annotations = [
-    {
-      note: {
-        label: "Here is the annotation label",
-        title: "Annotation title"
-      },
-      x: 100,
-      y: 100,
-      dy: 100,
-      dx: 100
-    }
-  ]
-
-  // Add annotation to the chart
-  const makeAnnotations = d3.annotation()
-    .annotations(annotations)
-  //d3.select("#example1")
-    svg.append("g")
-    .call(makeAnnotations)
 }
 
 function slide2() {
