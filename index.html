@@ -178,6 +178,7 @@ function annotation(slide) {
     annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000).style("opacity",100)
     annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000).style("opacity",100)
   }
+
   annotationLine
     .attr("x1",function(d) { return x(d.x1) })
     .attr("y1",function(d) { return y(d.y1) })
@@ -199,7 +200,7 @@ function lines(slide) {
     var plugInLine = svg.selectAll(".pluginline").data([overall]);
     var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
   }
-  else if (slide == 2) {
+  else {//if (slide == 2) {
     var overallLine = svg.selectAll(".line").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([gas]);
     var electricLine = svg.selectAll(".electricline").data([electric]);
