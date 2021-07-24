@@ -241,6 +241,10 @@ function slide1() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
+  
+  // chart title
+  svg.selectAll(".title")
+    .text("Overall Fuel Efficiency");
 
   // annotations
   var annotations = 
@@ -322,7 +326,7 @@ function slide2() {
 
   // chart title
   svg.selectAll(".title")
-    .text("Overall Fuel Efficiency");
+    .text("Fuel Efficiency by Vehicle Type");
 
   // annotations
   var annotations = 
