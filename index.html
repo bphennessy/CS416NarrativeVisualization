@@ -233,10 +233,10 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.selectAll(".cars").data(overall).data(d => d.value.averageFE).enter().appned("circle")
+    var cars = svg.data(overall).enter().append("g").selectAll("circle").data(function(d) { return d.values; }).append("circle")
       .attr("class","dot")
-      .attr("cx", d => x(d.key))
-      .attr("cy", d => y(d.value.averageFE))
+      .attr("cx", function(d) { return x(d.key) })
+      .attr("cy", function(d) { return x(d.value.averageFE) })
       .attr("r",5);
     /*var cars = svg.append("g").selectAll(".cars").data(overall);
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
