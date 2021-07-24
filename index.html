@@ -145,13 +145,26 @@ async function init() {
 
 function slide1() {
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
+  if (svg.selectAll("xaxis").empty()) {
+    svg.selectAll(".xaxis")
+    .call(xAxis
+      .ticks(7)
+      .tickFormat(d3.format("~")));
+  } else {
+    svg.selectAll(".xaxis")
     .transition()
     .duration(3000)
     .call(xAxis
       .ticks(7)
       .tickFormat(d3.format("~")));
-  
+  }
+  /*svg.selectAll(".xaxis")
+    .transition()
+    .duration(3000)
+    .call(xAxis
+      .ticks(7)
+      .tickFormat(d3.format("~")));
+  */
   y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
   svg.selectAll(".yaxis")
     .transition()
@@ -197,10 +210,10 @@ function slide1() {
       .curve(d3.curveMonotoneX));
 
   var annotationCoord = 
-    [{"x1": 50, "y1": 50, "x2": 100, "y2": 100},
-    {"x1": 150, "y1": 150, "x2": 100, "y2": 100}]
+    [{"x": 2017, "y": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE},
+    {"x": 150, "y": 150}]
 
-  console.log(overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE)
+
   // annotation
   svg.selectAll(".annotationline").data(annotationCoord).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
