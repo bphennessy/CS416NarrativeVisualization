@@ -233,12 +233,17 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.append("g").selectAll(".cars").data([overall]);
+    var cars = svg.selectAll(".cars").data(overall).data(d => d.values).enter().appned("circle")
+      .attr("class","dot")
+      .attr("cx", d => x(d.key))
+      .attr("cy", d => y(d.value.averageFE))
+      .attr("r",5);
+    /*var cars = svg.append("g").selectAll(".cars").data(overall);
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx", x(function(d) { return d.key; }))
       .attr("cy", y(function(d) { return d.value.averageFE; }))
       .attr("r", 5);
-      //.style("fill", function(d) { return d.color; });
+      //.style("fill", function(d) { return d.color; });*/
   }
 }
 
