@@ -211,8 +211,9 @@ function slide1() {
    // annotation
   var annotations = 
     [{"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2015, "y2": 21, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
-    {"x1": 2010, "y1": 16, "x2": 2011, "y2": 15,"text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."},
-    {"x1": 2010, "y1": overall.filter(function(d) { return d.key === "2010" })[0].value.averageFE, "x2": 2012, "y2": 19.5, "text": "First phase of national program is finalized calling for an annual ~5% increase in fuel economy from 2012 to 2016."}]
+    {"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."},
+    {"x1": 2010, "y1": 20, "x2": 2011, "y2": 17, "text": "Agreement between federal government, state regulators, and auto industry estabilshes a national program to implement first fuel efficency improvements in over 30 years."},
+    {"x1": 2010, "y1": overall.filter(function(d) { return d.key === "2010" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of the national program is finalized calling for an annual ~5% increase in fuel economy from 2012 to 2016."}]
 
   svg.selectAll(".annotationline").data(annotations).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
