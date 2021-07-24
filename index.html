@@ -115,6 +115,40 @@ function title(slide) {
 function axes(slide) {
   if (slide == 0) {
     x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
+    y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+  } else if (slide == 1) {
+    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
+    y.domain([0,slide1Max]);
+  } else if (slide == 2) {
+    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]); 
+    y.domain([0,slide2Max]);
+  }
+
+  if (slide == 0) {
+    svg.selectAll(".xaxis")
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    svg.selectAll(".yaxis")
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+  } else {
+    svg.selectAll(".xaxis")
+      .transition()
+      .duration(3000)
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    svg.selectAll(".yaxis")
+      .transition()
+      .duration(3000)
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+  }
+  /*if (slide == 0) {
+    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
     svg.selectAll(".xaxis")
       .call(xAxis
         .ticks(7)
@@ -157,7 +191,7 @@ function axes(slide) {
       .call(yAxis
         .ticks(5)
         .tickFormat(d3.format("~s")));
-  }
+  }*/
 }
 
 function annotation(slide) {
@@ -246,19 +280,6 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
-  /*// axes
-  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-
-  y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-  svg.selectAll(".yaxis")
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-*/
   // set y max for each slide
   slide1Max = d3.max(overall,function(d) { return d.value.averageFE })
 
@@ -274,23 +295,6 @@ async function init() {
 }
 
 function slide1() {
-  /*// axes
-  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
-    .transition()
-    .duration(3000)
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-
-  y.domain([0,slide1Max]);
-  svg.selectAll(".yaxis")
-    .transition()
-    .duration(3000)
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-*/
   // lines
   var overallLine = svg.selectAll(".line").data([overall]);
   var gasLine = svg.selectAll(".gasline").data([overall]);
@@ -330,23 +334,6 @@ function slide1() {
 }
 
 function slide2() {
-  /*// axes
-  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
-    .transition()
-    .duration(3000)
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-  
-  y.domain([0,slide2Max]);
-  svg.selectAll(".yaxis")
-    .transition()
-    .duration(3000)
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-*/
   // lines
   var overallLine = svg.selectAll(".line").data([overall]);
   var gasLine = svg.selectAll(".gasline").data([gas]);
@@ -399,12 +386,6 @@ function slide3() {
     .attr("r", 6)
     .style("fill", "steelblue");
 */
-
-
-
-  // chart title
-  //svg.selectAll(".title")
-    //.text("New Title");
 }
 
 
