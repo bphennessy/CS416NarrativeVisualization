@@ -155,7 +155,7 @@ function legend(slide) {
     legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks).transition().duration(3000).style("opacity",100);
     legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText).transition().duration(3000).style("opacity",100);
   }
-  
+
   legendMarks
     .attr("cx", function(d) { return d.offset + width/2; })
     .attr("cy", parseInt(height) + 80)
@@ -178,7 +178,7 @@ function lines(slide) {
     var plugInLine = svg.selectAll(".pluginline").data([overall]);
     var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
   }
-  else {//if (slide == 2) {
+  else if (slide == 2) {
     var overallLine = svg.selectAll(".line").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([gas]);
     var electricLine = svg.selectAll(".electricline").data([electric]);
