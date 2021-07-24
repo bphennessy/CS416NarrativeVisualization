@@ -233,7 +233,7 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.selectAll(".cars").data(overall).data(d => d.value.averageFe).enter().appned("circle")
+    var cars = svg.selectAll(".cars").data(overall).data(d => d.value.averageFE).enter().appned("circle")
       .attr("class","dot")
       .attr("cx", d => x(d.key))
       .attr("cy", d => y(d.value.averageFE))
