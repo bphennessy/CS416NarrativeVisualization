@@ -103,7 +103,7 @@ function axes(slide) {
   } else if (slide == 1) {
     x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
     y.domain([0,slide1Max]);
-  } else if (slide == 2) {
+  } else if (slide == 2 ^ slide == 3) {
     x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]); 
     y.domain([0,slide2Max]);
   }
