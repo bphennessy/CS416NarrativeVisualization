@@ -145,8 +145,8 @@ function legend(slide) {
       {"offset": 130, "text": "Fuel Cell", "color": "green"}];
   }
 
-  legendMarks = svg.selectAll(".legendmark").data(legendData);
-  legendText = svg.selectAll(".legendtext").data(legendData);
+  var legendMarks = svg.selectAll(".legendmark").data(legendData);
+  var legendText = svg.selectAll(".legendtext").data(legendData);
 
   if (slide == 0) {
     legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks);
