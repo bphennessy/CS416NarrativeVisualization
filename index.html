@@ -215,15 +215,15 @@ function slide1() {
 
   svg.selectAll(".annotationline").data(annotations).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
-    .attr("x1",function(d) { return x(d.x) })
-    .attr("y1",function(d) { return y(d.y) })
-    .attr("x2",function(d) { return x(d.x) + 25 })
-    .attr("y2",function(d) { return y(d.y) + 50 });
+    .attr("x1",function(d) { return x(d.x1) })
+    .attr("y1",function(d) { return y(d.y1) })
+    .attr("x2",function(d) { return x(d.x2) + 25 })
+    .attr("y2",function(d) { return y(d.y2) + 50 });
 
   svg.selectAll(".annotationtext").data(annotations).enter().append("text").transition().duration(3000)
     .attr("class","annotationtext")
-    .attr("x",function(d) { return x(d.x) + 25 })
-    .attr("y",function(d) { return y(d.y) + 50 })
+    .attr("x",function(d) { return x(d.x2) + 25 })
+    .attr("y",function(d) { return y(d.y2) + 50 })
     .attr("text-anchor","start")
     .text(function(d) { return d.text });
 }
