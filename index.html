@@ -77,13 +77,6 @@ svg.append("g")
   .attr("text-anchor", "middle")
   .text("Fuel Efficiency (MPG)");
 
-/*// chart title
-svg.append("text")
-  .attr("class","title")
-  .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
-  .attr("text-anchor","middle")
-  .text("Overall Fuel Efficiency");
-*/
 // legend
 legendOffset = [-175, -105, -50, 20, 130];
 legendText = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"];
@@ -178,6 +171,8 @@ async function init() {
     .text(function(d) { return d.text });
 
   // set y max for each slide
+  slide1Max = d3.max(overall,function(d) { return d.value.averageFE })
+
   slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
     Math.max(d3.max(electric,function(d) { return d.value.averageFE }),
     Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return d.value.averageFE }))));
@@ -197,7 +192,7 @@ function slide1() {
       .ticks(7)
       .tickFormat(d3.format("~")));
 
-  y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+  y.domain([0,slide1Max]);
   svg.selectAll(".yaxis")
     .transition()
     .duration(3000)
