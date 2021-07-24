@@ -191,13 +191,60 @@ function annotation(slide) {
     .text(function(d) { return d.text });
 }
 
+function lines(slide) {
+  if (slide == 0 ^ slide == 1) {
+    var overallLine = svg.selectAll(".line").data([overall]);
+    var gasLine = svg.selectAll(".gasline").data([overall]);
+    var electricLine = svg.selectAll(".electricline").data([overall]);
+    var plugInLine = svg.selectAll(".pluginline").data([overall]);
+    var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
+  }
+  else if (slide == 2) {
+    var overallLine = svg.selectAll(".line").data([overall]);
+    var gasLine = svg.selectAll(".gasline").data([gas]);
+    var electricLine = svg.selectAll(".electricline").data([electric]);
+    var plugInLine = svg.selectAll(".pluginline").data([plugIn]);
+    var fuelCellLine = svg.selectAll(".fuelcellline").data([fuelCell]);
+  }
+
+  gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); })
+      .curve(d3.curveMonotoneX));
+
+  electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); })
+      .curve(d3.curveMonotoneX));
+
+  plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); })
+      .curve(d3.curveMonotoneX));
+
+  fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); })
+      .curve(d3.curveMonotoneX));
+
+  overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.key); })
+      .y(function(d) { return y(d.value.averageFE); })
+      .curve(d3.curveMonotoneX));
+}
+
 function update(slide) {
   title(slide);
   axes(slide);
-  if (slide == 0) { slide1() }
+  /*if (slide == 0) { slide1() }
   else if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
-  else if (slide == 3) { slide3() }
+  */else if (slide == 3) { slide3() }
   annotation(slide)
 }
 
@@ -243,7 +290,7 @@ async function init() {
   slide = 1;
 }
 
-function slide1() {
+/*function slide1() {
   // lines
   var overallLine = svg.selectAll(".line").data([overall]);
   var gasLine = svg.selectAll(".gasline").data([overall]);
@@ -319,7 +366,7 @@ function slide2() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
-}
+}*/
 
 function slide3() {
 
