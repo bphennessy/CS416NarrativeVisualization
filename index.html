@@ -145,7 +145,7 @@ async function init() {
 
 function slide1() {
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  if (svg.selectAll("xaxis").empty()) {
+  if (svg.selectAll(".xaxis").empty()) {
     svg.selectAll(".xaxis")
     .call(xAxis
       .ticks(7)
@@ -166,7 +166,7 @@ function slide1() {
       .tickFormat(d3.format("~")));
   */
   y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-  if (svg.selectAll("yaxis").empty()) {
+  if (svg.selectAll(".yaxis").empty()) {
     svg.selectAll(".yaxis")
     .call(yAxis
       .ticks(5)
