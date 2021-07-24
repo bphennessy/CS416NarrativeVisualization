@@ -98,8 +98,7 @@ svg.selectAll(".legendtext").data(legendOffset).enter().append("text")
   .attr("y",parseInt(height) + 80)
   .attr("class","legend")
   .text(function(d,i) { return legendText[i]; })
-  .attr("alignment-baseline","middle")
-  .call(wrap,50);
+  .attr("alignment-baseline","middle");
 
 function update(slide) {
   if (slide == 1) { slide1() }
@@ -226,7 +225,8 @@ function slide1() {
     .attr("x",function(d) { return x(d.x2) + 25 })
     .attr("y",function(d) { return y(d.y2) + 50 })
     .attr("text-anchor","start")
-    .text(function(d) { return d.text });
+    .text(function(d) { return d.text })
+    .call(wrap,50);
 }
 
 function slide2() {
