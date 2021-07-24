@@ -199,7 +199,7 @@ function slide1() {
   var annotationCoord = [{"x1": 50, x2: 50, y1: 100, y2: 100},{"x1": 150, x2: 150, y1: 100, y2: 100}] 
   console.log(annotationCoord)
   // annotation
-  svg.selectAll(".annotationline").data(annotationCoord).enter().append("path").transition().duration(3000)
+  svg.selectAll(".annotationline").data(annotationCoord).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
     .attr("x1",function(d) { return d.x1 })
     .attr("y1",function(d) { return d.y1 })
