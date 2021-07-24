@@ -196,8 +196,11 @@ function slide1() {
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
 
-  var annotationCoord = [{"x1": 50, "y1": 50, "x2": 100, "y2": 100},{"x1": 150, "y2": 150, "x2": 100, "y2": 100}] 
-  console.log(annotationCoord)
+  var annotationCoord = 
+    [{"x1": 50, "y1": 50, "x2": 100, "y2": 100},
+    {"x1": 150, "y1": 150, "x2": 100, "y2": 100}]
+
+  console.log(overall.filter(function(d) { return d.key === "2017" })[0].value)
   // annotation
   svg.selectAll(".annotationline").data(annotationCoord).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
@@ -205,7 +208,7 @@ function slide1() {
     .attr("y1",function(d) { return d.y1 })
     .attr("x2",function(d) { return d.x2 })
     .attr("y2",function(d) { return d.y2 })
-    .attr("stroke-width","2")
+    .attr("stroke-width","1")
     .attr("stroke", "black");
 }
 
