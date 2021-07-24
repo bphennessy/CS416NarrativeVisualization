@@ -85,19 +85,19 @@ svg.append("text")
   .text("Overall Fuel Efficiency");
 
 // legend
-legendoffset = [-175, -105, -50, 20, 130];
-legendtext = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"];
-legendcolor = ["steelblue","red","blue","purple","green"];
-svg.selectAll(".legendmarks").data(legendoffset).enter().append("circle")
+legendOffset = [-175, -105, -50, 20, 130];
+legendText = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"];
+legendColor = ["steelblue","red","blue","purple","green"];
+svg.selectAll(".legendmarks").data(legendOffset).enter().append("circle")
   .attr("cx", function(d) { return d+width/2; })
   .attr("cy", parseInt(height) + 80)
   .attr("r", 6)
-  .style("fill", function(d,i) { return legendcolor[i]; });
-svg.selectAll(".legendtext").data(legendoffset).enter().append("text")
-  .attr("x", function(d) { return d+width/2+10; })
+  .style("fill", function(d,i) { return legendColor[i]; });
+svg.selectAll(".legendtext").data(legendOffset).enter().append("text")
+  .attr("x", function(d) { return d + width/2 + 10; })
   .attr("y",parseInt(height) + 80)
   .attr("class","legend")
-  .text(function(d,i) { return legendtext[i]; })
+  .text(function(d,i) { return legendText[i]; })
   .attr("alignment-baseline","middle");
 
 function update(slide) {
@@ -196,8 +196,10 @@ function slide1() {
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
 
+  var annotationCoord = [{"x1": 50, x2: 50, y1: 100, y2: 100}] 
+  console.log(annotationCoord)
   // annotation
-  svg.select("g").enter().append("path").attr("class","annotation").transition().duration(3000)
+  svg.append("path").attr("class","annotationline").transition().duration(3000)
     .attr("x1","50")
     .attr("y1","50")
     .attr("x2","100")
