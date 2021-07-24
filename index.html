@@ -306,7 +306,7 @@ function slide2() {
     {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
     {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
 
-  var annotationLine = svg.selectAll(".annotation.line").data(annotations);
+  var annotationLine = svg.selectAll(".annotationline").data(annotations);
   var annotationText = svg.selectAll(".annotationtext").data(annotations);
 
   annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000)
@@ -315,7 +315,7 @@ function slide2() {
     .attr("x2",function(d) { return x(d.x2) })
     .attr("y2",function(d) { return y(d.y2) });
 
-  annotationText.enter().append("line").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
+  annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
     .attr("x",function(d) { return x(d.x2) })
     .attr("y",function(d) { return y(d.y2) + 7 })
     .attr("text-anchor","start")
