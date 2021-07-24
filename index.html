@@ -134,7 +134,7 @@ function annotation(slide) {
   } else if (slide == 3) {
     var annotations = []
   }
-  console.log(d3.set(annotations).empty())
+  
   var annotationLine = svg.selectAll(".annotationline").data(annotations);
   var annotationText = svg.selectAll(".annotationtext").data(annotations);
 
@@ -144,6 +144,8 @@ function annotation(slide) {
   } else {
     annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000)
     annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
+    removeLine = annotationLine.exit().transition().duration(3000).style("opacity",0).remove()
+    removeText = annotationText.exit().transition().duration(3000).style("opactiy",0).remove()
   }
   annotationLine
     .attr("x1",function(d) { return x(d.x1) })
