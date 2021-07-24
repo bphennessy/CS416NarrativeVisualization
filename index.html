@@ -226,7 +226,7 @@ function slide1() {
     .attr("x",function(d) { return x(d.x) + 25 })
     .attr("y",function(d) { return y(d.y) + 50 })
     .attr("text-anchor","middle")
-    .text("Overall Fuel Efficiency");
+    .text(function(d) { return d.text });
 }
 
 function slide2() {
