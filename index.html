@@ -130,11 +130,11 @@ function axes(slide) {
 function legend(slide) {
   if (slide == 0 ^ slide == 1) {
     var legendData = 
-      [{"offset": -175, "text": "Overall", "color": "steelblue"},
-      {"offset": -105, "text": "Gas", "color": "red"},
-      {"offset": -50, "text": "Electric", "color": "blue"},
-      {"offset": 20, "text": "Plug-In Hybrid", "color": "purple"},
-      {"offset": 130, "text": "Fuel Cell", "color": "green"}];
+      [{"offset": -50, "text": "Overall", "color": "steelblue"},
+      {"offset": -50, "text": "", "color": "steelblue"},
+      {"offset": -50, "text": "", "color": "steelblue"},
+      {"offset": -50, "text": "", "color": "steelblue"},
+      {"offset": -50, "text": "", "color": "steelblue"}];
   }
   else {//if (slide == 2) {
     var legendData = 
@@ -145,32 +145,28 @@ function legend(slide) {
       {"offset": 130, "text": "Fuel Cell", "color": "green"}];
   }
 
-  svg.selectAll(".legendmarks").data(legendData).enter().append("circle")
+  legendMarks = svg.selectAll(".legendmarks").data(legendData);
+  legendText = svg.selectAll(".legendtext").data(legendData);
+
+  if (slide == 0) {
+    legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks);
+    legendText = legendMarks.enter().append("text").attr("class","legendtext").merge(legendMarks);
+  } else {
+    legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks);
+    legendText = legendMarks.enter().append("text").attr("class","legendtext").merge(legendMarks);
+  }
+  legendMarks
     .attr("cx", function(d) { return d.offset + width/2; })
     .attr("cy", parseInt(height) + 80)
     .attr("r", 6)
     .style("fill", function(d) { return d.color; });
-    
-  svg.selectAll(".legendtext").data(legendData).enter().append("text")
+
+  legendText
     .attr("x", function(d) { return d.offset + width/2 + 10; })
     .attr("y",parseInt(height) + 80)
     .attr("class","legend")
     .text(function(d) { return d.text; })
     .attr("alignment-baseline","middle");
-  /*legendOffset = [-175, -105, -50, 20, 130];
-  legendText = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"];
-  legendColor = ["steelblue","red","blue","purple","green"];
-  svg.selectAll(".legendmarks").data(legendOffset).enter().append("circle")
-    .attr("cx", function(d) { return d+width/2; })
-    .attr("cy", parseInt(height) + 80)
-    .attr("r", 6)
-    .style("fill", function(d,i) { return legendColor[i]; });
-  svg.selectAll(".legendtext").data(legendOffset).enter().append("text")
-    .attr("x", function(d) { return d + width/2 + 10; })
-    .attr("y",parseInt(height) + 80)
-    .attr("class","legend")
-    .text(function(d,i) { return legendText[i]; })
-    .attr("alignment-baseline","middle");*/
 }
 
 function lines(slide) {
@@ -247,13 +243,13 @@ function annotation(slide) {
   var annotationText = svg.selectAll(".annotationtext").data(annotations);
 
   if (slide == 0) {
-    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine)
-    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText)
+    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine);
+    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText);
   } else {
-    removeLine = annotationLine.exit().transition().duration(1000).style("opacity",0).remove()
-    removeText = annotationText.exit().transition().duration(1000).style("opactiy",0).remove()
-    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000).style("opacity",100)
-    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000).style("opacity",100)
+    removeLine = annotationLine.exit().transition().duration(1000).style("opacity",0).remove();
+    removeText = annotationText.exit().transition().duration(1000).style("opactiy",0).remove();
+    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000).style("opacity",100);
+    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000).style("opacity",100);
   }
 
   annotationLine
