@@ -208,19 +208,18 @@ function slide1() {
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
 
+   // annotation
   var annotations = 
-    [{"x": 2017, "y": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "text": "The best selling electric vehicle, the Tesla Model 3, is released"},
-    {"x": 2020, "y": 15, "text": "test"}]
+    [{"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2017.5, "y2": 21, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
+    {"x1": 1975, "y1": 17, "x2": 2011, "y2": 15,"text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."}]
 
-  // annotation
   svg.selectAll(".annotationline").data(annotations).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
     .attr("x1",function(d) { return x(d.x) })
     .attr("y1",function(d) { return y(d.y) })
     .attr("x2",function(d) { return x(d.x) + 25 })
     .attr("y2",function(d) { return y(d.y) + 50 });
-    /*.attr("stroke-width","1")
-    .attr("stroke", "black");*/
+
   svg.selectAll(".annotationtext").data(annotations).enter().append("text").transition().duration(3000)
     .attr("class","annotationtext")
     .attr("x",function(d) { return x(d.x) + 25 })
