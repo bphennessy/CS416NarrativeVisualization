@@ -164,7 +164,7 @@ function legend(slide) {
   legendText
     .attr("x", function(d) { return d.offset + width/2 + 10; })
     .attr("y",parseInt(height) + 80)
-    .attr("class","legendmark")
+    .attr("class","legendtext")
     .text(function(d) { return d.text; })
     .attr("alignment-baseline","middle");
 }
