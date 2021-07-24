@@ -234,6 +234,7 @@ function lines(slide) {
 function cars(slide) {
   if (slide == 3) {
     var cars = svg.append("g").selectAll(".cars").data(data);
+    console.log(data);
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx", x(function(d) { return d.ModelYear; }))
       .attr("cy", y(function(d) { return d.CombFe; }))
