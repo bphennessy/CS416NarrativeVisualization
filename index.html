@@ -214,7 +214,7 @@ function slide1() {
     {"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."},
     {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
     {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-    {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}]
+    {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
 
   svg.selectAll(".annotationline").data(annotations).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
@@ -228,7 +228,7 @@ function slide1() {
     .attr("x",function(d) { return x(d.x2) })
     .attr("y",function(d) { return y(d.y2) + 7 })
     .attr("text-anchor","start")
-    .text(function(d) { return d.text })
+    .text(function(d) { return d.text });
 }
 
 function slide2() {
@@ -283,6 +283,28 @@ function slide2() {
       .x(function(d) { return x(d.key); })
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
+
+  // annotation
+  var annotations = 
+    [//{"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2015, "y2": 21, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
+    {"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."},
+    {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
+    {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+    {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+
+  svg.selectAll(".annotationline").data(annotations).enter().append("line").transition().duration(3000)
+    .attr("class","annotationline")  
+    .attr("x1",function(d) { return x(d.x1) })
+    .attr("y1",function(d) { return y(d.y1) })
+    .attr("x2",function(d) { return x(d.x2) })
+    .attr("y2",function(d) { return y(d.y2) });
+
+  svg.selectAll(".annotationtext").data(annotations).enter().append("text").transition().duration(3000)
+    .attr("class","annotationtext")
+    .attr("x",function(d) { return x(d.x2) })
+    .attr("y",function(d) { return y(d.y2) + 7 })
+    .attr("text-anchor","start")
+    .text(function(d) { return d.text });
 }
 
 function slide3() {
