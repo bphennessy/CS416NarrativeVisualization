@@ -134,6 +134,18 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
+  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
+  svg.selectAll(".xaxis")
+    .call(xAxis
+      .ticks(7)
+      .tickFormat(d3.format("~")));
+
+  y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
+  svg.selectAll(".yaxis")
+    .call(yAxis
+      .ticks(5)
+      .tickFormat(d3.format("~s")));
+
   slide = 1;
   
   slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
@@ -145,47 +157,21 @@ async function init() {
 
 function slide1() {
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  if (svg.selectAll(".xaxis").empty()) {
-    svg.selectAll(".xaxis")
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-  } else {
-    svg.selectAll(".xaxis")
+  svg.selectAll(".xaxis")
     .transition()
     .duration(3000)
     .call(xAxis
       .ticks(7)
       .tickFormat(d3.format("~")));
-  }
-  /*svg.selectAll(".xaxis")
-    .transition()
-    .duration(3000)
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-  */
+
   y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-  if (svg.selectAll(".yaxis").empty()) {
-    svg.selectAll(".yaxis")
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-  } else {
-    svg.selectAll(".yaxis")
+  svg.selectAll(".yaxis")
     .transition()
     .duration(3000)
     .call(yAxis
       .ticks(5)
       .tickFormat(d3.format("~s")));
-  }
-  /*svg.selectAll(".yaxis")
-    .transition()
-    .duration(3000)
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-*/
+
   var overallLine = svg.selectAll(".line").data([overall]);
   var gasLine = svg.selectAll(".gasline").data([overall]);
   var electricLine = svg.selectAll(".electricline").data([overall]);
