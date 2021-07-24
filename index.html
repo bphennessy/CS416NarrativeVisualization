@@ -347,9 +347,29 @@ function slide2() {
 }
 
 function slide3() {
+
+  svg.selectAll(".line").data([overall]).enter().append("circle").attr("class","line").merge(overallLine).transition().duration(3000)
+    //.attr("d", d3.line()
+    //  .x(function(d) { return x(d.key); })
+    //  .y(function(d) { return y(d.value.averageFE); })
+    //  .curve(d3.curveMonotoneX));
+    //.attr("cx",
+  svg.selectAll(".carmarks").data(data).enter().append("circle")
+    .attr("cx", function(d) { return d.ModelYear; })
+    .attr("cy", function(d) { var yr = d.ModelYear; return overall.filter(function(d) { return d.key === yr })[0].value.averageFE; })
+    .attr("r", 6)
+    .style("fill", "steelblue");
+
+
+
+
+  // chart title
   svg.selectAll(".title")
     .text("New Title");
 }
+
+
+
 
 
 
