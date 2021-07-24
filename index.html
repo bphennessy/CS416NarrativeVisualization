@@ -231,8 +231,8 @@ function cars(slide) {
     var cars = svg.selectAll(".cars").data([overall]);
     cars = cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100);
     cars
-      .attr("cx", function(d) { return x(d.key); })
-      .attr("cy", function(d) { return y(d.value.averageFE); })
+      .attr("cx", function(d) { return d.key; })
+      .attr("cy", function(d) { return d.value.averageFE; })
       .attr("r", 5)
       //.style("fill", function(d) { return d.color; });
   }
