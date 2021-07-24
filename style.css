@@ -67,6 +67,7 @@
 }
 
 .title {
+    fill: black;
     font-size: 18px;
     text-decoration: underline;
     font-weight: bold;
@@ -79,4 +80,9 @@
 .annotationline {
     stroke-width: 1;
     stroke: black;
+}
+
+.annotationtext {
+    fill: black;
+    font-size: 12px;
 }
