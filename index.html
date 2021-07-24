@@ -186,35 +186,40 @@ function lines(slide) {
     var fuelCellLine = svg.selectAll(".fuelcellline").data([fuelCell]);
   }
 
-  gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
+  if (slide == 3) {
 
-  electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
 
-  plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
+  } else {
+    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
 
-  fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
+    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
 
-  overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
+    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+
+    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+
+    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+  }
 }
 
 function annotation(slide) {
@@ -247,8 +252,8 @@ function annotation(slide) {
     annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine);
     annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText);
   } else {
-    removeLine = annotationLine.exit().transition().duration(1000).style("opacity",0).remove();
-    removeText = annotationText.exit().transition().duration(1000).style("opactiy",0).remove();
+    annotationLine.exit().transition().duration(1000).style("opacity",0).remove();
+    annotationText.exit().transition().duration(1000).style("opactiy",0).remove();
     annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000).style("opacity",100);
     annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000).style("opacity",100);
   }
