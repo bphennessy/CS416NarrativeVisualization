@@ -153,7 +153,7 @@ function legend(slide) {
     legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText);
   } else {
     legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks).transition().duration(3000).style("opacity",100);
-    //legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText).transition().duration(3000).style("opacity",100);
+    legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText)//.transition().duration(3000).style("opacity",100);
   }
   legendMarks
     .attr("cx", function(d) { return d.offset + width/2; })
