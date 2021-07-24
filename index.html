@@ -163,13 +163,13 @@ function legend(slide) {
   }
 
   legendMarks
-    .attr("cx", function(d) { return d.offset + width/2; })
-    .attr("cy", parseInt(height) + 80)
-    .attr("r", 6)
-    .style("fill", function(d) { return d.color; });
+    .attr("cx",function(d) { return d.offset + width/2; })
+    .attr("cy",parseInt(height) + 80)
+    .attr("r",6)
+    .style("fill",function(d) { return d.color; });
 
   legendText
-    .attr("x", function(d) { return d.offset + width/2 + 10; })
+    .attr("x",function(d) { return d.offset + width/2 + 10; })
     .attr("y",parseInt(height) + 80)
     .attr("class","legendtext")
     .text(function(d) { return d.text; })
@@ -200,31 +200,31 @@ function lines(slide) {
     svg.selectAll(".fuelcellline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
   } else {
     gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000).style("opacity",100)
-      .attr("d", d3.line()
+      .attr("d",d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); })
         .curve(d3.curveMonotoneX));
 
     electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000).style("opacity",100)
-      .attr("d", d3.line()
+      .attr("d",d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); })
         .curve(d3.curveMonotoneX));
 
     plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000).style("opacity",100)
-      .attr("d", d3.line()
+      .attr("d",d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); })
         .curve(d3.curveMonotoneX));
 
     fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000).style("opacity",100)
-      .attr("d", d3.line()
+      .attr("d",d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); })
         .curve(d3.curveMonotoneX));
 
     overallLine.enter().append("path").attr("class","overallline").merge(overallLine).transition().duration(3000).style("opacity",100)
-      .attr("d", d3.line()
+      .attr("d",d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); })
         .curve(d3.curveMonotoneX));
@@ -233,12 +233,12 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
+    var cars1 = svg.append("g").selectAll(".cars1").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
     console.log(data);
-    cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
-      .attr("cx", x(function(d) { return parseInt(d.ModelYear); }))
-      .attr("cy", y(function(d) { return +d.CombFe; }))
-      .attr("r", 5);
+    cars.enter().append("circle")//.attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+      .attr("cx",x(function(d) { return parseInt(d.ModelYear); }))
+      .attr("cy",y(function(d) { return +d.CombFe; }))
+      .attr("r",5);
       //.style("fill", function(d) { return d.color; });*/
   }
 }
