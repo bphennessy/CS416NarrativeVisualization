@@ -236,8 +236,8 @@ function cars(slide) {
     var cars1 = svg.append("g").selectAll("circle").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
     console.log(data);
     cars1.enter().append("circle")//.attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
-      .attr("cx",x(function(d) { return parseInt(d.ModelYear); }))
-      .attr("cy",y(function(d) { return +d.CombFE; }))
+      .attr("cx",function(d) { return parseInt(d.ModelYear); })
+      .attr("cy",function(d) { return +d.CombFE; })
       .attr("r",5);
       //.style("fill", function(d) { return d.color; });*/
   }
