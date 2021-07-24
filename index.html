@@ -187,7 +187,7 @@ function lines(slide) {
   }
 
   if (slide == 3) {
-    svg.selectAll(".overallline").data().exit().transition().duration(1000).style("opacity",0).remove();
+    svg.selectAll(".overallline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
   } else {
     gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
       .attr("d", d3.line()
