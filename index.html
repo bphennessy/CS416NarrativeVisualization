@@ -210,23 +210,22 @@ function slide1() {
 
    // annotation
   var annotations = 
-    [{"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2017.5, "y2": 21, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
+    [{"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2015, "y2": 21, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
     {"x1": 2010, "y1": 14.5, "x2": 2011, "y2": 15,"text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."}]
 
   svg.selectAll(".annotationline").data(annotations).enter().append("line").transition().duration(3000)
     .attr("class","annotationline")  
     .attr("x1",function(d) { return x(d.x1) })
     .attr("y1",function(d) { return y(d.y1) })
-    .attr("x2",function(d) { return x(d.x2) + 25 })
-    .attr("y2",function(d) { return y(d.y2) + 50 });
+    .attr("x2",function(d) { return x(d.x2) })
+    .attr("y2",function(d) { return y(d.y2) });
 
   svg.selectAll(".annotationtext").data(annotations).enter().append("text").transition().duration(3000)
     .attr("class","annotationtext")
-    .attr("x",function(d) { return x(d.x2) + 25 })
-    .attr("y",function(d) { return y(d.y2) + 50 })
+    .attr("x",function(d) { return x(d.x2) })
+    .attr("y",function(d) { return y(d.y2) + 5 })
     .attr("text-anchor","start")
     .text(function(d) { return d.text })
-    .call(wrap,"50");
 }
 
 function slide2() {
@@ -287,29 +286,7 @@ function slide3() {
 
 }
 
-function wrap(text, width) {
-  text.each(function() {
-    var text = d3.select(this),
-        words = text.text().split(/\s+/).reverse(),
-        word,
-        line = [],
-        lineNumber = 0,
-        lineHeight = 1.1, // ems
-        y = text.attr("y"),
-        dy = parseFloat(text.attr("dy")),
-        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-    while (word = words.pop()) {
-      line.push(word);
-      tspan.text(line.join(" "));
-      if (tspan.node().getComputedTextLength() > width) {
-        line.pop();
-        tspan.text(line.join(" "));
-        line = [word];
-        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-      }
-    }
-  });
-}
+
 
 
 
