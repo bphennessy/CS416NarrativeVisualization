@@ -172,14 +172,14 @@ function legend(slide) {
 
 function lines(slide) {
   if (slide == 0 ^ slide == 1) {
-    var overallLine = svg.selectAll(".line").data([overall]);
+    var overallLine = svg.selectAll(".overallline").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([overall]);
     var electricLine = svg.selectAll(".electricline").data([overall]);
     var plugInLine = svg.selectAll(".pluginline").data([overall]);
     var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
   }
   else if (slide == 2) {
-    var overallLine = svg.selectAll(".line").data([overall]);
+    var overallLine = svg.selectAll(".overallline").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([gas]);
     var electricLine = svg.selectAll(".electricline").data([electric]);
     var plugInLine = svg.selectAll(".pluginline").data([plugIn]);
@@ -187,7 +187,7 @@ function lines(slide) {
   }
 
   if (slide == 3) {
-    svg.selectAll(".line").data().exit().transition().duration(1000).style("opacity",0).remove();
+    svg.selectAll(".overallline").data().exit().transition().duration(1000).style("opacity",0).remove();
   } else {
     gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
       .attr("d", d3.line()
@@ -213,7 +213,7 @@ function lines(slide) {
         .y(function(d) { return y(d.value.averageFE); })
         .curve(d3.curveMonotoneX));
 
-    overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
+    overallLine.enter().append("path").attr("class","overallline").merge(overallLine).transition().duration(3000)
       .attr("d", d3.line()
         .x(function(d) { return x(d.key); })
         .y(function(d) { return y(d.value.averageFE); })
