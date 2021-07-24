@@ -229,7 +229,8 @@ function cars(slide) {
   if (slide == 3) {
     console.log(overall)
     var cars = svg.selectAll(".cars").data([overall]);
-    cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+    cars = cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100);
+    cars
       .attr("cx", function(d) { return x(d.key); })
       .attr("cy", function(d) { return y(d.value.averageFE); })
       .attr("r", 5)
