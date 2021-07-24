@@ -93,6 +93,24 @@ svg.selectAll(".legendtext").data(legendOffset).enter().append("text")
   .text(function(d,i) { return legendText[i]; })
   .attr("alignment-baseline","middle");
 
+function title(slide)
+  if (slide == 0) {
+    svg.append("text")
+      .attr("class","title")
+      .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
+      .attr("text-anchor","middle")
+      .text("Overall Fuel Efficiency");
+  } else if (slide == 1) {
+    svg.selectAll(".title")
+      .text("Overall Fuel Efficiency");
+  } else if (slide == 2) {
+    svg.selectAll(".title")
+      .text("Fuel Efficiency by Vehicle Type");
+  } else if (slide == 3) {
+    svg.selectAll(".title")
+    .text("Slide 3");
+  }
+
 function update(slide) {
   if (slide == 1) { slide1() }
   else if (slide == 2) { slide2() }
@@ -142,11 +160,11 @@ async function init() {
       .tickFormat(d3.format("~s")));
 
   // chart title
-  svg.append("text")
+  /*svg.append("text")
     .attr("class","title")
     .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
     .attr("text-anchor","middle")
-    .text("Overall Fuel Efficiency");
+    .text("Overall Fuel Efficiency");*/
 
   // annotations
   var annotations = 
@@ -183,7 +201,7 @@ async function init() {
 }
 
 function slide1() {
-  //axes
+  // axes
   x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
   svg.selectAll(".xaxis")
     .transition()
@@ -238,8 +256,8 @@ function slide1() {
       .curve(d3.curveMonotoneX));
   
   // chart title
-  svg.selectAll(".title")
-    .text("Overall Fuel Efficiency");
+  //svg.selectAll(".title")
+   // .text("Overall Fuel Efficiency");
 
   // annotations
   var annotations = 
@@ -320,8 +338,8 @@ function slide2() {
       .curve(d3.curveMonotoneX));
 
   // chart title
-  svg.selectAll(".title")
-    .text("Fuel Efficiency by Vehicle Type");
+  //svg.selectAll(".title")
+   // .text("Fuel Efficiency by Vehicle Type");
 
   // annotations
   var annotations = 
@@ -364,8 +382,8 @@ function slide3() {
 
 
   // chart title
-  svg.selectAll(".title")
-    .text("New Title");
+  //svg.selectAll(".title")
+    //.text("New Title");
 }
 
 
