@@ -225,7 +225,7 @@ function slide1() {
     .attr("x2",function(d) { return x(d.x2) })
     .attr("y2",function(d) { return y(d.y2) });
 
-  annotationText.enter().append("line").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
+  annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
     .attr("x",function(d) { return x(d.x2) })
     .attr("y",function(d) { return y(d.y2) + 7 })
     .attr("text-anchor","start")
