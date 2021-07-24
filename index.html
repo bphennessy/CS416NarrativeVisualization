@@ -320,6 +320,10 @@ function slide2() {
       .y(function(d) { return y(d.value.averageFE); })
       .curve(d3.curveMonotoneX));
 
+  // chart title
+  svg.selectAll(".title")
+    .text("Overall Fuel Efficiency");
+
   // annotations
   var annotations = 
     [{"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2015, "y2": 21, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
