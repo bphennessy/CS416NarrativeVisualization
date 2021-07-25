@@ -233,8 +233,8 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
-
+    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+    console.log(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}))
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
