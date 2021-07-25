@@ -238,14 +238,19 @@ function lines(slide) {
 }
 
 function cars(slide) {
+  
   if (slide == 3) {
     var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
-
+    
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
       .attr("r",5)
       .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
+  }
+  else {
+    var cars = svg.selectAll(".annotationtext").data([]);
+    cars.exit().transition().duration(1000).style("opacity",0).remove();
   }
 }
 
