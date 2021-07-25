@@ -238,7 +238,7 @@ function cars(slide) {
   if (slide == 3) {
     var cars1 = svg.append("g").selectAll("circle").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
     console.log(data);
-    cars1.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+    cars1.enter().append("circle").attr("class","cars").merge(cars1).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
       .attr("r",5);
