@@ -107,11 +107,11 @@ function axes(slide) {
     x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]); 
     y.domain([0,slide2Max]);
   } else if (slide == 3) {
-    //x.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.CombFE }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.CombFE })]); 
-    //y.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.AnnualFuelCost }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.AnnualFuelCost })]);
-    x.domain([14,120]);
-    y.domain([550,3150]);
-    var test = data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }})
+    x.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.CombFE) })]); 
+    y.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.AnnualFuelCost) })]);
+    //x.domain([14,120]);
+    //y.domain([550,3150]);
+    /*var test = data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }})
     var test2 = data.sort(function(d) { return d3.descending(d.FuelType); }).filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }})
     console.log(test)
     console.log(test2)
@@ -119,7 +119,7 @@ function axes(slide) {
     console.log(d3.min(test2,function(d) { return parseInt(d.CombFE) }))
     console.log(d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) }))
     console.log(d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }))
-    console.log(d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }))
+    console.log(d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }))*/
   }
 
   if (slide == 0) {
