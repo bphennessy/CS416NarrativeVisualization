@@ -249,7 +249,7 @@ function cars(slide) {
       .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
   }
   else {
-    var cars = svg.selectAll(".annotationtext").data([]);
+    var cars = svg.selectAll(".cars").data([]);
     cars.exit().transition().duration(1000).style("opacity",0).remove();
   }
 }
