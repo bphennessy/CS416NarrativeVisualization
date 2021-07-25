@@ -111,7 +111,7 @@ function axes(slide) {
     //y.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.AnnualFuelCost }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.AnnualFuelCost })]);
     x.domain([14,120]);
     y.domain([52,3150]);
-    console.log(d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.CombFE }))
+    console.log(d3.min(data.sort(function(d) { return d3.descending(d.FuelType); }).filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.CombFE }))
     console.log(d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.CombFE }))
     console.log(d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.AnnualFuelCost }))
     console.log(d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return d.AnnualFuelCost }))
