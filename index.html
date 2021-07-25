@@ -238,7 +238,7 @@ function lines(slide) {
 
 function cars(slide) {
   if (slide == 3) {
-    var cars = svg.append("g").selectAll("circle").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
+    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}));
 
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
@@ -354,10 +354,6 @@ async function init() {
   slide = 0;
   update(slide);
   slide = 1;
-}
-
-function carcolor (fuelType) {
-
 }
 
 
