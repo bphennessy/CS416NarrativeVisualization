@@ -112,7 +112,10 @@ function axes(slide) {
     x.domain([14,120]);
     y.domain([550,3150]);
     var test = data.filter(function(d) { if (d["ModelYear"] === "2022") { return d }})
-    colsole.log(test)
+    var test2 = data.sort(function(d) { return d3.descending(d.FuelType); }).filter(function(d) { if (d["ModelYear"] === "2022") { return d }})
+    console.log(test)
+    console.log(test2)
+    console.log(test === test2)
     console.log(d3.min(test,function(d) { return d.CombFE }))
     console.log(d3.max(data.filter(function(d) { if (d["ModelYear"] === "2022") { return d.CombFE }}),function(d) { return d.CombFE }))
     console.log(d3.min(data.filter(function(d) { if (d["ModelYear"] === "2022") { return d }}),function(d) { return d.AnnualFuelCost }))
