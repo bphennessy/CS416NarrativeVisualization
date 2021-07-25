@@ -156,7 +156,7 @@ function legend(slide) {
       {"offset": 20, "text": "Plug-In Hybrid", "color": "purple"},
       {"offset": 130, "text": "Fuel Cell", "color": "green"}];
   }
-  
+
   var legendMarks = svg.selectAll(".legendmark").data(legendData);
   var legendText = svg.selectAll(".legendtext").data(legendData);
 
@@ -245,7 +245,7 @@ function cars(slide) {
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
       .attr("r",5)
-      .style("fill", function(d) { if (d.FuelType == "Gas") { return "red" } else {return "blue"}})//if (d.FuelType == "Electric") { return "blue" } else if (d.FuelType == "Plug-In") { return "purple" } else if (d.FuelType == "Fuel Cell") { return "green" }; });
+      .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
   }
 }
 
