@@ -107,8 +107,8 @@ function axes(slide) {
     x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]); 
     y.domain([0,slide2Max]);
   } else if (slide == 3) {
-    x.domain([d3.min(data,function(d) { return d.CombFE }),d3.max(data,function(d) { return d.CombFE })]); 
-    y.domain([d3.max(data,function(d) { return d.AnnualFuelCost }),d3.min(data,function(d) { return d.AnnualFuelCost })]);
+    x.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }})),function(d) { return d.CombFE }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }})),function(d) { return d.CombFE })]); 
+    y.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }})),function(d) { return d.AnnualFuelCost }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }})),function(d) { return d.AnnualFuelCost })]);
   }
 
   if (slide == 0) {
