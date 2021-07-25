@@ -244,8 +244,7 @@ function cars(slide) {
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
       .attr("r",5)
-      .style("fill", carcolor(function(d) { return d.FuelType; }));
-  }
+      .style("fill", function(d) { if (d.FuelType == "Gas") { return "red" } else if (d.FuelType == "Electric") { return "blue" } else if (d.FuelType == "Plug-In") { return "purple" } else if (d.FuelType == "Fuel Cell") { return "green" }; });}
 }
 
 function annotation(slide) {
@@ -335,14 +334,14 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
-  colors = new String[data.length];
+  /*String[] colors = new String[data.length];
   for(i=0; i<data.length; i++) {
     if (data[i].fuelType == "Gas") { return "red" }
     else if (data[i].fuelType == "Electric") { return "blue" }
     else if (data[i].fuelType == "Plug-In") { return "purple" }
     else if (data[i].fuelType == "Fuel Cell") { return "green" }
   }
-  console.log(colors)
+  console.log(colors)*/
   // set y max for each slide
   slide1Max = d3.max(overall,function(d) { return d.value.averageFE })
 
@@ -357,10 +356,7 @@ async function init() {
 }
 
 function carcolor (fuelType) {
-  if (fuelType == "Gas") { return "red" }
-  else if (fuelType == "Electric") { return "blue" }
-  else if (fuelType == "Plug-In") { return "purple" }
-  else if (fuelType == "Fuel Cell") { return "green" }
+
 }
 
 
