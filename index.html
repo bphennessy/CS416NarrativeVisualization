@@ -141,16 +141,22 @@ function legend(slide) {
       {"offset": -50, "text": "Overall", "color": "steelblue"},
       {"offset": -50, "text": "Overall", "color": "steelblue"},
       {"offset": -50, "text": "Overall", "color": "steelblue"}];
-  }
-  else if (slide == 2 ^ slide == 3) {
+  } else if (slide == 2) {
     var legendData = 
       [{"offset": -175, "text": "Overall", "color": "steelblue"},
       {"offset": -105, "text": "Gas", "color": "red"},
       {"offset": -50, "text": "Electric", "color": "blue"},
       {"offset": 20, "text": "Plug-In Hybrid", "color": "purple"},
       {"offset": 130, "text": "Fuel Cell", "color": "green"}];
+  } else if (slide == 3) {
+    var legendData = 
+      [{"offset": -105, "text": "Gas", "color": "red"},
+      {"offset": -105, "text": "Gas", "color": "red"},
+      {"offset": -50, "text": "Electric", "color": "blue"},
+      {"offset": 20, "text": "Plug-In Hybrid", "color": "purple"},
+      {"offset": 130, "text": "Fuel Cell", "color": "green"}];
   }
-
+  
   var legendMarks = svg.selectAll(".legendmark").data(legendData);
   var legendText = svg.selectAll(".legendtext").data(legendData);
 
