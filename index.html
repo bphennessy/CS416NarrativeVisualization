@@ -335,7 +335,7 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
-  colors = new string[data.length];
+  colors = new String[data.length];
   for(i=0; i<data.length; i++) {
     if (data[i].fuelType == "Gas") { return "red" }
     else if (data[i].fuelType == "Electric") { return "blue" }
