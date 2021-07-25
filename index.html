@@ -101,7 +101,7 @@ function axes(slide) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
     y.domain([0,slide1Max]);
   } else if (slide == 2) {
-    x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]); 
+    x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]); 
     y.domain([0,slide2Max]);
   } else if (slide == 3) {
     x.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.CombFE) })]); 
@@ -350,11 +350,11 @@ async function init() {
   }
   console.log(colors)*/
   // set y max for each slide
-  slide1Max = d3.max(overall,function(d) { return d.value.averageFE })
+  slide1Max = d3.max(overall,function(d) { return parseInt(d.value.averageFE) })
 
-  slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
-    Math.max(d3.max(electric,function(d) { return d.value.averageFE }),
-    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return d.value.averageFE }))));
+  slide2Max = Math.max(d3.max(gas,function(d) { return parseInt(d.value.averageFE) }),
+    Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
+    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
   
   // initialize slides
   slide = 0;
