@@ -23,19 +23,6 @@
 
 
 
-function previous() {
-  if (slide != 1) {
-    slide--
-    update(slide)
-  }
- }
-
-function next() {
-  if (slide != 3) {
-    slide++
-    update(slide)
-  }
-}
 
 // margin setup
 var margin = {top: 50, right: 50, bottom: 150, left: 50},
@@ -60,7 +47,6 @@ svg.append("g")
   .attr("fill","black")
   .attr("transform","translate(" + width/2 + ",40)")
   .attr("text-anchor", "middle")
-  .text("Model Year");
 
 // y-axis
 var y = d3.scaleLinear().range([height,0]);
@@ -75,7 +61,6 @@ svg.append("g")
   .attr("y",-margin.left)
   .attr("dy", "1em")
   .attr("text-anchor", "middle")
-  //.text("Fuel Efficiency (MPG)");
 
 function title(slide) {
   if (slide == 0) {
@@ -92,7 +77,7 @@ function title(slide) {
       .text("Fuel Efficiency by Vehicle Type");
   } else if (slide == 3) {
     svg.selectAll(".title")
-    .text("Slide 3");
+    .text("Annual Fuel Cost vs Fuel Efficiency");
   }
 }
 
@@ -368,6 +353,19 @@ async function init() {
   slide = 1;
 }
 
+function previous() {
+  if (slide != 1) {
+    slide--
+    update(slide)
+  }
+ }
+
+function next() {
+  if (slide != 3) {
+    slide++
+    update(slide)
+  }
+}
 
 
 
