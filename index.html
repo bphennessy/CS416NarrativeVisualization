@@ -243,8 +243,8 @@ function cars(slide) {
     cars1.enter().append("circle").attr("class","cars").merge(cars1).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
-      .attr("r",5);
-      //.style("fill", function(d) { return d.color; });*/
+      .attr("r",5)
+      .style("fill", carcolor(function(d) { return d.FuelType; }));
   }
 }
 
@@ -348,7 +348,12 @@ async function init() {
   slide = 1;
 }
 
-
+function carcolor (fuelType) {
+  if (fuelType == "Gas") { return "red" }
+  else if (fuelType == "Electric") { return "blue" }
+  else if (fuelType == "Plug-In") { return "purple" }
+  else if (fuelType == "Fuel Cell") { return "green" }
+}
 
 
 
