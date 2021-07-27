@@ -17,6 +17,14 @@
     /*color: white;*/
 }
 
+.yearSelect {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+
 .overallline {
     fill: none;
     stroke: steelblue;
