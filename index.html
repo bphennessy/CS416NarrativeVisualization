@@ -414,7 +414,7 @@ function dropdownsetup() {
   dropdown.selectAll("option").data(overall).enter().append("option")
     .attr("value",function(d) { return d.key; })
     .text(function(d) { return d.key })
-    .property("selected","2021");
+    .attr("selected","2021");
 }
 
 
