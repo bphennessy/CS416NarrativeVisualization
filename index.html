@@ -349,12 +349,10 @@ function previous() {
   if (slide != 1) {
     slide--
     update(slide)
-    document.getElementById("previousButton").hidden = "";
-    console.log(document.getElementById("previousButton").hidden)
+    document.getElementById("previousButton").style.display = "block";
   }
   else {
-    document.getElementById("previousButton").hidden = "hidden";
-    console.log(document.getElementById("previousButton").hidden)
+    document.getElementById("previousButton").hidden = "none";
   }
  }
 
