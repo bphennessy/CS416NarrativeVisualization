@@ -407,16 +407,14 @@ var dropdownChange = function() {
   cars(slide,newYear);
 };
 
-// Get names of cereals, for dropdown
-//var cereals = Object.keys(cerealMap).sort();
-
 var dropdown = d3.select("#navBar").insert("select", "svg")
   .on("change", dropdownChange);
 
 function dropdownsetup() {
   dropdown.selectAll("option").data(overall).enter().append("option")
-    .attr("value", function (d) { return d.key; })
-    .text(function (d) { return d.key });
+    .attr("value",function(d) { return d.key; })
+    .text(function(d) { return d.key })
+    .property("selected","2021");
 }
 
 
