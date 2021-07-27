@@ -235,10 +235,27 @@ function lines(slide) {
   }
 }
 
-function cars(slide) {
+/*function cars(slide) {
   
   if (slide == 3) {
     var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+    
+    cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+      .attr("cx",function(d) { return x(d.CombFE); })
+      .attr("cy",function(d) { return y(d.AnnualFuelCost); })
+      .attr("r",5)
+      .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
+  }
+  else {
+    var cars = svg.selectAll(".cars").data([]);
+    cars.exit().transition().duration(1000).style("opacity",0).remove();
+  }
+}*/
+
+function cars(slide,carYear) {
+  
+  if (slide == 3) {
+    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
     
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
@@ -306,7 +323,7 @@ function update(slide) {
   axes(slide);
   legend(slide);
   lines(slide);
-  cars(slide);
+  cars(slide,"2021");
   annotation(slide);
 }
 
@@ -384,12 +401,10 @@ function next() {
 
 
 // Handler for dropdown value change
-//var dropdownChange = function() {
-//  var newYear = d3.select(this).property('value'),
-//      newData   = cerealMap[newYear];
-
-//  cars(newData);
-//};
+var dropdownChange = function() {
+  var newYear = d3.select(this).property('value')
+  cars(slide,newData);
+};
 
 // Get names of cereals, for dropdown
 //var cereals = Object.keys(cerealMap).sort();
@@ -403,8 +418,7 @@ var dropdown = d3.select("#navBar")
     .data(overall)
     .enter().append("option")
     .attr("value", function (d) { return d.key; })
-    .text(function (d) { return d.key//[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
-  });}
+    .text(function (d) { return d.key });}
 
 
 
