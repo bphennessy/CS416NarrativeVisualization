@@ -4,14 +4,13 @@
   <head>
     <link rel="stylesheet" href="style.css">
     <script src='https://d3js.org/d3.v5.min.js'></script>
-    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
   </head>
 
   <body onload='init()'>
     <h1>CS 416 Narrative Visualization Project - Brian Hennessy</h1>
-    <nav>
-      <button class="button" onclick="previous()">Previous</button>
-      <button class="button" onclick="next()">Next</button>
+    <nav id='navBar'>
+      <button class="button" id="previousButton" style="visibility:hidden" onclick="previous()">Previous</button>
+      <button class="button" id="nextButton" onclick="next()">Next</button>
     </nav>
     <script>
 
@@ -23,19 +22,6 @@
 
 
 
-function previous() {
-  if (slide != 1) {
-    slide--
-    update(slide)
-  }
- }
-
-function next() {
-  if (slide != 3) {
-    slide++
-    update(slide)
-  }
-}
 
 // margin setup
 var margin = {top: 50, right: 50, bottom: 150, left: 50},
@@ -60,7 +46,6 @@ svg.append("g")
   .attr("fill","black")
   .attr("transform","translate(" + width/2 + ",40)")
   .attr("text-anchor", "middle")
-  .text("Model Year");
 
 // y-axis
 var y = d3.scaleLinear().range([height,0]);
@@ -75,28 +60,246 @@ svg.append("g")
   .attr("y",-margin.left)
   .attr("dy", "1em")
   .attr("text-anchor", "middle")
-  .text("Fuel Efficiency (MPG)");
 
-// legend
-legendOffset = [-175, -105, -50, 20, 130];
-legendText = ["Overall","Gas","Electric","Plug-In Hybrid","Fuel Cell"];
-legendColor = ["steelblue","red","blue","purple","green"];
-svg.selectAll(".legendmarks").data(legendOffset).enter().append("circle")
-  .attr("cx", function(d) { return d+width/2; })
-  .attr("cy", parseInt(height) + 80)
-  .attr("r", 6)
-  .style("fill", function(d,i) { return legendColor[i]; });
-svg.selectAll(".legendtext").data(legendOffset).enter().append("text")
-  .attr("x", function(d) { return d + width/2 + 10; })
-  .attr("y",parseInt(height) + 80)
-  .attr("class","legend")
-  .text(function(d,i) { return legendText[i]; })
-  .attr("alignment-baseline","middle");
+function title(slide) {
+  if (slide == 0) {
+    svg.append("text")
+      .attr("class","title")
+      .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
+      .attr("text-anchor","middle")
+      .text("Overall Fuel Efficiency");
+  } else if (slide == 1) {
+    svg.selectAll(".title")
+      .text("Overall Fuel Efficiency");
+  } else if (slide == 2) {
+    svg.selectAll(".title")
+      .text("Fuel Efficiency by Vehicle Type");
+  } else if (slide == 3) {
+    svg.selectAll(".title")
+    .text("Annual Fuel Cost vs Fuel Efficiency");
+  }
+}
+
+function axes(slide) {
+  if (slide == 0 ^ slide == 1) {
+    x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
+    y.domain([0,slide1Max]);
+    d3.selectAll(".xlabel").text("Model Year");
+    d3.selectAll(".ylabel").text("Fuel Efficiency (MPG)");
+  } else if (slide == 2) {
+    x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]); 
+    y.domain([0,slide2Max]);
+    d3.selectAll(".xlabel").text("Model Year");
+    d3.selectAll(".ylabel").text("Fuel Efficiency (MPG)");
+  } else if (slide == 3) {
+    x.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.CombFE) })]); 
+    y.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == "2022") { return d }}),function(d) { return parseInt(d.AnnualFuelCost) })]);
+    d3.selectAll(".xlabel").text("Fuel Efficiency (MPG)");
+    d3.selectAll(".ylabel").text("Annual Fuel Cost ($/year)");
+  }
+
+  if (slide == 0) {
+    svg.selectAll(".xaxis")
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    svg.selectAll(".yaxis")
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+  } else {
+    svg.selectAll(".xaxis")
+      .transition()
+      .duration(3000)
+      .call(xAxis
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    svg.selectAll(".yaxis")
+      .transition()
+      .duration(3000)
+      .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+  }
+}
+
+function legend(slide) {
+  if (slide == 0 ^ slide == 1) {
+    var legendData = 
+      [{"offset": -50, "text": "Overall", "color": "steelblue"},
+      {"offset": -50, "text": " ", "color": "steelblue"},
+      {"offset": -50, "text": " ", "color": "steelblue"},
+      {"offset": -50, "text": " ", "color": "steelblue"},
+      {"offset": -50, "text": " ", "color": "steelblue"}];
+  } else if (slide == 2) {
+    var legendData = 
+      [{"offset": -175, "text": "Overall", "color": "steelblue"},
+      {"offset": -105, "text": "Gas", "color": "red"},
+      {"offset": -50, "text": "Electric", "color": "blue"},
+      {"offset": 20, "text": "Plug-In Hybrid", "color": "purple"},
+      {"offset": 130, "text": "Fuel Cell", "color": "green"}];
+  } else if (slide == 3) {
+    var legendData = 
+      [{"offset": -105, "text": " ", "color": "red"},
+      {"offset": -105, "text": "Gas", "color": "red"},
+      {"offset": -50, "text": "Electric", "color": "blue"},
+      {"offset": 20, "text": "Plug-In Hybrid", "color": "purple"},
+      {"offset": 130, "text": "Fuel Cell", "color": "green"}];
+  }
+
+  var legendMarks = svg.selectAll(".legendmark").data(legendData);
+  var legendText = svg.selectAll(".legendtext").data(legendData);
+
+  if (slide == 0) {
+    legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks);
+    legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText);
+  } else {
+    legendMarks = legendMarks.enter().append("circle").attr("class","legendmark").merge(legendMarks).transition().duration(3000).style("opacity",100);
+    legendText = legendText.enter().append("text").attr("class","legendtext").merge(legendText).transition().duration(3000).style("opacity",100);
+  }
+
+  legendMarks
+    .attr("cx",function(d) { return d.offset + width/2; })
+    .attr("cy",parseInt(height) + 80)
+    .attr("r",6)
+    .style("fill",function(d) { return d.color; });
+
+  legendText
+    .attr("x",function(d) { return d.offset + width/2 + 10; })
+    .attr("y",parseInt(height) + 80)
+    .attr("class","legendtext")
+    .text(function(d) { return d.text; })
+    .attr("alignment-baseline","middle");
+}
+
+function lines(slide) {
+  if (slide == 0 ^ slide == 1) {
+    var overallLine = svg.selectAll(".overallline").data([overall]);
+    var gasLine = svg.selectAll(".gasline").data([overall]);
+    var electricLine = svg.selectAll(".electricline").data([overall]);
+    var plugInLine = svg.selectAll(".pluginline").data([overall]);
+    var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
+  }
+  else if (slide == 2) {
+    var overallLine = svg.selectAll(".overallline").data([overall]);
+    var gasLine = svg.selectAll(".gasline").data([gas]);
+    var electricLine = svg.selectAll(".electricline").data([electric]);
+    var plugInLine = svg.selectAll(".pluginline").data([plugIn]);
+    var fuelCellLine = svg.selectAll(".fuelcellline").data([fuelCell]);
+  }
+
+  if (slide == 3) {
+    svg.selectAll(".overallline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
+    svg.selectAll(".gasline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
+    svg.selectAll(".electricline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
+    svg.selectAll(".pluginline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
+    svg.selectAll(".fuelcellline").data([]).exit().transition().duration(1000).style("opacity",0).remove();
+  } else {
+    gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000).style("opacity",100)
+      .attr("d",d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+
+    electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000).style("opacity",100)
+      .attr("d",d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+
+    plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000).style("opacity",100)
+      .attr("d",d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+
+    fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000).style("opacity",100)
+      .attr("d",d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+
+    overallLine.enter().append("path").attr("class","overallline").merge(overallLine).transition().duration(3000).style("opacity",100)
+      .attr("d",d3.line()
+        .x(function(d) { return x(d.key); })
+        .y(function(d) { return y(d.value.averageFE); })
+        .curve(d3.curveMonotoneX));
+  }
+}
+
+function cars(slide,carYear) {
+  
+  if (slide == 3) {
+    var cars = svg.append("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+    
+    cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+      .attr("cx",function(d) { return x(d.CombFE); })
+      .attr("cy",function(d) { return y(d.AnnualFuelCost); })
+      .attr("r",5)
+      .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
+  }
+  else {
+    var cars = svg.selectAll(".cars").data([]);
+    cars.exit().transition().duration(1000).style("opacity",0).remove();
+  }
+}
+
+function annotation(slide) {
+  if (slide == 0) {
+    var annotations = 
+      [{"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy standards in 1975."},
+      {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
+      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+  } else if (slide == 1) {
+    var annotations = 
+      [{"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy standards in 1975."},
+      {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
+      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+  } else if (slide == 2) {
+    var annotations = 
+      [{"x1": 2017, "y1": electric.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2016.5, "y2": 95, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
+      {"x1": 2013, "y1": electric.filter(function(d) { return d.key === "2013" })[0].value.averageFE, "x2": 2013.5, "y2": 80, "text": "Nissan begins assembling the Leaf, the first zero tailpipe emissions mass market vehicle."},
+      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 10, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 15, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+  } else if (slide == 3) {
+    var annotations = []
+  }
+  
+  var annotationLine = svg.selectAll(".annotationline").data(annotations);
+  var annotationText = svg.selectAll(".annotationtext").data(annotations);
+
+  if (slide == 0) {
+    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine);
+    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText);
+  } else {
+    annotationLine.exit().transition().duration(1000).style("opacity",0).remove();
+    annotationText.exit().transition().duration(1000).style("opactiy",0).remove();
+    annotationLine = annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000).style("opacity",100);
+    annotationText = annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000).style("opacity",100);
+  }
+
+  annotationLine
+    .attr("x1",function(d) { return x(d.x1) })
+    .attr("y1",function(d) { return y(d.y1) })
+    .attr("x2",function(d) { return x(d.x2) })
+    .attr("y2",function(d) { return y(d.y2) });
+
+  annotationText
+    .attr("x",function(d) { return x(d.x2) })
+    .attr("y",function(d) { return y(d.y2) + 7 })
+    .attr("text-anchor","start")
+    .text(function(d) { return d.text });
+}
 
 function update(slide) {
-  if (slide == 1) { slide1() }
-  else if (slide == 2) { slide2() }
-  else if (slide == 3) { slide3() }
+  title(slide);
+  axes(slide);
+  legend(slide);
+  lines(slide);
+  cars(slide,"2021");
+  annotation(slide);
 }
 
 async function init() {
@@ -128,231 +331,64 @@ async function init() {
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
-  // axes
-  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-
-  y.domain([0,d3.max(overall,function(d) { return d.value.averageFE })]);
-  svg.selectAll(".yaxis")
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-
-  // chart title
-  svg.append("text")
-    .attr("class","title")
-    .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
-    .attr("text-anchor","middle")
-    .text("Overall Fuel Efficiency");
-
-  // annotations
-  var annotations = 
-    [{"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."},
-    {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
-    {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-    {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
-
-  var annotationLine = svg.selectAll(".annotationline").data(annotations);
-  var annotationText = svg.selectAll(".annotationtext").data(annotations);
-
-  annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine)
-    .attr("x1",function(d) { return x(d.x1) })
-    .attr("y1",function(d) { return y(d.y1) })
-    .attr("x2",function(d) { return x(d.x2) })
-    .attr("y2",function(d) { return y(d.y2) });
-
-  annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText)
-    .attr("x",function(d) { return x(d.x2) })
-    .attr("y",function(d) { return y(d.y2) + 7 })
-    .attr("text-anchor","start")
-    .text(function(d) { return d.text });
-
   // set y max for each slide
-  slide1Max = d3.max(overall,function(d) { return d.value.averageFE })
+  slide1Max = d3.max(overall,function(d) { return parseInt(d.value.averageFE) })
 
-  slide2Max = Math.max(d3.max(gas,function(d) { return d.value.averageFE }),
-    Math.max(d3.max(electric,function(d) { return d.value.averageFE }),
-    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return d.value.averageFE }))));
+  slide2Max = Math.max(d3.max(gas,function(d) { return parseInt(d.value.averageFE) }),
+    Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
+    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
   
-  // start with slide 1
-  slide = 1;
+  // initialize slides
+  slide = 0;
   update(slide);
+  slide = 1;
+  dropdownsetup();
 }
 
-function slide1() {
-  //axes
-  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
-    .transition()
-    .duration(3000)
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
+function previous() {
+  if (slide != 1) {
+    document.getElementById("nextButton").style.visibility = "visible";
+    slide--
+    update(slide)
+  }
+  if (slide == 1) {
+    document.getElementById("previousButton").style.visibility = "hidden";
+  }
+  else {
+    document.getElementById("previousButton").style.visibility = "visible";
+  }
+ }
 
-  y.domain([0,slide1Max]);
-  svg.selectAll(".yaxis")
-    .transition()
-    .duration(3000)
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
-
-  // lines
-  var overallLine = svg.selectAll(".line").data([overall]);
-  var gasLine = svg.selectAll(".gasline").data([overall]);
-  var electricLine = svg.selectAll(".electricline").data([overall]);
-  var plugInLine = svg.selectAll(".pluginline").data([overall]);
-  var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
-
-  gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-  
-  // chart title
-  svg.selectAll(".title")
-    .text("Overall Fuel Efficiency");
-
-  // annotations
-  var annotations = 
-    [{"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy (CAFE) standards in 1975."},
-    {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
-    {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-    {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
-
-  var annotationLine = svg.selectAll(".annotationline").data(annotations);
-  var annotationText = svg.selectAll(".annotationtext").data(annotations);
-
-  annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000)
-    .attr("x1",function(d) { return x(d.x1) })
-    .attr("y1",function(d) { return y(d.y1) })
-    .attr("x2",function(d) { return x(d.x2) })
-    .attr("y2",function(d) { return y(d.y2) });
-
-  annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
-    .attr("x",function(d) { return x(d.x2) })
-    .attr("y",function(d) { return y(d.y2) + 7 })
-    .attr("text-anchor","start")
-    .text(function(d) { return d.text });
+function next() {
+  if (slide != 3) {
+    document.getElementById("previousButton").style.visibility = "visible";
+    slide++
+    update(slide)
+  }
+  if (slide == 3) {
+    document.getElementById("nextButton").style.visibility = "hidden";
+  }
+  else {
+    document.getElementById("nextButton").style.visibility = "visible";
+  }
 }
 
-function slide2() {
-  // axes
-  x.domain([d3.min(overall,function(d) { return d.key }),d3.max(overall,function(d) { return d.key })]);
-  svg.selectAll(".xaxis")
-    .transition()
-    .duration(3000)
-    .call(xAxis
-      .ticks(7)
-      .tickFormat(d3.format("~")));
-  
-  y.domain([0,slide2Max]);
-  svg.selectAll(".yaxis")
-    .transition()
-    .duration(3000)
-    .call(yAxis
-      .ticks(5)
-      .tickFormat(d3.format("~s")));
+// Handler for dropdown value change
+var dropdownChange = function() {
+  var newYear = d3.select(this).property('value')
+  console.log(newYear)
+  cars(slide,newYear);
+};
 
-  // lines
-  var overallLine = svg.selectAll(".line").data([overall]);
-  var gasLine = svg.selectAll(".gasline").data([gas]);
-  var electricLine = svg.selectAll(".electricline").data([electric]);
-  var plugInLine = svg.selectAll(".pluginline").data([plugIn]);
-  var fuelCellLine = svg.selectAll(".fuelcellline").data([fuelCell]);
+var dropdown = d3.select("#navBar").insert("select", "svg")
+  .on("change", dropdownChange);
 
-  gasLine.enter().append("path").attr("class","gasline").merge(gasLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  electricLine.enter().append("path").attr("class","electricline").merge(electricLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  plugInLine.enter().append("path").attr("class","pluginline").merge(plugInLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  fuelCellLine.enter().append("path").attr("class","fuelcellline").merge(fuelCellLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  overallLine.enter().append("path").attr("class","line").merge(overallLine).transition().duration(3000)
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.key); })
-      .y(function(d) { return y(d.value.averageFE); })
-      .curve(d3.curveMonotoneX));
-
-  // chart title
-  svg.selectAll(".title")
-    .text("Fuel Efficiency by Vehicle Type");
-
-  // annotations
-  var annotations = 
-    [{"x1": 2017, "y1": electric.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2016.5, "y2": 95, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
-    {"x1": 2013, "y1": electric.filter(function(d) { return d.key === "2013" })[0].value.averageFE, "x2": 2013.5, "y2": 80, "text": "Nissan begins assembling the Leaf, the first zero tailpipe emissions mass market vehicle."},
-    {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 10, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-    {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 15, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
-
-  var annotationLine = svg.selectAll(".annotationline").data(annotations);
-  var annotationText = svg.selectAll(".annotationtext").data(annotations);
-
-  annotationLine.enter().append("line").attr("class","annotationline").merge(annotationLine).transition().duration(3000)
-    .attr("x1",function(d) { return x(d.x1) })
-    .attr("y1",function(d) { return y(d.y1) })
-    .attr("x2",function(d) { return x(d.x2) })
-    .attr("y2",function(d) { return y(d.y2) });
-
-  annotationText.enter().append("text").attr("class","annotationtext").merge(annotationText).transition().duration(3000)
-    .attr("x",function(d) { return x(d.x2) })
-    .attr("y",function(d) { return y(d.y2) + 7 })
-    .attr("text-anchor","start")
-    .text(function(d) { return d.text });
+function dropdownsetup() {
+  dropdown.selectAll("option").data(overall).enter().append("option")
+    .attr("value",function(d) { return d.key; })
+    .text(function(d) { return d.key })
+    .property("selected", function(d) { return d.key === "2021"; });
 }
-
-function slide3() {
-  svg.selectAll(".title")
-    .text("New Title");
-}
-
-
-
 
 
 
