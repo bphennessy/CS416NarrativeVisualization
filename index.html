@@ -403,7 +403,7 @@ var dropdown = d3.select("#navBar")
     .data(overall)
     .enter().append("option")
     .attr("value", function (d) { return d.key; })
-    .text(function (d) { return d//[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
+    .text(function (d) { return d.key//[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
   });}
 
 
