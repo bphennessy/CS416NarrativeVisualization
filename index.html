@@ -24,19 +24,19 @@
 
 
 // Handler for dropdown value change
-var dropdownChange = function() {
-  var newYear = d3.select(this).property('value'),
+//var dropdownChange = function() {
+//  var newYear = d3.select(this).property('value'),
 //      newData   = cerealMap[newYear];
 
 //  cars(newData);
-};
+//};
 
 // Get names of cereals, for dropdown
 //var cereals = Object.keys(cerealMap).sort();
 
 var dropdown = d3.select("#navBar")
   .insert("select", "svg")
-  .on("change", dropdownChange);
+ // .on("change", dropdownChange);
 
 dropdown.selectAll("option")
   .data(data)
