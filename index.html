@@ -347,8 +347,6 @@ async function init() {
     Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
   
   // initialize slides
-  //document.getElementById("previousButton").style.display = "none";
-  //style="display:none;"
   slide = 0;
   update(slide);
   slide = 1;
@@ -362,11 +360,9 @@ function previous() {
     update(slide)
   }
   if (slide == 1) {
-    //document.getElementById("previousButton").style.display = "none";
     document.getElementById("previousButton").style.visibility = "hidden";
   }
   else {
-    //document.getElementById("previousButton").style.display = "block";
     document.getElementById("previousButton").style.visibility = "visible";
   }
  }
@@ -378,11 +374,9 @@ function next() {
     update(slide)
   }
   if (slide == 3) {
-    //document.getElementById("nextButton").style.display = "none";
     document.getElementById("nextButton").style.visibility = "hidden";
   }
   else {
-    //document.getElementById("nextButton").style.display = "block";
     document.getElementById("nextButton").style.visibility = "visible";
   }
 }
@@ -406,7 +400,7 @@ var dropdown = d3.select("#navBar")
 
  function dropdownsetup() {
   dropdown.selectAll("option")
-    .data([overall])
+    .data(overall)
     .enter().append("option")
     .attr("value", function (d) { return d.key; })
     .text(function (d) { return d//[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
