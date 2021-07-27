@@ -23,27 +23,7 @@
     <script>
 
 
-// Handler for dropdown value change
-//var dropdownChange = function() {
-//  var newYear = d3.select(this).property('value'),
-//      newData   = cerealMap[newYear];
 
-//  cars(newData);
-//};
-
-// Get names of cereals, for dropdown
-//var cereals = Object.keys(cerealMap).sort();
-
-var dropdown = d3.select("#navBar")
-  .insert("select", "svg")
- // .on("change", dropdownChange);
-
-dropdown.selectAll("option")
-  .data(data)
-  .enter().append("option")
-  .attr("value", function (d) { return d.ModelYear; })
-  .text(function (d) { return d//[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
-  });
 
 
 
@@ -408,7 +388,27 @@ function next() {
 
 
 
+// Handler for dropdown value change
+//var dropdownChange = function() {
+//  var newYear = d3.select(this).property('value'),
+//      newData   = cerealMap[newYear];
 
+//  cars(newData);
+//};
+
+// Get names of cereals, for dropdown
+//var cereals = Object.keys(cerealMap).sort();
+
+var dropdown = d3.select("#navBar")
+  .insert("select", "svg")
+ // .on("change", dropdownChange);
+
+dropdown.selectAll("option")
+  .data(data)
+  .enter().append("option")
+  .attr("value", function (d) { return d.ModelYear; })
+  .text(function (d) { return d//[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
+  });
 
 
 
