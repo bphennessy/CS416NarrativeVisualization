@@ -11,11 +11,15 @@
     <nav>
       <button class="button" id="previousButton" style="visibility:hidden" onclick="previous()">Previous</button>
       <button class="button" id="nextButton" onclick="next()">Next</button>
+      <div class="dropdown">
+        <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </div>
     </nav>
-    <section>
-      <svg></svg>
-      <aside>Test</aside>
-    </section>
     <script>
 
 
@@ -33,7 +37,7 @@ var margin = {top: 50, right: 50, bottom: 150, left: 50},
   height = 700 - margin.top - margin.bottom;
 
 // svg setup
-var svg = d3.select("svg")//"body").append("svg")
+var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
