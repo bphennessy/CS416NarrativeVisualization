@@ -403,7 +403,8 @@ function next() {
 // Handler for dropdown value change
 var dropdownChange = function() {
   var newYear = d3.select(this).property('value')
-  cars(slide,newData);
+  console.log(newYear)
+  cars(slide,newYear);
 };
 
 // Get names of cereals, for dropdown
