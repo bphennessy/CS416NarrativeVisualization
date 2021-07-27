@@ -347,23 +347,27 @@ async function init() {
 
 function previous() {
   if (slide != 1) {
-    document.getElementById("previousButton").style.display = "block";
     slide--
     update(slide)
   }
-  else {
+  if (slide == 1) {
     document.getElementById("previousButton").style.display = "none";
+  }
+  else {
+    document.getElementById("previousButton").style.display = "block";
   }
  }
 
 function next() {
   if (slide != 3) {
-    document.getElementById("nextButton").style.display = "block";
     slide++
     update(slide)
   }
-  else {
+  if (slide == 3) {
     document.getElementById("nextButton").style.display = "none";
+  }
+  else {
+    document.getElementById("nextButton").style.display = "block";
   }
 }
 
