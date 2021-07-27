@@ -10,7 +10,7 @@
   <body onload='init()'>
     <h1>CS 416 Narrative Visualization Project - Brian Hennessy</h1>
     <nav>
-      <button class="button" id="previousButton" onclick="previous()">Previous</button>
+      <button class="button" id="previousButton" style="display:none;" onclick="previous()">Previous</button>
       <button class="button" id="nextButton" onclick="next()">Next</button>
     </nav>
     <script>
@@ -347,9 +347,9 @@ async function init() {
 
 function previous() {
   if (slide != 1) {
+    document.getElementById("previousButton").style.display = "block";
     slide--
     update(slide)
-    document.getElementById("previousButton").style.display = "block";
   }
   else {
     document.getElementById("previousButton").style.display = "none";
