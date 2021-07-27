@@ -349,6 +349,7 @@ async function init() {
 
 function previous() {
   if (slide != 1) {
+    document.getElementById("nextButton").style.visibility = "visible";
     slide--
     update(slide)
   }
@@ -364,11 +365,11 @@ function previous() {
 
 function next() {
   if (slide != 3) {
+    document.getElementById("previousButton").style.visibility = "visible";
     slide++
     update(slide)
   }
   if (slide == 3) {
-    
     //document.getElementById("nextButton").style.display = "none";
     document.getElementById("nextButton").style.visibility = "hidden";
   }
