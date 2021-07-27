@@ -10,7 +10,7 @@
   <body onload='init()'>
     <h1>CS 416 Narrative Visualization Project - Brian Hennessy</h1>
     <nav>
-      <button class="button" id="previousButton" style="display:none;" onclick="previous()">Previous</button>
+      <button class="button" id="previousButton" onclick="previous()">Previous</button>
       <button class="button" id="nextButton" onclick="next()">Next</button>
     </nav>
     <script>
@@ -340,6 +340,7 @@ async function init() {
     Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
   
   // initialize slides
+  document.getElementById("previousButton").style.display = "none";
   slide = 0;
   update(slide);
   slide = 1;
