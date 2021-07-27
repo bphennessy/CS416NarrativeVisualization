@@ -10,8 +10,8 @@
   <body onload='init()'>
     <h1>CS 416 Narrative Visualization Project - Brian Hennessy</h1>
     <nav>
-      <button class="button" onclick="previous()">Previous</button>
-      <button class="button" onclick="next()">Next</button>
+      <button class="button" name="previousButton" onclick="previous()">Previous</button>
+      <button class="button" name="nextButton" onclick="next()">Next</button>
     </nav>
     <script>
 
@@ -357,6 +357,10 @@ function previous() {
   if (slide != 1) {
     slide--
     update(slide)
+    document.getElementById("previousButton").hidden = "";
+  }
+  else {
+    document.getElementById("previousButton").hidden = hidden;
   }
  }
 
