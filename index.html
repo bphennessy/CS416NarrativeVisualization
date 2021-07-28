@@ -368,6 +368,7 @@ function next() {
   if (slide == 3) {
     document.getElementById("nextButton").style.visibility = "hidden";
     document.getElementById("carDropdown").style.visibility = "visible";
+    dropdown.selectAll("option").data(overall).enter().append("option").property("selected", function(d) { return d.key === defaultYear; });
   }
   else {
     document.getElementById("nextButton").style.visibility = "visible";
