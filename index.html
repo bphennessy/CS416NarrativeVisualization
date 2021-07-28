@@ -352,8 +352,7 @@ function previous() {
   }
   if (slide == 1) {
     document.getElementById("previousButton").style.visibility = "hidden";
-  }
-  else {
+  } else {
     document.getElementById("previousButton").style.visibility = "visible";
     document.getElementById("carDropdown").style.visibility = "hidden";
   }
@@ -368,11 +367,7 @@ function next() {
   if (slide == 3) {
     document.getElementById("nextButton").style.visibility = "hidden";
     document.getElementById("carDropdown").style.visibility = "visible";
-    //dropdown.selectAll("option").data(overall).enter().append("option").property("selected", function(d) { return d.key === defaultYear; });
-    console.log(defaultYear);
-    dropdown.selectAll("option").property("selected", function() { return overall.key === defaultYear; });
-  }
-  else {
+  } else {
     document.getElementById("nextButton").style.visibility = "visible";
   }
 }
