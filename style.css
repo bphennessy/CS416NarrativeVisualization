@@ -126,3 +126,18 @@
     fill: black;
     font-size: 10px;
 }
+
+.data-tooltip{
+    color: black;
+    background-color: white;
+    background: white;
+    align-content: center;
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+  
+  .tooltip.show {
+      opacity: 1;
+      background-color: white;
+      border: green;
+  }
