@@ -376,11 +376,11 @@ function next() {
 // Handler for dropdown value change
 var dropdownChange = function() {
   var newYear = d3.select(this).property('value');
-  cars(slide,newYear);
   axes(slide,newYear);
+  cars(slide,newYear);
 };
 
-var defaultYear = "2010"
+var defaultYear = "2021"
 
 var dropdown = d3.select("#navBar").insert("select", "svg")
   .attr("id","carDropdown")
