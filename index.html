@@ -4,26 +4,6 @@
   <head>
     <link rel="stylesheet" href="style.css">
     <script src='https://d3js.org/d3.v5.min.js'></script>
-    <style>
-      div.tooltip {	
-        position: absolute;			
-        text-align: center;			
-        width: 140px;					
-        height: 50px;					
-        padding: 2px;				
-        font: 12px sans-serif;		
-        background: lightgreen;	
-        border: 0px;		
-        border-radius: 8px;			
-        pointer-events: none;			
-      }
-      
-      html {
-        font: normal 100%/1.4 Georgia,serif;
-        background: #eff4f0;
-      }
-      
-      </style>
   </head>
 
   <body onload='init()'>
@@ -264,7 +244,7 @@ function cars(slide,carYear) {
   } else {
     var cars = svg.selectAll(".cars").data([]);
   }
-  cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
+  cars.enter().append("circle").attr("class","cars").merge(cars)//.transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
       .attr("r",5)
