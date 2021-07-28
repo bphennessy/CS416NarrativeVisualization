@@ -230,6 +230,7 @@ function lines(slide) {
 function cars(slide,carYear) {
   
   if (slide == 3) {
+    console.log(svg.select("carCircles").empty())
     if (svg.select("carCircles").empty()) {
       var cars = svg.append("g").attr("id","carCirlces").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
     } else {
