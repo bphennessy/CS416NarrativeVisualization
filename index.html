@@ -356,6 +356,7 @@ function previous() {
   }
   else {
     document.getElementById("previousButton").style.visibility = "visible";
+    document.getElementById("carDropdown").style.visibility = "hidden";
   }
  }
 
@@ -367,6 +368,7 @@ function next() {
   }
   if (slide == 3) {
     document.getElementById("nextButton").style.visibility = "hidden";
+    document.getElementById("carDropdown").style.visibility = "visible";
   }
   else {
     document.getElementById("nextButton").style.visibility = "visible";
@@ -383,6 +385,7 @@ var dropdownChange = function() {
 var defaultYear = "2021"
 
 var dropdown = d3.select("#navBar").insert("select", "svg")
+  .attr("id","carDropdown")
   .style("visibility","hidden")
   .on("change", dropdownChange);  
 
