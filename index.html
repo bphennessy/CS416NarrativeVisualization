@@ -230,15 +230,17 @@ function lines(slide) {
 function cars(slide,carYear) {
   
   if (slide == 3) {
-    var cars = svg.select("g").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
-    
+    if (svg.select("carCircles").empty()) {
+      var cars = svg.append("g").id("carCirlces").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+    } else {
+      var cars = svg.select("carCircles").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+    }
     cars.enter().append("circle").attr("class","cars").merge(cars).transition().duration(3000).style("opacity",100)
       .attr("cx",function(d) { return x(d.CombFE); })
       .attr("cy",function(d) { return y(d.AnnualFuelCost); })
       .attr("r",5)
       .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
-  }
-  else {
+  } else {
     var cars = svg.selectAll(".cars").data([]);
     cars.exit().transition().duration(1000).style("opacity",0).remove();
   }
