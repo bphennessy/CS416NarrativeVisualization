@@ -231,7 +231,7 @@ function cars(slide,carYear) {
   
   if (slide == 3) {
     if (svg.select("carCircles").empty()) {
-      var cars = svg.append("g").id("carCirlces").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+      var cars = svg.append("g").attr("id","carCirlces").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
     } else {
       var cars = svg.select("carCircles").selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
     }
