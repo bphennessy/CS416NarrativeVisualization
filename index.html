@@ -435,6 +435,8 @@ function dropdownsetup() {
       .html("The exact value of<br>the Ground Living area is: " + d.AnnualFuelCost)
       .style("left", (d3.event.pageX + 16) + "px")
       .style("top", (d3.event.pageY + 16) + "px");
+      console.log(d3.event.pageX)
+      console.log(d3.event.pageY)
       //.style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
       //.style("top", (d3.mouse(this)[1]) + "px");
   }
