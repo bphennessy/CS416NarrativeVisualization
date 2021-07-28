@@ -383,7 +383,8 @@ var dropdownChange = function() {
 var defaultYear = "2021"
 
 var dropdown = d3.select("#navBar").insert("select", "svg")
-  .on("change", dropdownChange);
+  .style("visibility","hidden")
+  .on("change", dropdownChange);  
 
 function dropdownsetup() {
   dropdown.selectAll("option").data(overall).enter().append("option")
