@@ -393,6 +393,7 @@ function dropdownChange() {
 };
 
 var dropdown = d3.select("#navBar").insert("select", "svg")
+  .attr("class","dropdown")
   .attr("id","carDropdown")
   .style("visibility","hidden")
   .on("change", dropdownChange);  
