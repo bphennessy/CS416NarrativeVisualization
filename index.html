@@ -464,7 +464,7 @@ function dropdownsetup() {
         "Transmission: " + d.Trans + "<br>" +
         "Gears: " + d.Gears + "<br>" +
         "Drive: " + d.Drive + "<br>" +
-        "Maximum Ethanol Content: " + function(d) { if(d.MaxEthanol == "") { d.MaxEthanol } else { "N/A" }; } + "<br>" +
+        "Maximum Ethanol Content: " + function(d) { if(d.MaxEthanol != "") { d.MaxEthanol } else { "N/A" }; } + "<br>" +
         "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
   }
 
