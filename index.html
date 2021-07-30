@@ -259,8 +259,8 @@ function cars(slide,carYear) {
     var cars = svg.selectAll(".cars").data([]);
   }
   cars.enter().append("circle").attr("class","cars").merge(cars)//.transition().duration(3000).style("opacity",100)
-      .attr("cx",function(d) { return x(d.CombFE); })
-      .attr("cy",function(d) { return y(d.AnnualFuelCost); })
+      .attr("cx",function(d) { return xlog(d.CombFE); })
+      .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
       .attr("r",5)
       .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; })
       .on("mouseover",mouseover)
