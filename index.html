@@ -258,14 +258,16 @@ function cars(slide,carYear) {
   } else {
     var cars = svg.selectAll(".cars").data([]);
   }
-  cars.enter().append("circle").attr("class","cars").merge(cars)//.transition().duration(3000).style("opacity",100)
-      .attr("cx",function(d) { return xlog(d.CombFE); })
-      .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
-      .attr("r",5)
-      .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; })
-      .on("mouseover",mouseover)
-      .on("mousemove",mousemove)
-      .on("mouseleave",mouseleave);
+  var carCircles = cars.enter().append("circle").attr("class","cars").merge(cars);
+      carCircles
+        .attr("cx",function(d) { return xlog(d.CombFE); })
+        .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
+        .attr("r",5)
+        .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; })
+        .on("mouseover",mouseover)
+        .on("mousemove",mousemove)
+        .on("mouseleave",mouseleave);
+      carCircles.transition().duration(3000).style("opacity",100);
 
     cars.exit().transition().duration(1000).style("opacity",0).remove();
 }
