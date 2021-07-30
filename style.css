@@ -127,7 +127,7 @@
 }
 
 /*.data-tooltip{*/
-    .tooltip {
+.tooltip {
     color: black;
     background-color: white;
     background: white;
@@ -136,8 +136,8 @@
     margin-left: 10%;
   }
   
-  .tooltip.show {
-      opacity: 1;
-      background-color: white;
-      border: green;
+.tooltip.show {
+    opacity: 1;
+    background-color: white;
+    border: green;
   }
