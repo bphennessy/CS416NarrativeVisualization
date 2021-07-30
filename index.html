@@ -387,7 +387,7 @@ function previous() {
     document.getElementById("previousButton").style.visibility = "visible";
     document.getElementById("carDropdown").style.visibility = "hidden";
   }
-  d1.property("selected", function(d) { return d.key === defaultYear; });
+  dropdownOptions.property("selected", function(d) { return d.key === defaultYear; });
  }
 
 function next() {
@@ -418,8 +418,9 @@ var dropdown = d3.select("#navBar").insert("select", "svg")
   .on("change", dropdownChange);  
 
 function dropdownsetup() {
-  d1 = dropdown.selectAll("option").data(overall).enter().append("option")
-    d1.attr("value",function(d) { return d.key; })
+  dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option")
+  dropdownOptions
+    .attr("value",function(d) { return d.key; })
     .text(function(d) { return d.key })
     .property("selected", function(d) { return d.key === defaultYear; });
 }
