@@ -1,3 +1,7 @@
+.svg {
+    position:absolute;
+}
+
 .button {
     padding: 14px 32px;
     text-align: center;
@@ -27,7 +31,7 @@
     display: inline-block;
     padding: 14px;
     font-size: 16px;
-    margin-left: 25%;
+    margin-left: 20px;
 }
   
 /* Dropdown Content (Hidden by Default) */
@@ -127,7 +131,7 @@
 }
 
 /*.data-tooltip{*/
-    .tooltip{
+    .tooltip {
     color: black;
     background-color: white;
     background: white;
