@@ -118,6 +118,19 @@ function axes(slide,carYear) {
       .call(yAxis
         .ticks(5)
         .tickFormat(d3.format("~s")));
+  } else if (slide == 3) {
+    svg.selectAll(".xaxis")
+      .transition()
+      .duration(3000)
+      .call(d3.axisBottom().scale(xlog)
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    svg.selectAll(".yaxis")
+      .transition()
+      .duration(3000)
+      .call(d3.axisLeft().scale(ylog)
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
   } else {
     svg.selectAll(".xaxis")
       .transition()
