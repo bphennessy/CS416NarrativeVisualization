@@ -38,7 +38,7 @@ var margin = {top: 50, right: 50, bottom: 100, left: 50},
   height = 650 - margin.top - margin.bottom;
 
 // svg setup
-var svg = d3.select("#visualization").append("svg")
+var svg = d3.select("#visualization").append("svg").attr("class","svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
