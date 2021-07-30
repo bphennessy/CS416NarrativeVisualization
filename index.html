@@ -46,7 +46,7 @@ var svg = d3.select("#visualization").append("svg")
 
 // x-axis
 //var x = d3.scaleLinear().range([0,width]);
-var x = d3.scaleLog().base(10).range([0,width]);
+var x = d3.scaleLog().base(10).range([1,width]);
 var xAxis = d3.axisBottom().scale(x);
 svg.append("g")
   .attr("transform","translate(0," + height + ")")
@@ -59,7 +59,7 @@ svg.append("g")
 
 // y-axis
 //var y = d3.scaleLinear().range([height,0]);
-var y = d3.scaleLog().base(10).range([height,0]);
+var y = d3.scaleLog().base(10).range([height,1]);
 var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
   .attr("class","yaxis")
