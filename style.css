@@ -126,12 +126,12 @@
     font-size: 10px;
 }
 
-/*.data-tooltip{*/
 .tooltip {
     color: black;
     background-color: white;
     background: white;
     align-content: center;
+    position:relative;
     margin-right: 10%;
     margin-left: 10%;
   }
