@@ -294,7 +294,7 @@ function cars(slide,carYear) {
     .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
   carCircles
     .on("mouseover",mouseOver)
-    .on("mousemove",mouseMove(d))
+    .on("mousemove",function(d) { mouseMove(d); })
     .on("mouseleave",mouseLeave);
       
   cars.exit().transition().duration(1000).style("opacity",0).remove();
@@ -349,6 +349,15 @@ function annotation(slide) {
     .attr("text-anchor","start")
     .text(function(d) { return d.text });
 }
+
+// make the tooltip visible on mouse over
+function mouseOver() {
+  tooltip
+    .style("opacity", 1)
+    .style("display","inherit");
+}
+
+
 
 
 
@@ -462,13 +471,7 @@ function dropdownChange() {
 
 
 
-// A function that change this tooltip when the user hover a point.
-  // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
-function mouseOver() {
-  tooltip
-    .style("opacity", 1)
-    .style("display","inherit");
-}
+
 
 function mouseMove(d) {
   if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol; } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
