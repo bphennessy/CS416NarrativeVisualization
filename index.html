@@ -58,7 +58,7 @@ svg.append("g")
   .attr("class","xlabel")
   .attr("fill","black")
   .attr("transform","translate(" + width/2 + ",40)")
-  .attr("text-anchor", "middle")
+  .attr("text-anchor", "middle");
 
 // y-axis setup
 var y = d3.scaleLinear().range([height,0]);
@@ -73,7 +73,18 @@ svg.append("g")
   .attr("x",-height/2)
   .attr("y",-margin.left)
   .attr("dy", "1em")
-  .attr("text-anchor", "middle")
+  .attr("text-anchor", "middle");
+
+// tooltip setup
+var tooltip = d3.select("#tooltip")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px");
 
 // dropdown setup
 var dropdown = d3.select("#navBar").insert("select", "svg")
@@ -113,14 +124,13 @@ function axes(slide,carYear) {
     var slide2Max = Math.max(d3.max(gas,function(d) { return parseInt(d.value.averageFE) }),
       Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
       Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
-
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]); 
     y.domain([0,slide2Max]);
     d3.selectAll(".xlabel").text("Model Year");
     d3.selectAll(".ylabel").text("Fuel Economy (MPG)");
   } else if (slide == 3) {
-    xlog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) })]); 
-    ylog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) })]);
+    xlog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE); })]); 
+    ylog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost); })]);
     d3.selectAll(".xlabel").text("Fuel Economy (MPG)");
     d3.selectAll(".ylabel").text("Annual Fuel Cost ($/year)");
   }
@@ -271,7 +281,7 @@ function lines(slide) {
 // chart cicles to represent individual cars on slide 3
 function cars(slide,carYear) {
   if (slide == 3) {
-    var cars = svg.selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
+    var cars = svg.selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   } else {
     var cars = svg.selectAll(".cars").data([]);
   }
@@ -281,11 +291,11 @@ function cars(slide,carYear) {
     .attr("cx",function(d) { return xlog(d.CombFE); })
     .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
     .attr("r",5)
-    .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
+    .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
   carCircles
-    .on("mouseover",mouseover)
-    .on("mousemove",mousemove)
-    .on("mouseleave",mouseleave);
+    .on("mouseover",mouseOver)
+    .on("mousemove",mouseMove(d))
+    .on("mouseleave",mouseLeave);
       
   cars.exit().transition().duration(1000).style("opacity",0).remove();
 }
@@ -311,7 +321,7 @@ function annotation(slide) {
       {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 10, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
       {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 15, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
   } else if (slide == 3) {
-    var annotations = []
+    var annotations = [];
   }
   
   var annotationLine = svg.selectAll(".annotationline").data(annotations);
@@ -340,6 +350,8 @@ function annotation(slide) {
     .text(function(d) { return d.text });
 }
 
+
+
 // informational text at bottom of screen
 function text(slide) {
   if (slide == 0 || slide == 1) {
@@ -362,6 +374,7 @@ function update(slide) {
   text(slide);
 }
 
+// initialize the page
 async function init() {
   // load data
   data = await d3.csv("https://raw.githubusercontent.com/bphennessy/CS416NarrativeVisualization/main/cars.csv")
@@ -390,12 +403,8 @@ async function init() {
     .key(function(d) { return d.ModelYear; })
     .rollup(function(v) { return {"averageFE": d3.mean(v,function(d) { return d.CombFE; })}})
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
-  
-  // set y max for each slide
 
-
-    
-    // initialize dropdown
+  // initialize dropdown
   defaultYear = "2021";
   dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option");
   dropdownOptions
@@ -407,7 +416,6 @@ async function init() {
   slide = 0;
   update(slide);
   slide = 1;
-  //dropdownsetup();
 }
 
 // move to the previous slide
@@ -454,26 +462,61 @@ function dropdownChange() {
 
 
 
-  // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
-  // Its opacity is set to 0: we don't see it by default.
-  var tooltip = d3.select("#tooltip")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "1px")
-    .style("border-radius", "5px")
-    .style("padding", "10px")
+// A function that change this tooltip when the user hover a point.
+  // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
+function mouseOver() {
+  tooltip
+    .style("opacity", 1)
+    .style("display","inherit");
+}
 
-  // A function that change this tooltip when the user hover a point.
+function mouseMove(d) {
+  if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol; } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
+  if (d.Cylinders != "") { var cylinders = d.Cylinders; } else { var cylinders = "N/A"; };
+  tooltip
+    .style("left", (d3.mouse(this)[0]+60) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+    .style("top", (d3.mouse(this)[1]-816) + "px")
+    .html("Make: " + d.Make + "<br>" +
+      "Model: " + d.Model + "<br>" +
+      "Fuel: " + d.FuelType + "<br>" +
+      "Cyliners: " + cylinders + "<br>" +
+      "City Fuel Economy: " + d.CityFE + " MPG<br>" +
+      "Highway Fuel Economy: " + d.HwyFE + " MPG<br>" +
+      "Combined Fuel Economy: " + d.CombFE + " MPG<br>" +
+      "Transmission: " + d.Trans + "<br>" +
+      "Gears: " + d.Gears + "<br>" +
+      "Drive: " + d.Drive + "<br>" +
+      "Maximum Ethanol Content: " + EtOH + "<br>" +
+      "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
+}
+
+  // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+  function mouseLeave() {
+    tooltip
+      .style("opacity", 0)
+      .style("display","none")
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*// A function that change this tooltip when the user hover a point.
   // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
   var mouseover = function(d) {
     tooltip
       .style("opacity", 1)
       .style("display","inherit")
-      //.style("display","table-caption")
-      //.style("z-index","auto")
   }
 
   var mousemove = function(d) {
@@ -501,7 +544,7 @@ function dropdownChange() {
     tooltip
       .style("opacity", 0)
       .style("display","none")
-  }
+  }*/
 
 
 
