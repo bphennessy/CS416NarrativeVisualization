@@ -106,10 +106,14 @@ function title(slide) {
 function axes(slide,carYear) {
   if (slide == 0 || slide == 1) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
-    y.domain([0,slide1Max]);
+    y.domain([0,d3.max(overall,function(d) { return parseInt(d.value.averageFE) })]);
     d3.selectAll(".xlabel").text("Model Year");
     d3.selectAll(".ylabel").text("Fuel Economy (MPG)");
   } else if (slide == 2) {
+    var slide2Max = Math.max(d3.max(gas,function(d) { return parseInt(d.value.averageFE) }),
+      Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
+      Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
+
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]); 
     y.domain([0,slide2Max]);
     d3.selectAll(".xlabel").text("Model Year");
@@ -388,12 +392,9 @@ async function init() {
     .entries(data.filter(function(d) { if (d["Type"] == "Fuel Cell") { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   
   // set y max for each slide
-  slide1Max = d3.max(overall,function(d) { return parseInt(d.value.averageFE) })
 
-  slide2Max = Math.max(d3.max(gas,function(d) { return parseInt(d.value.averageFE) }),
-    Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
-    Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
-  
+
+    
     // initialize dropdown
   defaultYear = "2021";
   dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option");
@@ -447,13 +448,6 @@ function dropdownChange() {
   cars(slide,newYear);
 };
 
-/*function dropdownsetup() {
-  dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option")
-  dropdownOptions
-    .attr("value",function(d) { return d.key; })
-    .text(function(d) { return d.key })
-    .property("selected", function(d) { return d.key === defaultYear; });
-}*/
 
 
 
