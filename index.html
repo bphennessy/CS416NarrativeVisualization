@@ -294,7 +294,8 @@ function cars(slide,carYear) {
     .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
   carCircles
     .on("mouseover",mouseOver)
-    .on("mousemove",function(d) { mouseMove(d); })
+    //.on("mousemove",function(d) { mouseMove(d); })
+    .on("mousemove", mouseMove)
     .on("mouseleave",mouseLeave);
       
   cars.exit().transition().duration(1000).style("opacity",0).remove();
@@ -359,7 +360,12 @@ function mouseOver() {
 
 
 
-
+// make the tooltip hidden when the mouse leaves
+function mouseLeave() {
+  tooltip
+    .style("opacity", 0)
+    .style("display","none")
+}
 
 // informational text at bottom of screen
 function text(slide) {
@@ -473,7 +479,7 @@ function dropdownChange() {
 
 
 
-function mouseMove(d) {
+var mouseMove = function (d) {
   if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol; } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
   if (d.Cylinders != "") { var cylinders = d.Cylinders; } else { var cylinders = "N/A"; };
   tooltip
@@ -493,12 +499,7 @@ function mouseMove(d) {
       "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
 }
 
-  // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-  function mouseLeave() {
-    tooltip
-      .style("opacity", 0)
-      .style("display","none")
-  }
+
 
 
 
