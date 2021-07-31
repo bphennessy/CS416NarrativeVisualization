@@ -1489,13 +1489,13 @@ ModelYear,Make,Model,Cylinders,Transmission,CityFE,HwyFE,CombFE,Trans,Gears,Driv
 2021,NISSAN,ARMADA 4WD,8,Auto(S7),13,18,15,Semi-Automatic,7,4-Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,3250,Gas
 2021,NISSAN,ARMADA 4WD,8,Auto(S7),13,18,15,Semi-Automatic,7,4-Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,3250,Gas
 2021,Porsche,Cayenne,6,Auto(S8),19,23,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
-2021,Porsche,Cayenne Coupé,6,Auto(S8),19,23,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
+2021,Porsche,Cayenne Coupe,6,Auto(S8),19,23,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
 2021,Porsche,Cayenne GTS,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
 2021,Porsche,Cayenne GTS Coupe,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
 2021,Porsche,Cayenne S,6,Auto(S8),18,22,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
-2021,Porsche,Cayenne S Coupé,6,Auto(S8),18,22,19,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2550,Gas
+2021,Porsche,Cayenne S Coupe,6,Auto(S8),18,22,19,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2550,Gas
 2021,Porsche,Cayenne Turbo,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
-2021,Porsche,Cayenne Turbo Coupé,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
+2021,Porsche,Cayenne Turbo Coupe,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
 2021,Subaru,ASCENT AWD,4,Auto(AV-S8),21,27,23,Selectable Continuously Variable (e.g. CVT with paddles),8,All Wheel Drive,15,Gasoline (Regular Unleaded Recommended),MPG,1750,Gas
 2021,Subaru,ASCENT LIMITED/TOURING AWD,4,Auto(AV-S8),20,26,22,Selectable Continuously Variable (e.g. CVT with paddles),8,All Wheel Drive,15,Gasoline (Regular Unleaded Recommended),MPG,1850,Gas
 2021,TOYOTA,4RUNNER 4WD,6,Auto(S5),16,19,17,Semi-Automatic,5,All Wheel Drive,15,Gasoline (Regular Unleaded Recommended),MPG,2400,Gas
@@ -2649,11 +2649,11 @@ ModelYear,Make,Model,Cylinders,Transmission,CityFE,HwyFE,CombFE,Trans,Gears,Driv
 2020,Mercedes-Benz,GLS 580 4MATIC,8,Auto(A9),16,21,18,Automatic,9,4-Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2700,Gas
 2020,NISSAN,ARMADA 4WD,8,Auto(S7),13,18,15,Semi-Automatic,7,4-Wheel Drive,10,Gasoline (Regular Unleaded Recommended),MPG,2700,Gas
 2020,Porsche,Cayenne,6,Auto(S8),19,23,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
-2020,Porsche,Cayenne Coupé,6,Auto(S8),19,23,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
+2020,Porsche,Cayenne Coupe,6,Auto(S8),19,23,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
 2020,Porsche,Cayenne S,6,Auto(S8),18,22,20,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2450,Gas
-2020,Porsche,Cayenne S Coupé,6,Auto(S8),18,22,19,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2550,Gas
+2020,Porsche,Cayenne S Coupe,6,Auto(S8),18,22,19,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,2550,Gas
 2020,Porsche,Cayenne Turbo,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
-2020,Porsche,Cayenne Turbo Coupé,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
+2020,Porsche,Cayenne Turbo Coupe,8,Auto(S8),15,19,17,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Required),MPG,2850,Gas
 2020,Subaru,ASCENT AWD,4,Auto(AV-S8),21,27,23,Selectable Continuously Variable (e.g. CVT with paddles),8,All Wheel Drive,15,Gasoline (Regular Unleaded Recommended),MPG,1750,Gas
 2020,Subaru,ASCENT LIMITED/TOURING AWD,4,Auto(AV-S8),20,26,22,Selectable Continuously Variable (e.g. CVT with paddles),8,All Wheel Drive,15,Gasoline (Regular Unleaded Recommended),MPG,1850,Gas
 2020,TOYOTA,4RUNNER 4WD,6,Auto(S5),16,19,17,Semi-Automatic,5,Part-time 4-Wheel Drive,15,Gasoline (Regular Unleaded Recommended),MPG,2400,Gas
