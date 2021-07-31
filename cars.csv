@@ -14829,7 +14829,7 @@ ModelYear,Make,Model,Cylinders,Transmission,CityFE,HwyFE,CombFE,Trans,Gears,Driv
 2020,Tesla Motors,Model 3 Long Range AWD,,Auto(A1),124,116,121,Automatic,1,All Wheel Drive,,Electricity,MPG,550,Electric
 2020,Tesla Motors,Model 3 Mid Range,,Auto(A1),128,117,123,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,550,Electric
 2020,Tesla Motors,Model 3 Standard Range,,Auto(A1),138,124,131,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,500,Electric
-2020,Tesla Motors,Model 3 Standard Range Plus,,,148,132,141,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,450,Electric
+2020,Tesla Motors,Model 3 Standard Range Plus,,Auto(A1),148,132,141,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,450,Electric
 2020,Tesla Motors,"Model 3 Long Range Perf. AWD (18"")",,Auto(A1),124,116,121,Automatic,1,All Wheel Drive,,Electricity,MPG,550,Electric
 2020,Tesla Motors,"Model 3 Long Range Perf. AWD (19"")",,Auto(A1),119,112,116,Automatic,1,All Wheel Drive,,Electricity,MPG,550,Electric
 2020,Tesla Motors,"Model 3 Long Range Perf. AWD (20"")",,Auto(A1),118,107,113,Automatic,1,All Wheel Drive,,Electricity,MPG,600,Electric
@@ -15015,7 +15015,6 @@ ModelYear,Make,Model,Cylinders,Transmission,CityFE,HwyFE,CombFE,Trans,Gears,Driv
 2016,Mitsubishi Motors Corporation,i-MiEV,,Auto(A1),27,34,30,Automatic,1,"2-Wheel Drive, Rear",,Electricity,KW-HR/100Miles,600,Electric
 2016,NISSAN,LEAF  (24 kW-hr battery pack),,Auto(A1),126,101,114,Automatic,1,"2-Wheel Drive, Front",,Electricity,MPG,600,Electric
 2016,NISSAN,LEAF (30 kW-hr battery pack),,Auto(A1),124,101,112,Automatic,1,"2-Wheel Drive, Front",,Electricity,MPG,600,Electric
-2016,,,,Auto(A1),27,33,30,Automatic,1,"2-Wheel Drive, Front",,Electricity,KW-HR/100Miles,600,Electric
 2016,Tesla Motors,Model S (60 kW-hr battery pack),,Auto(A1),98,101,99,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,650,Electric
 2016,Tesla Motors,Model S (60 kW-hr battery pack),,Auto(A1),35,33,34,Automatic,1,"2-Wheel Drive, Rear",,Electricity,KW-HR/100Miles,650,Electric
 2016,Tesla Motors,Model S (70 kW-hr battery pack),,Auto(A1),88,90,89,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,750,Electric
@@ -15060,7 +15059,6 @@ ModelYear,Make,Model,Cylinders,Transmission,CityFE,HwyFE,CombFE,Trans,Gears,Driv
 2015,Ford,Focus Electric FWD,,Auto(A1),31,34,32,Automatic,1,"2-Wheel Drive, Front",,Electricity,KW-HR/100Miles,600,Electric
 2015,Kia,Soul Electric,,Auto(A1),120,92,105,Automatic,1,"2-Wheel Drive, Front",,Electricity,MPG,600,Electric
 2015,Mercedes-Benz,B-Class Electric Drive,,Auto(A1),85,82,84,Automatic,1,"2-Wheel Drive, Front",,Electricity,MPG,700,Electric
-2015,,,,,39,41,40,Automatic,1,"2-Wheel Drive, Front",,Electricity,KW-HR/100Miles,700,Electric
 2015,Mercedes-Benz,Smart fortwo elec. drive (conv.),,Auto(A1),122,93,107,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,550,Electric
 2015,Mercedes-Benz,Smart fortwo elec. drive (conv.),,Auto(A1),28,36,32,Automatic,1,"2-Wheel Drive, Rear",,Electricity,KW-HR/100Miles,550,Electric
 2015,Mercedes-Benz,Smart fortwo elec. drive (coupe),,Auto(A1),122,93,107,Automatic,1,"2-Wheel Drive, Rear",,Electricity,MPG,550,Electric
@@ -15335,11 +15333,8 @@ ModelYear,Make,Model,Cylinders,Transmission,CityFE,HwyFE,CombFE,Trans,Gears,Driv
 2017,BMW,330e,4,Auto(S8),28,34,30,Semi-Automatic,8,"2-Wheel Drive, Rear",10,Gasoline (Premium Unleaded Recommended),MPG,1200,Plug-In
 2017,BMW,740e xDrive,4,Auto(S8),25,29,27,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,1350,Plug-In
 2017,BMW,I3 REX  (94 Amp-hour battery),2,Auto(A1),36,33,35,Automatic,1,"2-Wheel Drive, Rear",10,Gasoline (Premium Unleaded Recommended),MPG,650,Plug-In
-2017,,,,,36,33,35,Automatic,1,"2-Wheel Drive, Rear",10,Gasoline (Premium Unleaded Recommended),MPG,650,Plug-In
 2017,BMW,I8,3,Auto(A6),28,29,28,Automatic,6,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,1250,Plug-In
-2017,"(Blended PHEV; tested in the (default) ""D"" mode---not the ""Sport"" mode)",,,,28,29,28,Automatic,6,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,1250,Plug-In
 2017,BMW,X5 xDrive40e,4,Auto(S8),23,25,24,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,1550,Plug-In
-2017,,,,,23,25,24,Semi-Automatic,8,All Wheel Drive,10,Gasoline (Premium Unleaded Recommended),MPG,1550,Plug-In
 2017,Cadillac,CT6 Plug-In,4,Auto(AV),23,29,26,Continuously Variable,1,"2-Wheel Drive, Rear",10,Gasoline (Premium Unleaded Required),MPG,1300,Plug-In
 2017,Chevrolet,VOLT,4,Auto(AV),43,42,42,Continuously Variable,1,"2-Wheel Drive, Front",10,Gasoline (Regular Unleaded Recommended),MPG,650,Plug-In
 2017,Chrysler,Pacifica Hybrid,6,Auto(AV),32,33,32,Continuously Variable,1,"2-Wheel Drive, Front",10,Gasoline (Regular Unleaded Recommended),MPG,900,Plug-In
