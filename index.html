@@ -432,7 +432,7 @@ function dropdownsetup() {
 
   // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
   // Its opacity is set to 0: we don't see it by default.
-  var tooltip = d3.select("#visualization")
+  var tooltip = d3.select("#tooltip")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
@@ -454,10 +454,10 @@ function dropdownsetup() {
   var mousemove = function(d) {
     if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else { var EtOH = "N/A" }
     tooltip
-      .style("left", (d3.event.pageX/* + 16*/) + "px")
-      .style("top", (d3.event.pageY/* + 16*/) + "px")
-      //.style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-      //.style("top", (d3.mouse(this)[1]) + "px")
+      //.style("left", (d3.event.pageX/* + 16*/) + "px")
+      //.style("top", (d3.event.pageY/* + 16*/) + "px")
+      .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+      .style("top", (d3.mouse(this)[1]) + "px")
       .html("Make: " + d.Make + "<br>" +
         "Model: " + d.Model + "<br>" +
         "Cyliners: " + d.Cylinders + "<br>" +
@@ -489,6 +489,7 @@ function dropdownsetup() {
     </script>
     <!--<script src="script.js"></script>-->
     <p><u>Sources</u><br>https://www.fueleconomy.gov/feg/download.shtml<br>https://www.ucsusa.org/resources/brief-history-us-fuel-efficiency<br>https://www.energy.gov/articles/history-electric-car</p>
+    <div id="tooltip" align="left"></div>
   </body>
 
 </html>
