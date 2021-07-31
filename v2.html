@@ -47,7 +47,7 @@ var svg = d3.select("#visualization").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// x-axis setup
+// x-axis
 var x = d3.scaleLinear().range([0,width]);
 var xlog = d3.scaleLog().base(10).range([1,width]);
 var xAxis = d3.axisBottom().scale(x);
@@ -60,7 +60,7 @@ svg.append("g")
   .attr("transform","translate(" + width/2 + ",40)")
   .attr("text-anchor", "middle")
 
-// y-axis setup
+// y-axis
 var y = d3.scaleLinear().range([height,0]);
 var ylog = d3.scaleLog().base(10).range([height,1]);
 var yAxis = d3.axisLeft().scale(y);
@@ -75,14 +75,16 @@ svg.append("g")
   .attr("dy", "1em")
   .attr("text-anchor", "middle")
 
-// dropdown setup
-var dropdown = d3.select("#navBar").insert("select", "svg")
-  .attr("class","dropdown")
-  .attr("id","carDropdown")
-  .style("visibility","hidden")
-  .on("change", dropdownChange);
+function text(slide) {
+  if (slide == 0 || slide == 1) {
+    document.getElementById("text").innerHTML = "In 1975, congress established the Corporate Average Fuel Economy (CAFE) standards in response to an oil embargo by OPEC 1973. The new standards went into effect starting with model year 1978 and were expected to roughly double fuel economy by 1985. No updates to the standards were made until 2009 when an agreement was reached between the federal government, state regulators, and the auto industry to establish a national program.<br><br>The first phase of this national program when into effect in 2012 and called for ~5% increase in fuel economy each year from 2012 to 2016. The second phase of the program started in 2017 and call for a decrease in average global warming emissions to 163 grams per mile. Some of this emissions limit is met by improvements to air conditioning systems, but it is expected that this phase will lead to a fuel economy increase to 36-37 MPG.";
+  } else if (slide == 2) {
+    document.getElementById("text").innerHTML = "Throughout the last decade, vehicles using alternative fuels have begun to become more prevalent. These alternative fuel vehicles have had a large contribution to the increase in the overall fuel economy. Plug-in hybrids, hydrogen fuel cell cars, and electric vehicles have made strides in improving the efficiency of transportation.<br><br>These technologies have become more prevalent and have led to lower overall global warming emissions and decreased fuel cost for consumers.<br><br>Note: For the purposes of this chart, hydrogen and electric vehicles have the energy used to power them converted into a MPG equivalent.";
+  } else if (slide == 3) {
+    document.getElementById("text").innerHTML = "Year displayed can be changed at the top of the chart. Hover over points to see detailed information about the individual vehicles.<br><br>This chart gives the relationship between fuel economy and annual fuel cost of the consumer. It shows how regulations that increase fuel economy standards also help consumers by reducing their fuel costs.";
+  }
+}
 
-// chart title
 function title(slide) {
   if (slide == 0) {
     svg.append("text")
@@ -102,7 +104,6 @@ function title(slide) {
   }
 }
 
-// chart axes
 function axes(slide,carYear) {
   if (slide == 0 || slide == 1) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
@@ -159,7 +160,6 @@ function axes(slide,carYear) {
   }
 }
 
-// chart legend
 function legend(slide) {
   if (slide == 0 || slide == 1) {
     var legendData = 
@@ -209,7 +209,6 @@ function legend(slide) {
     .attr("alignment-baseline","middle");
 }
 
-// chart lines on slides 1 and 2
 function lines(slide) {
   if (slide == 0 || slide == 1) {
     var overallLine = svg.selectAll(".overallline").data([overall]);
@@ -217,7 +216,8 @@ function lines(slide) {
     var electricLine = svg.selectAll(".electricline").data([overall]);
     var plugInLine = svg.selectAll(".pluginline").data([overall]);
     var fuelCellLine = svg.selectAll(".fuelcellline").data([overall]);
-  } else if (slide == 2) {
+  }
+  else if (slide == 2) {
     var overallLine = svg.selectAll(".overallline").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([gas]);
     var electricLine = svg.selectAll(".electricline").data([electric]);
@@ -264,8 +264,8 @@ function lines(slide) {
   }
 }
 
-// chart cicles to represent individual cars on slide 3
 function cars(slide,carYear) {
+  
   if (slide == 3) {
     var cars = svg.selectAll(".cars").data(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}));
   } else {
@@ -283,10 +283,9 @@ function cars(slide,carYear) {
     .on("mousemove",mousemove)
     .on("mouseleave",mouseleave);
       
-  cars.exit().transition().duration(1000).style("opacity",0).remove();
+    cars.exit().transition().duration(1000).style("opacity",0).remove();
 }
 
-// add annotations to slides
 function annotation(slide) {
   if (slide == 0) {
     var annotations = 
@@ -336,26 +335,14 @@ function annotation(slide) {
     .text(function(d) { return d.text });
 }
 
-// informational text at bottom of screen
-function text(slide) {
-  if (slide == 0 || slide == 1) {
-    document.getElementById("text").innerHTML = "In 1975, congress established the Corporate Average Fuel Economy (CAFE) standards in response to an oil embargo by OPEC 1973. The new standards went into effect starting with model year 1978 and were expected to roughly double fuel economy by 1985. No updates to the standards were made until 2009 when an agreement was reached between the federal government, state regulators, and the auto industry to establish a national program.<br><br>The first phase of this national program when into effect in 2012 and called for ~5% increase in fuel economy each year from 2012 to 2016. The second phase of the program started in 2017 and call for a decrease in average global warming emissions to 163 grams per mile. Some of this emissions limit is met by improvements to air conditioning systems, but it is expected that this phase will lead to a fuel economy increase to 36-37 MPG.";
-  } else if (slide == 2) {
-    document.getElementById("text").innerHTML = "Throughout the last decade, vehicles using alternative fuels have begun to become more prevalent. These alternative fuel vehicles have had a large contribution to the increase in the overall fuel economy. Plug-in hybrids, hydrogen fuel cell cars, and electric vehicles have made strides in improving the efficiency of transportation.<br><br>These technologies have become more prevalent and have led to lower overall global warming emissions and decreased fuel cost for consumers.<br><br>Note: For the purposes of this chart, hydrogen and electric vehicles have the energy used to power them converted into a MPG equivalent.";
-  } else if (slide == 3) {
-    document.getElementById("text").innerHTML = "Year displayed can be changed at the top of the chart. Hover over points to see detailed information about the individual vehicles.<br><br>This chart gives the relationship between fuel economy and annual fuel cost of the consumer. It shows how regulations that increase fuel economy standards also help consumers by reducing their fuel costs.";
-  }
-}
-
-// updates contents to change between slides
 function update(slide) {
+  text(slide);
   title(slide);
   axes(slide,defaultYear);
   legend(slide);
   lines(slide);
   cars(slide,defaultYear);
   annotation(slide);
-  text(slide);
 }
 
 async function init() {
@@ -394,27 +381,19 @@ async function init() {
     Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
     Math.max(d3.max(plugIn,function(d) { return d.value.averageFE }), d3.max(fuelCell,function(d) { return parseInt(d.value.averageFE) }))));
   
-    // initialize dropdown
-  defaultYear = "2021";
-  dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option");
-  dropdownOptions
-    .attr("value",function(d) { return d.key; })
-    .text(function(d) { return d.key })
-    .property("selected", function(d) { return d.key === defaultYear; });
-
   // initialize slides
+  defaultYear = "2021"
   slide = 0;
   update(slide);
   slide = 1;
   dropdownsetup();
 }
 
-// move to the previous slide
 function previous() {
   if (slide != 1) {
     document.getElementById("nextButton").style.visibility = "visible";
-    slide--;
-    update(slide);
+    slide--
+    update(slide)
   }
   if (slide == 1) {
     document.getElementById("previousButton").style.visibility = "hidden";
@@ -425,12 +404,11 @@ function previous() {
   dropdownOptions.property("selected", function(d) { return d.key === defaultYear; });
  }
 
- // move to the next slide
 function next() {
   if (slide != 3) {
     document.getElementById("previousButton").style.visibility = "visible";
-    slide++;
-    update(slide);
+    slide++
+    update(slide)
   }
   if (slide == 3) {
     document.getElementById("nextButton").style.visibility = "hidden";
@@ -440,20 +418,26 @@ function next() {
   }
 }
 
-// updates slide when value in the dropdown changes
+// Handler for dropdown value change
 function dropdownChange() {
   var newYear = d3.select(this).property('value');
   axes(slide,newYear);
   cars(slide,newYear);
 };
 
-/*function dropdownsetup() {
+var dropdown = d3.select("#navBar").insert("select", "svg")
+  .attr("class","dropdown")
+  .attr("id","carDropdown")
+  .style("visibility","hidden")
+  .on("change", dropdownChange);  
+
+function dropdownsetup() {
   dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option")
   dropdownOptions
     .attr("value",function(d) { return d.key; })
     .text(function(d) { return d.key })
     .property("selected", function(d) { return d.key === defaultYear; });
-}*/
+}
 
 
 
@@ -519,5 +503,4 @@ function dropdownChange() {
     </script>
     <!--<script src="script.js"></script>-->
   </body>
-
 </html>
