@@ -76,7 +76,7 @@ svg.append("g")
   .attr("text-anchor", "middle")
 
 function text(slide) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     document.getElementById("text").innerHTML = "In 1975, congress established the Corporate Average Fuel Economy (CAFE) standards in response to an oil embargo by OPEC 1973. The new standards went into effect starting with model year 1978 and were expected to roughly double fuel economy by 1985. No updates to the standards were made until 2009 when an agreement was reached between the federal government, state regulators, and the auto industry to establish a national program.<br><br>The first phase of this national program when into effect in 2012 and called for ~5% increase in fuel economy each year from 2012 to 2016. The second phase of the program started in 2017 and call for a decrease in average global warming emissions to 163 grams per mile. Some of this emissions limit is met by improvements to air conditioning systems, but it is expected that this phase will lead to a fuel economy increase to 36-37 MPG.";
   } else if (slide == 2) {
     document.getElementById("text").innerHTML = "Throughout the last decade, vehicles using alternative fuels have begun to become more prevalent. These alternative fuel vehicles have had a large contribution to the increase in the overall fuel economy. Plug-in hybrids, hydrogen fuel cell cars, and electric vehicles have made strides in improving the efficiency of transportation.<br><br>These technologies have become more prevalent and have led to lower overall global warming emissions and decreased fuel cost for consumers.<br><br>Note: For the purposes of this chart, hydrogen and electric vehicles have the energy used to power them converted into a MPG equivalent.";
@@ -105,7 +105,7 @@ function title(slide) {
 }
 
 function axes(slide,carYear) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
     y.domain([0,slide1Max]);
     d3.selectAll(".xlabel").text("Model Year");
@@ -161,7 +161,7 @@ function axes(slide,carYear) {
 }
 
 function legend(slide) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     var legendData = 
       [{"offset": -50, "text": "Overall", "color": "steelblue"},
       {"offset": -50, "text": " ", "color": "steelblue"},
@@ -210,7 +210,7 @@ function legend(slide) {
 }
 
 function lines(slide) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     var overallLine = svg.selectAll(".overallline").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([overall]);
     var electricLine = svg.selectAll(".electricline").data([overall]);
@@ -466,7 +466,7 @@ function dropdownsetup() {
   }
 
   var mousemove = function(d) {
-    if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else if (d.Type == "Gas") { var EtOH = "Not Reported" } else { var EtOH = "N/A" }
+    if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported" } else { var EtOH = "N/A" }
     if (d.Cylinders != "") { var cylinders = d.Cylinders } else { var cylinders = "N/A"}
     tooltip
       //.style("left", (d3.event.pageX/* + 16*/) + "px")
