@@ -6,14 +6,14 @@
     <script src='https://d3js.org/d3.v5.min.js'></script>
   </head>
 
-  <body onload='init()'>
+  <body width=600 onload='init()'>
     <h1>CS 416 Narrative Visualization Project - Brian Hennessy</h1>
     <nav id='navBar'>
       <button class="button" id="previousButton" style="visibility:hidden" onclick="previous()">Previous</button>
       <button class="button" id="nextButton" onclick="next()">Next</button>
     </nav>
     <div id="visualization" align="left"></div>
-    <div width=600><p id="text"></p></div>
+    <div><p id="text"></p></div>
     <p><u>Sources</u><br>https://www.fueleconomy.gov/feg/download.shtml<br>https://www.ucsusa.org/resources/brief-history-us-fuel-efficiency<br>https://www.energy.gov/articles/history-electric-car</p>
     <div id="tooltip" align="left"></div>
     <script>
