@@ -463,7 +463,7 @@ function dropdownsetup() {
   var mouseover = function(d) {
     tooltip
       .style("opacity", 1)
-      .style("z-index","auto")
+      //.style("z-index","auto")
   }
 
   var mousemove = function(d) {
@@ -491,7 +491,8 @@ function dropdownsetup() {
       .transition()
       .duration(200)
       .style("opacity", 0)
-      .style("z-index",-1)
+      .style("display","none")
+      //.style("z-index",-1)
   }
 
 
