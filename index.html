@@ -466,7 +466,8 @@ function dropdownsetup() {
   }
 
   var mousemove = function(d) {
-    if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else { var EtOH = "N/A" }
+    if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else if (d.Type == "Gas") { var EtOH = "Not Reported" } else { var EtOH = "N/A" }
+    if (d.Cylinders != "") { var cylinders = d.Cylinders } else { var cylinders = "N/A"}
     tooltip
       //.style("left", (d3.event.pageX/* + 16*/) + "px")
       //.style("top", (d3.event.pageY/* + 16*/) + "px")
@@ -474,7 +475,7 @@ function dropdownsetup() {
       .style("top", (d3.mouse(this)[1]-816) + "px")
       .html("Make: " + d.Make + "<br>" +
         "Model: " + d.Model + "<br>" +
-        "Cyliners: " + d.Cylinders + "<br>" +
+        "Cyliners: " + cylinders + "<br>" +
         "City Fuel Economy: " + d.CityFE + " MPG<br>" +
         "Highway Fuel Economy: " + d.HwyFE + " MPG<br>" +
         "Combined Fuel Economy: " + d.CombFE + " MPG<br>" +
