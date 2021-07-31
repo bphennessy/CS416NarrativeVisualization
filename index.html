@@ -114,7 +114,7 @@ function axes(slide,carYear) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
     y.domain([0,d3.max(overall,function(d) { return parseInt(d.value.averageFE) })]);
     d3.selectAll(".xlabel").text("Model Year");
-    d3.selectAll(".ylabel").text("Fuel Economy (MPG)");
+    d3.selectAll(".ylabel").text("Combined Fuel Economy (MPG)");
   } else if (slide == 2) {
     var slide2Max = Math.max(d3.max(gas,function(d) { return parseInt(d.value.averageFE) }),
       Math.max(d3.max(electric,function(d) { return parseInt(d.value.averageFE) }),
@@ -122,11 +122,11 @@ function axes(slide,carYear) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]); 
     y.domain([0,slide2Max]);
     d3.selectAll(".xlabel").text("Model Year");
-    d3.selectAll(".ylabel").text("Fuel Economy (MPG)");
+    d3.selectAll(".ylabel").text("Combined Fuel Economy (MPG)");
   } else if (slide == 3) {
     xlog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE); })]); 
     ylog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d; }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost); })]);
-    d3.selectAll(".xlabel").text("Fuel Economy (MPG)");
+    d3.selectAll(".xlabel").text("Combined Fuel Economy (MPG)");
     d3.selectAll(".ylabel").text("Annual Fuel Cost ($/year)");
   }
 
