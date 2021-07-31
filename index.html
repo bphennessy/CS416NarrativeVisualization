@@ -79,12 +79,7 @@ svg.append("g")
 var tooltip = d3.select("#tooltip")
   .append("div")
   .style("opacity", 0)
-  .attr("class", "tooltip")
-  /*.style("background-color", "white")
-  .style("border", "solid")
-  .style("border-width", "1px")
-  .style("border-radius", "5px")
-  .style("padding", "10px");*/
+  .attr("class", "tooltip");
 
 // dropdown setup
 var dropdown = d3.select("#navBar").insert("select", "svg")
@@ -294,7 +289,6 @@ function cars(slide,carYear) {
     .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
   carCircles
     .on("mouseover",mouseOver)
-    //.on("mousemove",function(d) { mouseMove(d); })
     .on("mousemove", mouseMove)
     .on("mouseleave",mouseLeave);
       
@@ -358,7 +352,26 @@ function mouseOver() {
     .style("display","inherit");
 }
 
-
+// add data to tooltip
+var mouseMove = function (d) {
+  if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol; } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
+  if (d.Cylinders != "") { var cylinders = d.Cylinders; } else { var cylinders = "N/A"; };
+  tooltip
+    .style("left", (d3.mouse(this)[0]+60) + "px")
+    .style("top", (d3.mouse(this)[1]-816) + "px")
+    .html("Make: " + d.Make + "<br>" +
+      "Model: " + d.Model + "<br>" +
+      "Fuel: " + d.FuelType + "<br>" +
+      "Cyliners: " + cylinders + "<br>" +
+      "City Fuel Economy: " + d.CityFE + " MPG<br>" +
+      "Highway Fuel Economy: " + d.HwyFE + " MPG<br>" +
+      "Combined Fuel Economy: " + d.CombFE + " MPG<br>" +
+      "Transmission: " + d.Trans + "<br>" +
+      "Gears: " + d.Gears + "<br>" +
+      "Drive: " + d.Drive + "<br>" +
+      "Maximum Ethanol Content: " + EtOH + "<br>" +
+      "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
+}
 
 // make the tooltip hidden when the mouse leaves
 function mouseLeave() {
@@ -447,9 +460,9 @@ function previous() {
     document.getElementById("carDropdown").style.visibility = "hidden";
   }
   dropdownOptions.property("selected", function(d) { return d.key === defaultYear; });
- }
+}
 
- // move to the next slide
+// move to the next slide
 function next() {
   if (slide != 3) {
     document.getElementById("previousButton").style.visibility = "visible";
@@ -476,48 +489,6 @@ function dropdownChange() {
 
 
 
-
-
-
-var mouseMove = function (d) {
-  if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol; } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
-  if (d.Cylinders != "") { var cylinders = d.Cylinders; } else { var cylinders = "N/A"; };
-  tooltip
-    .style("left", (d3.mouse(this)[0]+60) + "px")
-    .style("top", (d3.mouse(this)[1]-816) + "px")
-    .html("Make: " + d.Make + "<br>" +
-      "Model: " + d.Model + "<br>" +
-      "Fuel: " + d.FuelType + "<br>" +
-      "Cyliners: " + cylinders + "<br>" +
-      "City Fuel Economy: " + d.CityFE + " MPG<br>" +
-      "Highway Fuel Economy: " + d.HwyFE + " MPG<br>" +
-      "Combined Fuel Economy: " + d.CombFE + " MPG<br>" +
-      "Transmission: " + d.Trans + "<br>" +
-      "Gears: " + d.Gears + "<br>" +
-      "Drive: " + d.Drive + "<br>" +
-      "Maximum Ethanol Content: " + EtOH + "<br>" +
-      "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
-}
-
-/*function mouseMove(d1) {
-  if (d1.MaxEthanol != "") { var EtOH = d1.MaxEthanol; } else if (d1.Type == "Gas" || d1.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
-  if (d1.Cylinders != "") { var cylinders = d1.Cylinders; } else { var cylinders = "N/A"; };
-  tooltip
-    .style("left", (d3.mouse(this)[0]+60) + "px")
-    .style("top", (d3.mouse(this)[1]-816) + "px")
-    .html("Make: " + d1.Make + "<br>" +
-      "Model: " + d1.Model + "<br>" +
-      "Fuel: " + d1.FuelType + "<br>" +
-      "Cyliners: " + cylinders + "<br>" +
-      "City Fuel Economy: " + d1.CityFE + " MPG<br>" +
-      "Highway Fuel Economy: " + d1.HwyFE + " MPG<br>" +
-      "Combined Fuel Economy: " + d1.CombFE + " MPG<br>" +
-      "Transmission: " + d1.Trans + "<br>" +
-      "Gears: " + d1.Gears + "<br>" +
-      "Drive: " + d1.Drive + "<br>" +
-      "Maximum Ethanol Content: " + EtOH + "<br>" +
-      "Annual Fuel Cost: " + d1.AnnualFuelCost + "<br>");
-}*/
 
 
 
