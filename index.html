@@ -76,7 +76,13 @@ svg.append("g")
   .attr("text-anchor", "middle")
 
 function text(slide) {
-  document.getElementById("text").innerHTML = "In 1975, congress established the Corporate Average Fuel Economy (CAFE) standards in response to an oil embargo by OPEC 1973. The new standards went into effect starting with model year 1978 and were expected to roughly double fuel economy by 1985. No updates to the standards were made until 2009 when an agreement was reached between the federal government, state regulators, and the auto industry to establish a national program.<br><br>The first phase of this national program when into effect in 2012 and called for ~5% increase in fuel economy each year from 2012 to 2016. The second phase of the program started in 2017 and call for a decrease in average global warming emissions to 163 grams per mile. Some of this emissions limit is met by improvements to air conditioning systems, but it is expected that this phase will lead to a fuel economy increase to 36-37 MPG.";
+  if (slide == 0 ^ slide == 1) {
+    document.getElementById("text").innerHTML = "In 1975, congress established the Corporate Average Fuel Economy (CAFE) standards in response to an oil embargo by OPEC 1973. The new standards went into effect starting with model year 1978 and were expected to roughly double fuel economy by 1985. No updates to the standards were made until 2009 when an agreement was reached between the federal government, state regulators, and the auto industry to establish a national program.<br><br>The first phase of this national program when into effect in 2012 and called for ~5% increase in fuel economy each year from 2012 to 2016. The second phase of the program started in 2017 and call for a decrease in average global warming emissions to 163 grams per mile. Some of this emissions limit is met by improvements to air conditioning systems, but it is expected that this phase will lead to a fuel economy increase to 36-37 MPG.";
+  } else if (slide == 2) {
+    document.getElementById("text").innerHTML = "";
+  } else if (slide == 3) {
+    document.getElementById("text").innerHTML = "";
+  }
 }
 
 function title(slide) {
