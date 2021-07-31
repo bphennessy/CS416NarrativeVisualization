@@ -6,23 +6,23 @@
     <script src='https://d3js.org/d3.v5.min.js'></script>
   </head>
 
-  <body onload='init()'>
+  <body style="width:600px" onload='init()'>
     <h1>CS 416 Narrative Visualization Project - Brian Hennessy</h1>
     <nav id='navBar'>
       <button class="button" id="previousButton" style="visibility:hidden" onclick="previous()">Previous</button>
       <button class="button" id="nextButton" onclick="next()">Next</button>
     </nav>
-    <div id="visualization" align="center"></div>
-    </div>
+    <div id="visualization" align="left"></div>
+    <div><p id="text"></p></div>
+    <p><u>Sources</u><br>https://www.fueleconomy.gov/feg/download.shtml<br>https://www.ucsusa.org/resources/brief-history-us-fuel-efficiency<br>https://www.energy.gov/articles/history-electric-car</p>
+    <div id="tooltip" align="left"></div>
     <script>
 
 
 
 
 
-let div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0); 
+
 
 
 
@@ -36,9 +36,9 @@ let div = d3.select("body").append("div")
 
 
 // margin setup
-var margin = {top: 50, right: 50, bottom: 150, left: 50},
+var margin = {top: 50, right: 50, bottom: 100, left: 50},
   width = 600 - margin.left - margin.right
-  height = 700 - margin.top - margin.bottom;
+  height = 650 - margin.top - margin.bottom;
 
 // svg setup
 var svg = d3.select("#visualization").append("svg")
@@ -49,6 +49,7 @@ var svg = d3.select("#visualization").append("svg")
 
 // x-axis
 var x = d3.scaleLinear().range([0,width]);
+var xlog = d3.scaleLog().base(10).range([1,width]);
 var xAxis = d3.axisBottom().scale(x);
 svg.append("g")
   .attr("transform","translate(0," + height + ")")
@@ -61,6 +62,7 @@ svg.append("g")
 
 // y-axis
 var y = d3.scaleLinear().range([height,0]);
+var ylog = d3.scaleLog().base(10).range([height,1]);
 var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
   .attr("class","yaxis")
@@ -73,40 +75,50 @@ svg.append("g")
   .attr("dy", "1em")
   .attr("text-anchor", "middle")
 
+function text(slide) {
+  if (slide == 0 || slide == 1) {
+    document.getElementById("text").innerHTML = "In 1975, congress established the Corporate Average Fuel Economy (CAFE) standards in response to an oil embargo by OPEC 1973. The new standards went into effect starting with model year 1978 and were expected to roughly double fuel economy by 1985. No updates to the standards were made until 2009 when an agreement was reached between the federal government, state regulators, and the auto industry to establish a national program.<br><br>The first phase of this national program when into effect in 2012 and called for ~5% increase in fuel economy each year from 2012 to 2016. The second phase of the program started in 2017 and call for a decrease in average global warming emissions to 163 grams per mile. Some of this emissions limit is met by improvements to air conditioning systems, but it is expected that this phase will lead to a fuel economy increase to 36-37 MPG.";
+  } else if (slide == 2) {
+    document.getElementById("text").innerHTML = "Throughout the last decade, vehicles using alternative fuels have begun to become more prevalent. These alternative fuel vehicles have had a large contribution to the increase in the overall fuel economy. Plug-in hybrids, hydrogen fuel cell cars, and electric vehicles have made strides in improving the efficiency of transportation.<br><br>These technologies have become more prevalent and have led to lower overall global warming emissions and decreased fuel cost for consumers.<br><br>Note: For the purposes of this chart, hydrogen and electric vehicles have the energy used to power them converted into a MPG equivalent.";
+  } else if (slide == 3) {
+    document.getElementById("text").innerHTML = "Year displayed can be changed at the top of the chart. Hover over points to see detailed information about the individual vehicles.<br><br>This chart gives the relationship between fuel economy and annual fuel cost of the consumer. It shows how regulations that increase fuel economy standards also help consumers by reducing their fuel costs.";
+  }
+}
+
 function title(slide) {
   if (slide == 0) {
     svg.append("text")
       .attr("class","title")
       .attr("transform","translate(" + width/2 + "," + -margin.top/2 + ")")
       .attr("text-anchor","middle")
-      .text("Overall Fuel Efficiency");
+      .text("Overall Fuel Economy");
   } else if (slide == 1) {
     svg.selectAll(".title")
-      .text("Overall Fuel Efficiency");
+      .text("Overall Fuel Economy");
   } else if (slide == 2) {
     svg.selectAll(".title")
-      .text("Fuel Efficiency by Vehicle Type");
+      .text("Fuel Economy by Vehicle Type");
   } else if (slide == 3) {
     svg.selectAll(".title")
-    .text("Annual Fuel Cost vs Fuel Efficiency");
+    .text("Annual Fuel Cost vs Fuel Economy");
   }
 }
 
 function axes(slide,carYear) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]);
     y.domain([0,slide1Max]);
     d3.selectAll(".xlabel").text("Model Year");
-    d3.selectAll(".ylabel").text("Fuel Efficiency (MPG)");
+    d3.selectAll(".ylabel").text("Fuel Economy (MPG)");
   } else if (slide == 2) {
     x.domain([d3.min(overall,function(d) { return parseInt(d.key) }),d3.max(overall,function(d) { return parseInt(d.key) })]); 
     y.domain([0,slide2Max]);
     d3.selectAll(".xlabel").text("Model Year");
-    d3.selectAll(".ylabel").text("Fuel Efficiency (MPG)");
+    d3.selectAll(".ylabel").text("Fuel Economy (MPG)");
   } else if (slide == 3) {
-    x.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) })]); 
-    y.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) })]);
-    d3.selectAll(".xlabel").text("Fuel Efficiency (MPG)");
+    xlog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.CombFE) })]); 
+    ylog.domain([d3.min(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) }),d3.max(data.filter(function(d) { if (d["ModelYear"] == carYear) { return d }}).filter(function(d) { if (d["FuelUnit"] == "MPG") { return d; }}),function(d) { return parseInt(d.AnnualFuelCost) })]);
+    d3.selectAll(".xlabel").text("Fuel Economy (MPG)");
     d3.selectAll(".ylabel").text("Annual Fuel Cost ($/year)");
   }
 
@@ -117,6 +129,19 @@ function axes(slide,carYear) {
         .tickFormat(d3.format("~")));
     svg.selectAll(".yaxis")
       .call(yAxis
+        .ticks(5)
+        .tickFormat(d3.format("~s")));
+  } else if (slide == 3) {
+    svg.selectAll(".xaxis")
+      .transition()
+      .duration(3000)
+      .call(d3.axisBottom().scale(xlog)
+        .ticks(7)
+        .tickFormat(d3.format("~")));
+    svg.selectAll(".yaxis")
+      .transition()
+      .duration(3000)
+      .call(d3.axisLeft().scale(ylog)
         .ticks(5)
         .tickFormat(d3.format("~s")));
   } else {
@@ -136,7 +161,7 @@ function axes(slide,carYear) {
 }
 
 function legend(slide) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     var legendData = 
       [{"offset": -50, "text": "Overall", "color": "steelblue"},
       {"offset": -50, "text": " ", "color": "steelblue"},
@@ -185,7 +210,7 @@ function legend(slide) {
 }
 
 function lines(slide) {
-  if (slide == 0 ^ slide == 1) {
+  if (slide == 0 || slide == 1) {
     var overallLine = svg.selectAll(".overallline").data([overall]);
     var gasLine = svg.selectAll(".gasline").data([overall]);
     var electricLine = svg.selectAll(".electricline").data([overall]);
@@ -246,23 +271,18 @@ function cars(slide,carYear) {
   } else {
     var cars = svg.selectAll(".cars").data([]);
   }
-  cars.enter().append("circle").attr("class","cars").merge(cars)//.transition().duration(3000).style("opacity",100)
-      .attr("cx",function(d) { return x(d.CombFE); })
-      .attr("cy",function(d) { return y(d.AnnualFuelCost); })
-      .attr("r",5)
-      .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; })
-      .on("mouseover", function(d) {		
-        div.style("opacity", .9);		
-        div.html("MegaWatts: " + d.CombFE
-        + "</br>" + "Turbines: " + d.AnnualFuelCost
-        + "</br>" + "MW/T: " + d.ModelYear)	
-        .style("left", (d3.event.pageX) + "px")		
-        .style("top", (d3.event.pageY - 28) + "px");	
-      })					
-      .on("mouseout", function(d) {		
-        div.style("opacity", 0);	
-      });
 
+  var carCircles = cars.enter().append("circle").attr("class","cars").merge(cars);
+  carCircles.transition().duration(3000).style("opacity",100)    
+    .attr("cx",function(d) { return xlog(d.CombFE); })
+    .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
+    .attr("r",5)
+    .style("fill", function(d) { if (d.Type == "Gas") { return "red" } else if (d.Type == "Electric") { return "blue" } else if (d.Type == "Plug-In") { return "purple" } else if (d.Type == "Fuel Cell") { return "green" }; });
+  carCircles
+    .on("mouseover",mouseover)
+    .on("mousemove",mousemove)
+    .on("mouseleave",mouseleave);
+      
     cars.exit().transition().duration(1000).style("opacity",0).remove();
 }
 
@@ -316,6 +336,7 @@ function annotation(slide) {
 }
 
 function update(slide) {
+  text(slide);
   title(slide);
   axes(slide,defaultYear);
   legend(slide);
@@ -380,6 +401,7 @@ function previous() {
     document.getElementById("previousButton").style.visibility = "visible";
     document.getElementById("carDropdown").style.visibility = "hidden";
   }
+  dropdownOptions.property("selected", function(d) { return d.key === defaultYear; });
  }
 
 function next() {
@@ -404,12 +426,14 @@ function dropdownChange() {
 };
 
 var dropdown = d3.select("#navBar").insert("select", "svg")
+  .attr("class","dropdown")
   .attr("id","carDropdown")
   .style("visibility","hidden")
   .on("change", dropdownChange);  
 
 function dropdownsetup() {
-  dropdown.selectAll("option").data(overall).enter().append("option")
+  dropdownOptions = dropdown.selectAll("option").data(overall).enter().append("option")
+  dropdownOptions
     .attr("value",function(d) { return d.key; })
     .text(function(d) { return d.key })
     .property("selected", function(d) { return d.key === defaultYear; });
@@ -420,7 +444,54 @@ function dropdownsetup() {
 
 
 
+  // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
+  // Its opacity is set to 0: we don't see it by default.
+  var tooltip = d3.select("#tooltip")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
 
+  // A function that change this tooltip when the user hover a point.
+  // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
+  var mouseover = function(d) {
+    tooltip
+      .style("opacity", 1)
+      .style("display","inherit")
+      //.style("display","table-caption")
+      //.style("z-index","auto")
+  }
+
+  var mousemove = function(d) {
+    if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported" } else { var EtOH = "N/A" }
+    if (d.Cylinders != "") { var cylinders = d.Cylinders } else { var cylinders = "N/A"}
+    tooltip
+      .style("left", (d3.mouse(this)[0]+60) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+      .style("top", (d3.mouse(this)[1]-816) + "px")
+      .html("Make: " + d.Make + "<br>" +
+        "Model: " + d.Model + "<br>" +
+        "Fuel: " + d.FuelType + "<br>" +
+        "Cyliners: " + cylinders + "<br>" +
+        "City Fuel Economy: " + d.CityFE + " MPG<br>" +
+        "Highway Fuel Economy: " + d.HwyFE + " MPG<br>" +
+        "Combined Fuel Economy: " + d.CombFE + " MPG<br>" +
+        "Transmission: " + d.Trans + "<br>" +
+        "Gears: " + d.Gears + "<br>" +
+        "Drive: " + d.Drive + "<br>" +
+        "Maximum Ethanol Content: " + EtOH + "<br>" +
+        "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
+  }
+
+  // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+  var mouseleave = function(d) {
+    tooltip
+      .style("opacity", 0)
+      .style("display","none")
+  }
 
 
 
@@ -431,7 +502,6 @@ function dropdownsetup() {
 
     </script>
     <!--<script src="script.js"></script>-->
-    <p><u>Sources</u><br>https://www.fueleconomy.gov/feg/download.shtml<br>https://www.ucsusa.org/resources/brief-history-us-fuel-efficiency<br>https://www.energy.gov/articles/history-electric-car</p>
   </body>
 
 </html>
