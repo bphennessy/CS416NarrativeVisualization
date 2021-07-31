@@ -1,3 +1,10 @@
+.title {
+    fill: black;
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 .button {
     padding: 14px 32px;
     text-align: center;
@@ -21,6 +28,28 @@
     margin-left: 50px;
 }
   
+.xaxis {
+    font-size: 14px;
+}
+
+.yaxis {
+    font-size: 14px;
+}
+
+.xlabel {
+    fill: black;
+    font-size: 14px;
+}
+
+.ylabel {
+    fill: black;
+    font-size: 14px;
+}
+
+.legendtext {
+    font-size: 14px
+}
+
 .overallline {
     fill: none;
     stroke: steelblue;
@@ -51,35 +80,6 @@
     stroke-width: 2.5;
 }
 
-.xaxis {
-    font-size: 14px;
-}
-
-.yaxis {
-    font-size: 14px;
-}
-
-.xlabel {
-    fill: black;
-    font-size: 14px;
-}
-
-.ylabel {
-    fill: black;
-    font-size: 14px;
-}
-
-.title {
-    fill: black;
-    font-size: 18px;
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-.legendtext {
-    font-size: 14px
-}
-
 .annotationline {
     stroke-width: 1;
     stroke: black;
@@ -94,8 +94,9 @@
     color: black;
     background-color: white;
     background: white;
-    /*align-content: center;*/
     position:relative;
-    /*margin-right: 10%;
-    margin-left: 10%;*/
-  }
+    border: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 10px;
+}
