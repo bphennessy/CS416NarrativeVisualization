@@ -80,11 +80,11 @@ var tooltip = d3.select("#tooltip")
   .append("div")
   .style("opacity", 0)
   .attr("class", "tooltip")
-  .style("background-color", "white")
+  /*.style("background-color", "white")
   .style("border", "solid")
   .style("border-width", "1px")
   .style("border-radius", "5px")
-  .style("padding", "10px");
+  .style("padding", "10px");*/
 
 // dropdown setup
 var dropdown = d3.select("#navBar").insert("select", "svg")
@@ -294,8 +294,8 @@ function cars(slide,carYear) {
     .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
   carCircles
     .on("mouseover",mouseOver)
-    .on("mousemove",function(d) { mouseMove(d); })
-    //.on("mousemove", mouseMove)
+    //.on("mousemove",function(d) { mouseMove(d); })
+    .on("mousemove", mouseMove)
     .on("mouseleave",mouseLeave);
       
   cars.exit().transition().duration(1000).style("opacity",0).remove();
@@ -479,7 +479,7 @@ function dropdownChange() {
 
 
 
-/*var mouseMove = function (d) {
+var mouseMove = function (d) {
   if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol; } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
   if (d.Cylinders != "") { var cylinders = d.Cylinders; } else { var cylinders = "N/A"; };
   tooltip
@@ -497,9 +497,9 @@ function dropdownChange() {
       "Drive: " + d.Drive + "<br>" +
       "Maximum Ethanol Content: " + EtOH + "<br>" +
       "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
-}*/
+}
 
-function mouseMove(d1) {
+/*function mouseMove(d1) {
   if (d1.MaxEthanol != "") { var EtOH = d1.MaxEthanol; } else if (d1.Type == "Gas" || d1.Type == "Plug-In") { var EtOH = "Not Reported"; } else { var EtOH = "N/A"; };
   if (d1.Cylinders != "") { var cylinders = d1.Cylinders; } else { var cylinders = "N/A"; };
   tooltip
@@ -517,56 +517,7 @@ function mouseMove(d1) {
       "Drive: " + d1.Drive + "<br>" +
       "Maximum Ethanol Content: " + EtOH + "<br>" +
       "Annual Fuel Cost: " + d1.AnnualFuelCost + "<br>");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*// A function that change this tooltip when the user hover a point.
-  // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
-  var mouseover = function(d) {
-    tooltip
-      .style("opacity", 1)
-      .style("display","inherit")
-  }
-
-  var mousemove = function(d) {
-    if (d.MaxEthanol != "") { var EtOH = d.MaxEthanol } else if (d.Type == "Gas" || d.Type == "Plug-In") { var EtOH = "Not Reported" } else { var EtOH = "N/A" }
-    if (d.Cylinders != "") { var cylinders = d.Cylinders } else { var cylinders = "N/A"}
-    tooltip
-      .style("left", (d3.mouse(this)[0]+60) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-      .style("top", (d3.mouse(this)[1]-816) + "px")
-      .html("Make: " + d.Make + "<br>" +
-        "Model: " + d.Model + "<br>" +
-        "Fuel: " + d.FuelType + "<br>" +
-        "Cyliners: " + cylinders + "<br>" +
-        "City Fuel Economy: " + d.CityFE + " MPG<br>" +
-        "Highway Fuel Economy: " + d.HwyFE + " MPG<br>" +
-        "Combined Fuel Economy: " + d.CombFE + " MPG<br>" +
-        "Transmission: " + d.Trans + "<br>" +
-        "Gears: " + d.Gears + "<br>" +
-        "Drive: " + d.Drive + "<br>" +
-        "Maximum Ethanol Content: " + EtOH + "<br>" +
-        "Annual Fuel Cost: " + d.AnnualFuelCost + "<br>");
-  }
-
-  // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-  var mouseleave = function(d) {
-    tooltip
-      .style("opacity", 0)
-      .style("display","none")
-  }*/
-
+}*/
 
 
 
