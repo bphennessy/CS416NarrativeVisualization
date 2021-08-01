@@ -284,6 +284,7 @@ function cars(slide,carYear) {
 
   var carCircles = cars.enter().append("circle").attr("class","cars").merge(cars);
   carCircles
+    .delay(200)
     .attr("cx",overall.filter(function(d) { return d.key === defaultYear; })[0].value.ModelYear)
     .attr("cy",overall.filter(function(d) { return d.key === defaultYear; })[0].value.averageFE)
     .attr("r",5)
