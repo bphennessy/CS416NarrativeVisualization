@@ -283,6 +283,11 @@ function cars(slide,carYear) {
   }
 
   var carCircles = cars.enter().append("circle").attr("class","cars").merge(cars);
+  carCircles
+    .attr("cx",overall.filter(function(d) { return d.key === defaultYear; })[0].value.ModelYear)
+    .attr("cy",overall.filter(function(d) { return d.key === defaultYear; })[0].value.averageFE)
+    .attr("r",5)
+    .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
   carCircles.transition().duration(3000).style("opacity",100)    
     .attr("cx",function(d) { return xlog(d.CombFE); })
     .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
@@ -302,20 +307,20 @@ function annotation(slide) {
     var annotations = 
       [{"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy standards in 1975."},
       {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
-      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012"; })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017"; })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
   } else if (slide == 1) {
     var annotations = 
       [{"x1": 2010, "y1": 16, "x2": 2011, "y2": 15, "text": "Congress estabilishes Corporate Average Fuel Economy standards in 1975."},
       {"x1": 2010, "y1": 20, "x2": 2010.5, "y2": 17, "text": "Agreement reached to estabilsh national program to implement first fuel efficency improvements in 34 years in 2009."},
-      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012"; })[0].value.averageFE, "x2": 2011, "y2": 19.5, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017"; })[0].value.averageFE, "x2": 2012.5, "y2": 21.5, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
   } else if (slide == 2) {
     var annotations = 
-      [{"x1": 2017, "y1": electric.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2016.5, "y2": 95, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
-      {"x1": 2013, "y1": electric.filter(function(d) { return d.key === "2013" })[0].value.averageFE, "x2": 2013.5, "y2": 80, "text": "Nissan begins assembling the Leaf, the first zero tailpipe emissions mass market vehicle."},
-      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012" })[0].value.averageFE, "x2": 2011, "y2": 10, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
-      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017" })[0].value.averageFE, "x2": 2012.5, "y2": 15, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
+      [{"x1": 2017, "y1": electric.filter(function(d) { return d.key === "2017"; })[0].value.averageFE, "x2": 2016.5, "y2": 95, "text": "The best selling electric vehicle, the Tesla Model 3, is released."},
+      {"x1": 2013, "y1": electric.filter(function(d) { return d.key === "2013"; })[0].value.averageFE, "x2": 2013.5, "y2": 80, "text": "Nissan begins assembling the Leaf, the first zero tailpipe emissions mass market vehicle."},
+      {"x1": 2012, "y1": overall.filter(function(d) { return d.key === "2012"; })[0].value.averageFE, "x2": 2011, "y2": 10, "text": "First phase of national program goes into effect calling for an annual ~5% increase in fuel economy from 2012 to 2016."},
+      {"x1": 2017, "y1": overall.filter(function(d) { return d.key === "2017"; })[0].value.averageFE, "x2": 2012.5, "y2": 15, "text": "Second phase of nation program goes into effect. Fuel efficiency expected to increase to 36-37 mpg by 2025."}];
   } else if (slide == 3) {
     var annotations = [];
   }
