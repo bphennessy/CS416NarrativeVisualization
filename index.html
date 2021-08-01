@@ -284,12 +284,11 @@ function cars(slide,carYear) {
 
   var carCircles = cars.enter().append("circle").attr("class","cars").merge(cars);
   carCircles
-    .delay(200)
     .attr("cx",overall.filter(function(d) { return d.key === defaultYear; })[0].value.ModelYear)
     .attr("cy",overall.filter(function(d) { return d.key === defaultYear; })[0].value.averageFE)
     .attr("r",5)
     .style("fill", function(d) { if (d.Type == "Gas") { return "red"; } else if (d.Type == "Electric") { return "blue"; } else if (d.Type == "Plug-In") { return "purple"; } else if (d.Type == "Fuel Cell") { return "green"; } });
-  carCircles.transition().duration(3000).style("opacity",100)    
+  carCircles.transition().duration(3000).delay(2000).style("opacity",100)    
     .attr("cx",function(d) { return xlog(d.CombFE); })
     .attr("cy",function(d) { return ylog(d.AnnualFuelCost); })
     .attr("r",5)
